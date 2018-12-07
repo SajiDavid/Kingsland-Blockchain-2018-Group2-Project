@@ -8,14 +8,13 @@
 
 
 
-// Load Block Constructor
+// Load Blockchain and Block Classes
 let BlockClass = require('./app/components/block');
+let BlockchainClass = require('./app/components/blockchain');
 
- let BlockchainClass = require('./app/components/blockchain');
- let Blockchain = new BlockchainClass();
-
-//let BlockChain2 = BlockChain();
-let Block = new BlockClass(2,Date.now(),"New Block 1","0");
+// Instatiaze Blockchain and Block constructors
+let Blockchain = new BlockchainClass();   // This will create Genesis Block
+let Block = new BlockClass(2,Date.now(),"New Block 1","0");  // adding new Block
 
 
 //var Block2 = new Block("12/15/2018", {amount:20});
