@@ -8,6 +8,19 @@
 
 
 
- require('./app/components/blockchain');
- require('./app/components/block');
+// Load Block Constructor
+let BlockClass = require('./app/components/block');
 
+ let BlockchainClass = require('./app/components/blockchain');
+ let Blockchain = new BlockchainClass();
+
+//let BlockChain2 = BlockChain();
+let Block = new BlockClass(2,Date.now(),"New Block 1","0");
+
+
+//var Block2 = new Block("12/15/2018", {amount:20});
+Blockchain.addBlock(Block);
+//jkChainObjext.addBlock(new blockObject.block("12/16/2018",{amount:67}));
+
+console.log(JSON.stringify(Blockchain,null,4));
+console.log("Is blockchain valid?" + Blockchain.checkValid());
