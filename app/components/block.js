@@ -46,7 +46,3 @@ function Tiger() {
 }
 */
 module.exports  = Block ;
-
-
-
-

@@ -32,6 +32,7 @@ class BlockChain{
     // Adding New Block to Chain
     addBlock(newBlock)
     {
+        newBlock.index = this.latestBlock().index + 1;
         newBlock.previousHash = this.latestBlock().hash;
         newBlock.hash = newBlock.calculateHash();
         this.chain.push(newBlock);
@@ -60,4 +61,3 @@ class BlockChain{
 }
 
 module.exports  = BlockChain ;
-
