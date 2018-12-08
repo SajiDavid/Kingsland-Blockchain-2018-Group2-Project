@@ -24,7 +24,7 @@ class BlockChain{
     }
 
     // Latest Block()
-    latestBlock(){
+    lastBlock(){
         
         return this.chain[this.chain.length - 1]; // First Block is considered 0th postion so we use 
     }
@@ -32,8 +32,8 @@ class BlockChain{
     // Adding New Block to Chain
     addBlock(newBlock)
     {
-        newBlock.index = this.latestBlock().index + 1;
-        newBlock.previousHash = this.latestBlock().hash;
+        newBlock.index = this.lastBlock().index + 1;
+        newBlock.previousHash = this.lastBlock().hash;
         newBlock.hash = newBlock.calculateHash();
         this.chain.push(newBlock);
 

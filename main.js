@@ -29,7 +29,13 @@ console.log(JSON.stringify(Blockchain,null,4));
 console.log("Is blockchain valid?" + Blockchain.checkValid());
 
 /***** Router Functions  */
-
+/* End Pointt 
+    /               ->  Home
+    /info           ->  Blockchain Information  
+    /debug          ->  Debug Chain
+    /reset-chain    ->  Reset Block chain to initial state
+    /blocks         ->  List Blocks
+*/ 
 Router.router.use(function(req,res,next) {
     console.log("/" + req.method);
     next();
@@ -37,8 +43,18 @@ Router.router.use(function(req,res,next) {
 
  // Home End-Point
 Router.app.get('/', function (req, res) {
-    res.send('Kings Land Blockchain Project!')
-})
+    res.sendFile(__dirname + '/index.html');
+    //res.send('Kings Land Blockchain Project!')
+});
+
+Router.app.get('/src/arrow.png', function (req, res, next) {
+    res.sendFile(__dirname+'/src/arrow.png');
+});
+
+Router.app.get('/src/background.jpg', function (req, res, next) {
+    res.sendFile(__dirname+'/src/background.jpg');
+});
+
 
 // To get Blockchain Information
 Router.app.get('/info', function (req, res) {
