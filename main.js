@@ -12,23 +12,24 @@
 let BlockClass = require('./app/components/block');
 let BlockchainClass = require('./app/components/blockchain');
 let RouterClass = require('./app/routes/routes');
+let socketListener = require('./app/components/socketlistener');
+let socketActions = require('./app/util/constants');
+let bodyParser = require('body-parser');
+let axios = require('axios');
 
 
 // Instatiaze Blockchain and Block constructors
-let Blockchain = new BlockchainClass();   // This will create Genesis Block
-let Block = new BlockClass(1,Date.now(),"New Block 1","0");  // adding new Block
 let Router = new RouterClass();
+let Blockchain = new BlockchainClass(Router.io);   // This will create Genesis Block
+let Block = new BlockClass(1,Date.now(),"New Block 1","0");  // adding new Block
 
-var Block2 = new BlockClass(0,Date.now(),"New Block 2","0");
-Blockchain.addBlock(Block);
-Blockchain.addBlock(Block2);
+Router.app.use(bodyParser.json());
 
-//jkChainObjext.addBlock(new blockObject.block("12/16/2018",{amount:67}));
-
-console.log(JSON.stringify(Blockchain,null,4));
-console.log("Is blockchain valid?" + Blockchain.checkValid());
+const  PORT  = process.argv[2];
 
 /***** Router Functions  */
+
+
 /* End Pointt 
     /               ->  Home
     /info           ->  Blockchain Information  
@@ -64,6 +65,9 @@ Router.app.get('/src/background.jpg', function (req, res, next) {
     res.sendFile(__dirname+'/src/background.jpg');
 });
 
+Router.app.get('/src/Block.gif', function (req, res, next) {
+    res.sendFile(__dirname+'/src/Block.gif');
+});
 
 // To get Blockchain Information
 Router.app.get('/info', function (req, res) {
@@ -133,15 +137,15 @@ Router.app.get('/reset-chain', function (req, res) {
 
 // Returns All Blocks  Information in JSON format
   Router.app.get('/blocks', function (req, res) {
-    res.send(JSON.stringify(Blockchain,null,4))
+    res.send(JSON.stringify(Blockchain.chain,null,4))
   });
 
 // Socket IO conncetion
 
 Router.io.on('connection',function(socket){
-    console.log('a connection made');
+    console.log('Socket connected, ID', socket.id);
     socket.on('disconnect',function(){
-        console.log('user disconnected');
+        console.log('user disconnected, ID', socket.id);
     });
 
 });
@@ -152,9 +156,50 @@ Router.app.get('/socket.io/socket.io.js', function (req, res) {
       res.sendFile(__dirname+'/node_modules/socket.io-client/dist/socket.io.js');
 });*/
 
+
+
+Router.app.post('/nodes', (req, res) => {
+    const { host, port } = req.body;
+    console.log("Print body ",req.body);
+    const { callback } = req.query;
+    const node = `http://${host}:${port}`;
+    const socketNode = socketListener(Router.client(node), Blockchain);
+    Blockchain.addNode(socketNode, Blockchain);
+    if (callback === 'true') {
+      console.info(`Added node ${node} back`);
+      res.json({ status: 'Added node Back' }).end();
+    } else {
+      axios.post(`${node}/nodes?callback=true`, {
+        host: req.hostname,
+        port: PORT,
+      });
+      console.info(`Added node ${node}`);
+      res.json({ status: 'Added node' }).end();
+    }
+  });
+
+  Router.app.post('/transaction', (req, res) => {
+    const { sender, receiver, amount } = req.body;
+    Router.io.emit(socketActions.ADD_TRANSACTION, sender, receiver, amount);
+    res.json({ message: 'transaction success' }).end();
+  });
+  
+/*var Block2 = new BlockClass(0,Date.now(),"New Block 2","0");
+Blockchain.addBlock(Block);
+Blockchain.addBlock(Block2);*/
+
+//jkChainObjext.addBlock(new blockObject.block("12/16/2018",{amount:67}));
+Blockchain.addNode(socketListener(Router.client(`http://localhost:${PORT}`), Blockchain));
+
+// blockChain.addNode(socketListeners(client(`http://localhost:${PORT}`), blockChain));
+
+// httpServer.listen(PORT, () => console.info(`Express server running on ${PORT}...`));
+
 // Default Port 5550, application listening on 5550
-Router.http.listen(5550,function(){
-    console.log("Living at Port http://localhost:5550");
+Router.http.listen(PORT,function(){
+    console.log(`Living at URL http://localhost:${PORT}`);
 });
 
+console.log(JSON.stringify(Blockchain.chain,null,4));
+console.log("Is blockchain valid?" + Blockchain.checkValid());
 
