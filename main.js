@@ -36,6 +36,15 @@ console.log("Is blockchain valid?" + Blockchain.checkValid());
     /reset-chain    ->  Reset Block chain to initial state
     /blocks         ->  List Blocks
 */ 
+
+
+/*Router.app.configure(function() {
+    Router.app.use(Router.express.static(__dirname + '/public'));
+    Router.app.use(Router.express.errorHandler({ dumpExceptions: true, showStack: true }));
+});*/
+
+//Router.router.use(Router.express.static(path.join(__dirname, 'bower_components')));
+
 Router.router.use(function(req,res,next) {
     console.log("/" + req.method);
     next();
@@ -83,7 +92,7 @@ Router.app.get('/info', function (req, res) {
 
 // To Debug Blockchain
 Router.app.get('/debug', function (req, res) {
-    res.send('This is Test Info API')
+    res.send('This is Test Debug api')
 
 /*************************************************
  * Output Needed
@@ -125,12 +134,26 @@ Router.app.get('/reset-chain', function (req, res) {
 // Returns All Blocks  Information in JSON format
   Router.app.get('/blocks', function (req, res) {
     res.send(JSON.stringify(Blockchain,null,4))
-  })
+  });
 
-//Router.app.use("/api",Router.router);
+// Socket IO conncetion
+
+Router.io.on('connection',function(socket){
+    console.log('a connection made');
+    socket.on('disconnect',function(){
+        console.log('user disconnected');
+    });
+
+});
+
+/*
+ // Returns Socket.io runtime object
+Router.app.get('/socket.io/socket.io.js', function (req, res) {
+      res.sendFile(__dirname+'/node_modules/socket.io-client/dist/socket.io.js');
+});*/
 
 // Default Port 5550, application listening on 5550
-Router.app.listen(5550,function(){
+Router.http.listen(5550,function(){
     console.log("Living at Port http://localhost:5550");
 });
 
