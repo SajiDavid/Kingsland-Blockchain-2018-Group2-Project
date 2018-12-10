@@ -9,9 +9,11 @@
     "license": "Kingsland",
     "dependencies": {
         "@babel/polyfill": "^7.0.0",
+        "axios": "^0.18.0",
         "crypto-js": "^3.1.9-1",
         "express": "^4.16.4",
         "morgan": "^1.9.1",
+        "socket.io": "^2.2.0",
         "web3": "^1.0.0-beta.36",
         "websocket": "^1.0.28"
     },

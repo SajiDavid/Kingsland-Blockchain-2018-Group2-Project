@@ -1,20 +1,54 @@
 <!DOCTYPE html>
 <html>
-<head>
-<title>Kingsland University Blockchain Project</title>
-<style>
-body {
-    text-align: center;
-}
-.textyellow{
-    color:rgb(255, 255, 190);
-}
-</style>
-</head>
-<body background="/src/background.jpg" > 
+  <head>
+    <title>Kingsland University Blockchain Project</title>
+    <style>
+      .textyellow {
+        color: rgb(197, 240, 180);
+        text-shadow: 2px 2px 5px #95f588;
+      }
+      .textlink {
+        color: rgb(190, 146, 35);
+        font-size: 20px;
+      }
 
-<h1 class="textyellow">Kingsland University Blockchain Project</h1>
-<img src="/src/arrow.png" alt="Avatar" style="width:200px">
+      a {
+        color: #a79898;
+      }
 
-</body>
+      a:link {
+        color: #a8a0a0;
+      }
+      a:visited {
+        color: #999999;
+      }
+      a:hover {
+        color: #85f58a;
+      }
+    </style>
+  </head>
+
+  <body background="/src/background.jpg">
+    <h1 class="textyellow" align="center">Blockchain Project</h1>
+    <!-- img src="/src/arrow.png" alt="Avatar" style="width:200px" -->
+    <ul class="textlink">
+      <li>
+        <p><a href="/info"> Blockchain Information</a></p>
+      </li>
+      <li>
+        <p><a href="/debug"> Debug</a></p>
+      </li>
+      <li>
+        <p><a href="/reset-chain"> Reset Blockchain</a></p>
+      </li>
+      <li>
+        <p><a href="/blocks"> Block Information</a></p>
+      </li>
+    </ul>
+    <center><img src="/src/Block.gif"  height="50%" width="50%">  </center>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+      var socket = io();
+    </script>
+  </body>
 </html>

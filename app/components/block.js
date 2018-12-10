@@ -10,6 +10,7 @@
 
 // SHA256 Declaration
 const SHA256 = require('crypto-js/sha256');
+const Transaction = require('./transaction');
 
 class Block{
 
@@ -30,10 +31,21 @@ class Block{
         return  SHA256(this.index+this.previousHash+this.timeStamp+this.data+this.nonce).toString();
     }
 
-    mineBlock(difficulty)
-    {
-
-    }
+    setProof(proof) {
+        this.proof = proof;
+      }
+    
+      getProof() {
+        return this.proof;
+      }
+    
+      getIndex() {
+        return this.index;
+      }
+    
+      getPreviousBlockHash() {
+        return this.previousBlockHash;
+      }
 
 }
 
