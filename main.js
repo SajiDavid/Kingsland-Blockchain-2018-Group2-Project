@@ -150,6 +150,8 @@ Router.io.on('connection',function(socket){
 
 });
 
+/*Test comment added */
+
 /*
  // Returns Socket.io runtime object
 Router.app.get('/socket.io/socket.io.js', function (req, res) {
