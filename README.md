@@ -1,5 +1,5 @@
 # Kingsland-Blockchain-2018-Group2-Project
-Group2 - Jey, Calvin and Tulaja <br>
+Group2 - Jey, Calvin and Thulaja <br>
 
 ## Project Structure
 Currently /main.js is the core file which has all the Classes<br>
