@@ -28,6 +28,7 @@ class BlockChain {
   // Latest Block()
   lastBlock() {
     return this.chain[this.chain.length - 1]; // First Block is considered 0th postion so we use
+    
   }
 
   // Block Length
