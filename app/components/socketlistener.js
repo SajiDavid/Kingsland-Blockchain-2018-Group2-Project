@@ -10,7 +10,10 @@ const socketListeners = (socket, chain) => {
     chain.newTransaction(transaction);
     console.info(`Added transaction: ${JSON.stringify(transaction.getDetails(), null, '\t')}`);
   });
-
+  socket.on(socketActions.MY_ADDRESS, (address) => {
+    
+    console.info(`My address ${address}`);
+  });
   socket.on(socketActions.END_MINING, (newChain) => {
     console.log('End Mining encountered');
     process.env.BREAK = true;

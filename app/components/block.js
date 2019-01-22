@@ -22,7 +22,7 @@ class Block{
         this.previousHash = previousHash;            // Intital Previous Hash is Zero  
         this.data = data;                   // Data
         this.hash = this.calculateHash();   // Current Block Hash
-        this.nonce = 0;                     // Initial Nonce
+        this.nonce = 100000;                     // Initial Nonce
     }
 
     calculateHash()

@@ -8,10 +8,11 @@
 class Transaction{
 
     constructor(sender,receiver,amount) {
-
+        this.id = "id";
         this.sender = sender;
         this.receiver = receiver;
         this.amount = amount;
+        this.timestamp = Date.now();
         
     }
 

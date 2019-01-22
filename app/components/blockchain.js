@@ -11,13 +11,20 @@
 let Block = require("./block");
 let generateProof = require("./pow");
 let socketActions = require('../util/constants');
+const crypto = require("crypto");
 
 class BlockChain {
   constructor(io) {
+    this.id = this.generateRandomID();
     this.chain = [this.createGenesisBlock()];
     this.currentTransactions = [];
     this.nodes = [];
     this.io = io;
+    this.timestamp = Date.now();
+  }
+
+  generateRandomID(){
+    return crypto.randomBytes(16).toString("hex");
   }
 
   // Creation of Genesis Block
@@ -69,8 +76,16 @@ class BlockChain {
   }
 
   // Adding Node to Chain
-  addNode(node) {
-    this.nodes.push(node); // Adding to list
+  addNode(socketnode, chain) {
+    this.nodes.push(socketnode); // Adding to list
+    //this.io.emit("myaddress", node);
+
+    console.log("Nodes:" + this.nodes);
+
+  }
+
+  address(){
+  this.io.emit("myaddress","test");
   }
 
   async newTransaction(transaction) {
