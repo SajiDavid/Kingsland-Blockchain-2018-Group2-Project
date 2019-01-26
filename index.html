@@ -26,29 +26,81 @@
         color: #85f58a;
       }
     </style>
+            <link rel="stylesheet" type="text/css" href="/stylesheet.css" />
+
   </head>
 
-  <body background="/src/background.jpg">
-    <h1 class="textyellow" align="center">Blockchain Project</h1>
+  <body class="mainBody">
+      <div class="enjoy-css">Kings Blockchain Project</div>
+      <link async href="http://fonts.googleapis.com/css?family=Aldrich" data-generated="http://enjoycss.com" rel="stylesheet" type="text/css"/>
+      <link async href="http://fonts.googleapis.com/css?family=Arvo" data-generated="http://enjoycss.com" rel="stylesheet" type="text/css"/>
+      <link async href="http://fonts.googleapis.com/css?family=Oswald" data-generated="http://enjoycss.com" rel="stylesheet" type="text/css"/>  
+    <!-- <h1 class="textyellow" align="center">Blockchain Project</h1> -->
     <!-- img src="/src/arrow.png" alt="Avatar" style="width:200px" -->
+    <div class="menuTop">
+        <form action="/info" method = "get" class="formBox">
+          <button id="myButton" class="myYellowButton" >Blockchain Information</button>
+        </form>
+        <form action="/blocks" method = "get" class="formBox">
+          <button id="myButton" class="myButton" >Block Explorer</button>
+        </form>
+        
+      <form action="/faucet" method = "get" class="formBox">
+      <button id="myButton" class="myButton" >Faucet</button>
+    </form>
+    <form action="/wallet" method = "get" class="formBox">
+      <button id="myButton" class="myButton" >Wallet</button>
+    </form>
+    </div>
+ 
+  <div class="SendingBlock">
+      <h2 class="containerHeaderText">Blockchain Information</h2>
+      
+      <table class="tableBox">
+      <tbody>
+      <tr>
+      <td class="itemText" >  Chain Id </td>
+      <td class="displayText">{{{ chainid }}} </td>
+      </tr>
+      </tbody>
+      </table>
+      
+  </div>
+  <!--
+
     <ul class="textlink">
       <li>
         <p><a href="/info"> Blockchain Information</a></p>
       </li>
-      <li>
-        <p><a href="/debug"> Debug</a></p>
-      </li>
-      <li>
-        <p><a href="/reset-chain"> Reset Blockchain</a></p>
-      </li>
+     
       <li>
         <p><a href="/blocks"> Block Information</a></p>
       </li>
+      <li>
+        <p><a href="/faucet">Faucet for Users</a></p>
+      </li>
+      <li>
+        <p><a href="/wallet">Wallet</a></p>
+      </li>
     </ul>
-    <center><img src="/src/Block.gif"  height="50%" width="50%">  </center>
+  -->
+ 
+    <center><img style="margin-top:50px;" src="/src/Block.gif"  height="50%" width="50%">  </center>
     <script src="/socket.io/socket.io.js"></script>
     <script>
       var socket = io();
     </script>
+        <h3 class="textyellow" align="left">For Developers</h1>
+
+       <ul class="textlink">
+      
+        <li>
+          <p><a href="/debug"> Debug</a></p>
+        </li>
+        <li>
+          <p><a href="/reset-chain"> Reset Blockchain</a></p>
+        </li>
+        
+      </ul>
   </body>
 </html>

@@ -1,0 +1,34 @@
+html
+  head
+    link(rel='stylesheet', type='text/css', href='/stylesheet.css')
+    script(src='/app.js')
+
+  body.mainBody
+    .enjoy-css Kings Faucet
+    link(async='', href='http://fonts.googleapis.com/css?family=Aldrich', data-generated='http://enjoycss.com', rel='stylesheet', type='text/css')
+    link(async='', href='http://fonts.googleapis.com/css?family=Arvo', data-generated='http://enjoycss.com', rel='stylesheet', type='text/css')
+    link(async='', href='http://fonts.googleapis.com/css?family=Oswald', data-generated='http://enjoycss.com', rel='stylesheet', type='text/css')
+    form(action='/home', method='get')
+      button#myButton.myYellowButton Home
+    .SendingBlock
+      h2.containerHeaderText Faucet Status
+      table.tableBox
+        tbody
+          tr
+            td.itemText  Address
+            td.displayText #{addressWallet}
+          tr
+            td.itemText  Balance
+            td.displayText #{balance}
+    .SendingBlock
+      h2.containerHeaderText Receive Coin
+      form.receiveForm(name="receiveForm" method='POST' action='#')
+        table.tableBox
+          tbody
+            tr
+              td.itemText   Address 
+              td(style='width: 94px;')
+                input.myTextInput(name='address', type='text', value='', size='80px',placeholder="0xDECAF9CD2367cdbb726E904cD6397eDFcAe6068D")              
+            tr
+              td
+                button.myBlueButton(type='submit' onClick='receiveAmount()') Receive Coin

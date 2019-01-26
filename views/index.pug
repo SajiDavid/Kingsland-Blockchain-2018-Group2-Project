@@ -1,0 +1,54 @@
+html
+    head 
+        title Kingsland University Blockchain Project
+        link(rel="stylesheet",type="text/css", href="/stylesheet.css")
+        script(src='/app.js')
+    body.mainBody 
+       div.enjoy-css Kings Blockchain Project
+       div.menuTop
+            //form.formBox(method='GET' action='/info')
+            //    button.myYellowButton(type='submit') Blockchain Information
+            form.formBox1(method='GET' action='/blocks')
+                button.myButton(type='submit') Block Information
+            form.formBox(method='GET' action='/faucet')
+                button.myButton(type='submit') Faucet
+            form.formBox(method='GET' action='/wallet')
+                button.myButton(type='submit') Wallet
+       div.SendingBlock
+            h2.containerHeaderText Blockchain Information
+            table.tablebox
+                tbody
+                    tr
+                        td.itemText Chain ID
+                        td.displayTextLight #{chainId}
+                    tr
+                        td.itemText Length
+                        td.displayText #{chainLength}
+                    tr
+                        td.itemText Started on
+                        td.displayTextLight #{startedOn}
+                    tr
+                        td.itemText Nodes connected
+                        td.displayText #{connectedNodes}
+       div.SendingBlock
+            h2.containerHeaderText Add New Node
+            form.formBox1(name='nodeForm' method='POST' action='#')
+            table.tablebox
+                tbody
+                    tr
+                        td.itemText Host ID
+                        td
+                            input.myTextInput(name='hostname'
+                                  id='hostname'
+                                  type='text'
+                                  size='30px'
+                                  placeholder='localhost'
+                                  )
+                    tr
+                        td.itemText Port #
+                        td
+                            input.myTextInput(name='port'
+                                  type='text'
+                                  placeholder='5550'
+                                  ) 
+                button.myBlueButton(type='submit' onClick='Alert()') Add Node

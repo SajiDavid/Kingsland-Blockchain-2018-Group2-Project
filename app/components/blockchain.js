@@ -9,25 +9,43 @@
 
 // Load Block Constructor
 let Block = require("./block");
+let TransactionClass = require("./transaction");
+
 let generateProof = require("./pow");
 let socketActions = require('../util/constants');
-
+var dateFormat = require('dateformat');
+const crypto = require("crypto");
+const ethers = require("ethers");
 class BlockChain {
   constructor(io) {
-    this.chain = [this.createGenesisBlock()];
+    this.id = this.generateRandomID();
     this.currentTransactions = [];
     this.nodes = [];
     this.io = io;
+    this.addressWallet = this.getWalletAddress();
+    this.timestamp = dateFormat(Date.now(), "dddd, mmmm dS, yyyy, h:MM:ss TT");
+  // Create Genesis Block
+
+  this.chain = [this.createGenesisBlock()];
+  
+
+  }
+
+  generateRandomID(){
+    return crypto.randomBytes(16).toString("hex");
   }
 
   // Creation of Genesis Block
   createGenesisBlock() {
-    return new Block(0, Date.now(), "KingsLand Genesis Block", "0");
+    const transaction = new TransactionClass("00000000000000000000",this.addressWallet,400000000000000000,"Kings Genesis Block");
+    const currentTransactions =[transaction];
+    return new Block(0, Date.now(), currentTransactions, "0");
   }
 
   // Latest Block()
   lastBlock() {
     return this.chain[this.chain.length - 1]; // First Block is considered 0th postion so we use
+    
   }
 
   // Block Length
@@ -35,6 +53,9 @@ class BlockChain {
       return this.chain.length;
   }
 
+  getNodeCount(){
+    return this.nodes.length;
+  }
   // Adding New Block to Chain
   addBlock(newBlock) {
     newBlock.index = this.lastBlock().index + 1;
@@ -45,7 +66,7 @@ class BlockChain {
 
   mineBlock(block)
   {
-    this.chain.push(block);
+    this.addBlock(block);
     console.log('Mined Successfully');
     this.io.emit(socketActions.END_MINING, this.toArray());
   }
@@ -67,9 +88,26 @@ class BlockChain {
     return true;
   }
 
+  getWalletAddress(){
+
+   var wallet = ethers.Wallet.createRandom();
+   
+   const { address } = wallet;
+   return address;
+
+  }
+
   // Adding Node to Chain
-  addNode(node) {
-    this.nodes.push(node); // Adding to list
+  addNode(socketnode, chain) {
+    this.nodes.push(socketnode); // Adding to list
+    //this.io.emit("myaddress", node);
+
+    console.log("Nodes:" + this.nodes);
+
+  }
+
+  address(){
+  this.io.emit("myaddress","test");
   }
 
   async newTransaction(transaction) {
@@ -86,6 +124,29 @@ class BlockChain {
         this.mineBlock(block);
       }
     }
+  }
+
+  getAddressBallance(address){
+    var balance = 0;
+    for (let i = 0; i < this.chain.length; i++) {
+        const block = this.chain[i];
+        const length = block.data.length;
+        for(let j = 0; j<length;j++)
+        {
+          var transaction = block.data[j];
+          console.log("Transaction : "+ transaction)
+          if(block.data[j].sender.match(address))
+            balance = balance - amount;
+          
+          if(block.data[j].receiver.match(address))
+            balance = balance + block.data[j].amount;
+        
+
+        }
+      
+    }
+
+    return balance;
   }
 }
 
