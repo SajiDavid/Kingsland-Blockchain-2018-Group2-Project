@@ -21,10 +21,40 @@ let portscanner = require("portscanner");
 //const MongoClient = require("mongodb").MongoClient;
 const assert = require("assert");
 const express = require("express");
+const session = require("express-session");
+//var flash = require('express-flash');
 // Instatiaze Blockchain and Block constructors
 let Router = new RouterClass();
 let Blockchain = new BlockchainClass(Router.io); // This will create Genesis Block
 let Block = new BlockClass(1, Date.now(), "New Block 1", "0000000000"); // adding new Block
+var path = require('path');
+var JSAlert = require("js-alert");
+
+Router.app.set("view engine", "pug");
+Router.app.set("views", path.join(__dirname, "views"));
+
+
+/*
+const pug = require('pug');
+
+// Compile the source code
+const compiledFunction = pug.compileFile('index.pug');
+
+// Render a set of data
+console.log(compiledFunction({
+  name: 'Timothy'
+}));
+// "<p>Timothy's Pug source code!</p>"
+
+// Render another set of data
+console.log(compiledFunction({
+  name: 'Forbes'
+}));
+// "<p>Forbes's Pug source code!</p>"
+
+*/
+
+
 /*
 // Making DB Connection for Persistance data store
 
@@ -58,6 +88,15 @@ client.connect(function(err) {
   client.close();
 });
 */
+
+//Router.app.use(express.cookieParser('keyboard cat'));
+Router.app.use(session({
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: true }
+}))
+//Router.app.use(flash());
 Router.app.use(bodyParser.json());
 Router.app.use(express.static(__dirname + '/public'));
 /***** Router Functions  */
@@ -84,14 +123,22 @@ Router.router.use(function(req, res, next) {
 
 // Home End-Point
 Router.app.get("/home", function(req, res) {
-  res.sendFile(__dirname + "/index.html");
+  //res.sendFile(__dirname + "/index.html",{chainid:"name"});
+  res.render("index",{chainId:Blockchain.id,
+                      chainLength:Blockchain.getLength(),
+                      startedOn:Blockchain.timestamp,
+                      connectedNodes:Blockchain.getNodeCount() });
   //res.send('Kings Land Blockchain Project!')
 });
 
 // Home End-Point
 Router.app.get("/", function(req, res) {
-  res.sendFile(__dirname + "/index.html");
+  //res.sendFile(__dirname + "/index.html");
   //res.send('Kings Land Blockchain Project!')
+  res.render("index",{chainId:Blockchain.id,
+    chainLength:Blockchain.getLength(),
+    startedOn:Blockchain.timestamp,
+    connectedNodes:Blockchain.getNodeCount() });
 });
 
 Router.app.get("/src/arrow.png", function(req, res, next) {
@@ -182,13 +229,17 @@ Router.app.get("/blocks", function(req, res) {
 // Goes to Faucet to pour coin
 Router.app.get("/faucet", function(req, res) {
   //res.send("This is Faucet Page..coming up");
-  res.sendFile(__dirname + "/faucet.html");
+  //res.sendFile(__dirname + "/faucet.html");
+  res.render("faucet",{addressWallet:Blockchain.addressWallet,
+                       balance:Blockchain.getAddressBallance(Blockchain.addressWallet)})
 });
 
 // Goes to Faucet to pour coin
 Router.app.get("/wallet", function(req, res) {
   //res.send('This is Wallet Page..coming up')
-  res.sendFile(__dirname + "/wallet.html");
+  //res.sendFile(__dirname + "/wallet.html");
+  res.render("wallet")
+
 });
 
 // Socket IO conncetion
@@ -229,7 +280,10 @@ Router.app.post("/nodes", (req, res) => {
       port: port
     });
     console.info(`Added node ${node}`);
-    res.json({ status: "Added node" }).end();
+    //res.json({ status: "Added node" }).end();
+    JSAlert.alert("This is an alert.");
+    //req.flash('info', "Credenciales invalidas, intente nuevamente");
+    //res.render('index', {messages: req.flash('info')});
   }
 });
 
@@ -237,7 +291,16 @@ Router.app.post("/transaction", (req, res) => {
   const { sender, receiver, amount } = req.body;
   Router.io.emit(socketActions.ADD_TRANSACTION, sender, receiver, amount);
   res.json({ message: "transaction success" }).end();
+
 });
+
+Router.app.post("/faucet", (req, res) => {
+  const { address } = req.body;
+  console.log("Wallet body ", req.body);
+ // res.json({ message: "transaction success" }).end();
+
+});
+
 
 /*var Block2 = new BlockClass(0,Date.now(),"New Block 2","0");
 Blockchain.addBlock(Block);

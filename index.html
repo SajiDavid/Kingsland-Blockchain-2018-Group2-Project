@@ -42,7 +42,7 @@
           <button id="myButton" class="myYellowButton" >Blockchain Information</button>
         </form>
         <form action="/blocks" method = "get" class="formBox">
-          <button id="myButton" class="myButton" >Block Information</button>
+          <button id="myButton" class="myButton" >Block Explorer</button>
         </form>
         
       <form action="/faucet" method = "get" class="formBox">
@@ -51,8 +51,21 @@
     <form action="/wallet" method = "get" class="formBox">
       <button id="myButton" class="myButton" >Wallet</button>
     </form>
+    </div>
+ 
+  <div class="SendingBlock">
+      <h2 class="containerHeaderText">Blockchain Information</h2>
+      
+      <table class="tableBox">
+      <tbody>
+      <tr>
+      <td class="itemText" >  Chain Id </td>
+      <td class="displayText">{{{ chainid }}} </td>
+      </tr>
+      </tbody>
+      </table>
+      
   </div>
-
   <!--
 
     <ul class="textlink">

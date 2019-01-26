@@ -1,0 +1,37 @@
+html
+  head
+    link(rel='stylesheet', type='text/css', href='/stylesheet.css')
+  body.mainBody
+    .mainBody
+      .enjoy-css Kings Wallet
+      link(async='', href='http://fonts.googleapis.com/css?family=Aldrich', data-generated='http://enjoycss.com', rel='stylesheet', type='text/css')
+      link(async='', href='http://fonts.googleapis.com/css?family=Arvo', data-generated='http://enjoycss.com', rel='stylesheet', type='text/css')
+      link(async='', href='http://fonts.googleapis.com/css?family=Oswald', data-generated='http://enjoycss.com', rel='stylesheet', type='text/css')
+      .menuTop
+        form.formBox(action='/home', method='get')
+          button#myButton.myYellowButton Home
+        form.formBox(action='/createwallet', method='get')
+          button#myButton.myBlueButton Create New Wallet
+        form.formBox(action='/importjson', method='get')
+          button#myButton.myBlueButton Import JSON file
+        form.formBox(action='/privatekeywallet', method='get')
+          button#myButton.myBlueButton Create from Private Key
+      .SendingBlock
+        h2.containerHeaderText Send Coin
+        form(action='/action_page.php')
+          table.tableBox
+            tbody
+              tr
+                td.itemText  Sender
+                td(style='width: 94px;')
+                  input.myTextInput(name='sender', type='text', value='', size='80px')
+              tr
+                td.itemText Receiver
+                td(style='width: 209px;')
+                  input.myTextInput(name='receiver', type='text', value='', size='80px')
+              tr
+                td.itemText Amount
+                td(style='width: 209px;')
+                  input.myTextInput(name='amount', type='text', value='', size='40px')
+          br
+          input.myButton(type='submit', value='Send')

@@ -270,6 +270,11 @@
 	position:relative;
 	top:1px;
 }
+.formBox1{
+	position:relative;
+	top:1px;
+	margin-left:50px;
+}
 .menuTop{
 	postion:block;
 	top:1px;
@@ -304,3 +309,50 @@
 	-webkit-box-shadow: 0 0 2px 2px rgba(0,0,0,0.5) ;
 	box-shadow: 0 0 2px 2px rgba(0,0,0,0.5) ;
   }
+
+  .displayTextLight {
+	-webkit-box-sizing: content-box;
+	-moz-box-sizing: content-box;
+	box-sizing: content-box;
+	padding: 3px;
+	border: none;
+	font: normal normal bold 19px/1 Georgia, serif;
+	color: black;
+	-o-text-overflow: ellipsis;
+	text-overflow: ellipsis;
+	background: -webkit-linear-gradient(-56.3099324740202deg, rgba(252,237,143,1) 0, rgba(244,244,232,1) 100%);
+	background: -moz-linear-gradient(146.3099324740202deg, rgba(252,237,143,1) 0, rgba(244,244,232,1) 100%);
+	background: linear-gradient(146.3099324740202deg, rgba(252,237,143,1) 0, rgba(244,244,232,1) 100%);
+	background-position: 50% 50%;
+	-webkit-background-origin: padding-box;
+	background-origin: padding-box;
+	-webkit-background-clip: border-box;
+	background-clip: border-box;
+	-webkit-background-size: auto auto;
+	background-size: auto auto;
+
+  }
+  .displayTextLight:hover{
+	-webkit-box-shadow: 0 0 2px 2px rgba(0,0,0,0.5) ;
+	box-shadow: 0 0 2px 2px rgba(0,0,0,0.5) ;
+
+  }
+
+  .form-control2 {
+    display: block;
+    width: 100%;
+    height: 36px;
+    padding: 6px 12px;
+    font-size: 16px;
+    line-height: 1.42857;
+    color: #555;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    -webkit-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+}

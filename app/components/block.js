@@ -15,7 +15,7 @@ const Transaction = require('./transaction');
 class Block{
 
     // Block Constructor 
-    constructor(index, timestamp, data, previousHash = "") 
+    constructor(index, timestamp, data, previousHash) 
     {
         this.index = index;                     // Block Index
         this.timeStamp = timestamp;         // TimeStamp
