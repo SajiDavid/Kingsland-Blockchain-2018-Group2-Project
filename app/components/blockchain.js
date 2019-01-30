@@ -10,6 +10,7 @@
 // Load Block Constructor
 let Block = require("./block");
 let TransactionClass = require("./transaction");
+let socketListener = require("./socketlistener");
 
 //let generateProof = require("./pow");
 let socketActions = require("../util/constants");
@@ -55,14 +56,17 @@ class BlockChain {
     return new Block(0, initialHash, currentTransactions, "0", this.nonce);
   }
 
-  giveAwayFaucetCoin(address) {
-    const transaction = new TransactionClass(
+  giveAwayFaucetCoin(address,blockchain) {
+    /*const transaction = new TransactionClass(
       this.addressWallet,
       address,
       1,
       "Giving Away Coin"
     );
-    this.newTransaction(transaction);
+    this.newTransaction(transaction);*/
+    //const socketNode = socketListener(this.nodes[0], blockchain);
+    this.io.emit(socketActions.ADD_TRANSACTION, this.addressWallet, address, 1, "Giving Away Coin");
+
   }
   // Block Length
   getLength() {
@@ -99,6 +103,7 @@ class BlockChain {
   // Adding Node to Chain
   addNode(socketnode, chain) {
     this.nodes.push(socketnode); // Adding to list
+   
     //this.io.emit("myaddress", node);
 
     console.log("Nodes:" + this.nodes);
@@ -156,7 +161,7 @@ class BlockChain {
       const length = block.data.length;
       for (let j = 0; j < length; j++) {
         var transaction = block.data[j];
-        console.log("Transaction : " +JSON.stringify(transaction));
+        //console.log("Transaction : " +JSON.stringify(transaction));
         if (block.data[j].sender.match(address)) 
             balance = balance - block.data[j].amount;
 

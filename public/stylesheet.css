@@ -385,6 +385,14 @@
 
 }
 
+.textMsgSeed{
+
+	display: -webkit-box;
+	margin: auto;
+	padding-right: 50px;
+	font-weight: bold;
+}
+
 .closeButton{
 	margin-left: -20px;
     display: inline-block;
