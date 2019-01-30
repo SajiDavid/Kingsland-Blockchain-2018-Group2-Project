@@ -1,6 +1,42 @@
 
+function hideMessageBox(){
+  var element = document.getElementById('messagebox');
+  //document.getElementsByClassName("messagebox").hidden = true;
+  element.style.visibility='hidden';
+  element.style.display='none';
+
+}
+//var $ = require("jquery");
+
+// $("#formId").submit(function (event) {
+//   $.post('/route', $("#formId").serialize(), function (data) {
+//  	console.log(data) //data is the response from the backend
+//   });
+//   event.preventDefault();
+// });
+// console.log('Client-side code running');
+
+// const button = document.getElementById('myButton');
+// button.addEventListener('click', function(e) {
+//   console.log('button was clicked');
+//   fetch('/clicked', {method: 'POST'})
+//   .then(function(response) {
+//     if(response.ok) {
+//       console.log('Click was recorded');
+//       return;
+//     }
+//     throw new Error('Request failed.');
+//   })
+//   .catch(function(error) {
+//     console.log(error);
+//   });
+// });
+
 function Alert(){
-    
+
+
+ 
+  /*
     var nodeForm = document.getElementsByName("nodeForm")
     var localhost = 
     document.getElementsByName("hostname");
@@ -30,6 +66,9 @@ function Alert(){
 
       }
     return;
+*/
+
+alertify.alert(data);
 
 }
 
@@ -37,21 +76,43 @@ function receiveAmount(){
 
   // Sending and receiving data in JSON format using POST method
 //
-var address = document.getElementsByName("address");
+// var address = document.getElementsByName("address");
 
-//test data
-var USER_DATA = {
-    "address": address[0].value
-}
+// //test data
+// var USER_DATA = {
+//     "address": address[0].value
+// }
+
+// var name = $("#name").val();
+// $.post("http://localhost:6550/receiveform",{address:address,name:name},function(d){
+// if(d=="sent")
+//   {
+//     console.log("Sent");
+//   }
+// });
+
+/*
+$.ajax({
+  url: "http://localhost:5550/receiveform",  // the local Node server
+  method: 'POST',
+  contentType: "application/json",
+  data: address,
+  success: function(data){
+      console.log(data); 
+      //display data in cosole to see if I receive it
+  }
+});
+
+
 
 $(".receiveForm").bind("submit", function(evt) {
-  console.log(JSON.stringify($("#loginForm").serializeObject()));
+  console.log(JSON.stringify($(".receiveForm").serializeObject()));
 
   $.ajax({
-      url: "your URL here",
+      url: "http://localhost:5550",
       type: "POST",
       contentType: "application/json",
-      data: JSON.stringify($("#loginForm").serializeObject()),
+      data: JSON.stringify($(".receiveForm").serializeObject()),
       success: function (data, textStatus, jqXHR) {
           // do something with your data here.
       },
@@ -63,7 +124,8 @@ $(".receiveForm").bind("submit", function(evt) {
   return false;
 });
 
+*/
 
-  alert("Receive Amount..");
+  //alert("Receive Amount..");
 
 }

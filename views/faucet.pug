@@ -1,9 +1,8 @@
 html
   head
     link(rel='stylesheet', type='text/css', href='/stylesheet.css')
-    script(src='/app.js')
-
-  body.mainBody
+    link(rel='stylesheet', href='//cdn.jsdelivr.net/npm/alertifyjs@1.11.2/build/css/alertify.min.css')
+body.mainBody
     .enjoy-css Kings Faucet
     link(async='', href='http://fonts.googleapis.com/css?family=Aldrich', data-generated='http://enjoycss.com', rel='stylesheet', type='text/css')
     link(async='', href='http://fonts.googleapis.com/css?family=Arvo', data-generated='http://enjoycss.com', rel='stylesheet', type='text/css')
@@ -16,19 +15,27 @@ html
         tbody
           tr
             td.itemText  Address
-            td.displayText #{addressWallet}
+            td.displayTextLight #{addressWallet}
           tr
             td.itemText  Balance
             td.displayText #{balance}
     .SendingBlock
       h2.containerHeaderText Receive Coin
-      form.receiveForm(name="receiveForm" method='POST' action='#')
+      form.receiveform(name="receiveform" method='post' action='/receiveform')
         table.tableBox
           tbody
             tr
               td.itemText   Address 
               td(style='width: 94px;')
-                input.myTextInput(name='address', type='text', value='', size='80px',placeholder="0xDECAF9CD2367cdbb726E904cD6397eDFcAe6068D")              
+                input.myTextInput(id='address',name='address', type='text', value='', size='80px',placeholder="0xDECAF9CD2367cdbb726E904cD6397eDFcAe6068D")              
             tr
-              td
-                button.myBlueButton(type='submit' onClick='receiveAmount()') Receive Coin
+              td(colspan='2')
+                 input.myBlueButton(type='submit', value='Receive Coin')
+      if displayMessage
+        .messagebox(id='messagebox',style="display:-webkit-inline-box")
+          p.textMsg #{message}
+          button.closeButton(onClick="hideMessageBox()") X
+    script(src='/jquery.js')
+    script(src='/jquery.min.js')
+    script(src='//cdn.jsdelivr.net/npm/alertifyjs@1.11.2/build/alertify.min.js')
+    script(src='/app.js')

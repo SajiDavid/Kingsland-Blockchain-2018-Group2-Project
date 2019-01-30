@@ -1,7 +1,7 @@
 /****************************************************/
 /* BLOCK Class                                      */
 /* Date Create : December 06,2018                   */
-/* Team : Tulaja,Calvin,Jey                         */
+/* Team : Thulaja,Calvin,Jey                         */
 /* Developed by : Jey                               */
 /****************************************************/
 
@@ -11,29 +11,33 @@
 // SHA256 Declaration
 const SHA256 = require('crypto-js/sha256');
 const Transaction = require('./transaction');
+var dateFormat = require('dateformat');
 
 class Block{
 
     // Block Constructor 
-    constructor(index, timestamp, data, previousHash) 
+    constructor(index, previousBlockHash, data,proof,nonce ) 
     {
         this.index = index;                     // Block Index
-        this.timeStamp = timestamp;         // TimeStamp
-        this.previousHash = previousHash;            // Intital Previous Hash is Zero  
+        this.timeStamp = dateFormat(Date.now(), "dddd, mmmm dS, yyyy, h:MM:ss TT");         // TimeStamp
+        this.previousBlockHash = previousBlockHash;            // Intital Previous Hash is Zero  
         this.data = data;                   // Data
         this.hash = this.calculateHash();   // Current Block Hash
-        this.nonce = 100000;                     // Initial Nonce
+        this.proof = proof;
+        this.nonce = nonce;                     // Initial Nonce
     }
 
     calculateHash()
     {
         // Retrun new calculate SHA256 Hash
-        return  SHA256(this.index+this.previousHash+this.timeStamp+this.data+this.nonce).toString();
+        return  SHA256(this.index+this.previousBlockHash+this.timeStamp+this.data+this.nonce).toString();
     }
 
-    setProof(proof) {
+    setProof(proof,proofHex) {
         this.proof = proof;
-      }
+        this.proofHex = proofHex;
+    }
+
     
       getProof() {
         return this.proof;
@@ -46,7 +50,9 @@ class Block{
       getPreviousBlockHash() {
         return this.previousBlockHash;
       }
-
+      hashValue() {
+        return this.hash;
+      }
 }
 
 /*

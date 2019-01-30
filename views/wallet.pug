@@ -17,6 +17,19 @@ html
         form.formBox(action='/privatekeywallet', method='get')
           button#myButton.myBlueButton Create from Private Key
       .SendingBlock
+            h2.containerHeaderText Wallet Information
+            table.tablebox
+                tbody
+                    tr
+                        td.itemText Address
+                        td.displayTextLight #{address}
+            if displayMessage
+              .messagebox(id='messagebox',style="display:-webkit-inline-box")
+                    p.textMsg #{message}
+                      br
+                      strong  #{seed}
+                    button.closeButton(onClick="hideMessageBox()") X
+      .SendingBlock
         h2.containerHeaderText Send Coin
         form(action='/action_page.php')
           table.tableBox

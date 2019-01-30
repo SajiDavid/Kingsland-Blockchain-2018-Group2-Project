@@ -220,7 +220,7 @@
 	  background-color:rgb(238, 243, 219);
 	  padding-bottom:10px;
 	  padding-right:200px;
-	  margin-top:50px;
+	  margin-top:20px;
 	  margin-right:180px;
 	  margin-left:30px;
 	  border:5px ridge #a79f8d;
@@ -355,4 +355,45 @@
     -webkit-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
     -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
     transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+}
+
+.messagebox {
+	-webkit-box-sizing: content-box;
+	-moz-box-sizing: content-box;
+	box-sizing: content-box;
+	margin: 4px;
+	border: none;
+	font: normal 20px/1 "Times New Roman", Times, serif;
+	color: rgba(7,7,3,1);
+	text-align: left;
+	-o-text-overflow: ellipsis;
+	text-overflow: ellipsis;
+	word-spacing: 3px;
+	background: #b8f2d0;
+	-webkit-box-shadow: 3px 3px 18px 3px rgba(61,73,81,0.91) ;
+	box-shadow: 3px 3px 18px 3px rgba(61,73,81,0.91) ;
+	text-shadow: 0 0 9px rgba(255,255,86,0.7) ;
+	padding: 10px;
+
+  }
+
+.textMsg{
+
+	display: -webkit-box;
+	margin: auto;
+	padding-right: 50px;
+
+}
+
+.textMsgSeed{
+
+	display: -webkit-box;
+	margin: auto;
+	padding-right: 50px;
+	font-weight: bold;
+}
+
+.closeButton{
+	margin-left: -20px;
+    display: inline-block;
 }
