@@ -1,8 +1,12 @@
+/****************************************************/
+/* Socket Listener Class                            */
+/* Date Create : December 06,2018                   */
+/* Team : Thulaja,Calvin,Jey                         */
+/* Developed by : Jey                               */
+/****************************************************/
 const Transaction = require('./transaction');
 const Blockchain = require('./blockchain');
 const socketActions = require('../util/constants');
-
-
 
 const socketListeners = (socket, chain) => {
   socket.on(socketActions.ADD_TRANSACTION, (sender, receiver, amount,description) => {

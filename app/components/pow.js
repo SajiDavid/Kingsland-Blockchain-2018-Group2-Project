@@ -1,3 +1,9 @@
+/****************************************************/
+/* Proof of Work                                    */
+/* Date Create : December 06,2018                   */
+/* Team : Thulaja,Calvin,Jey                         */
+/* Developed by : Jey                               */
+/****************************************************/
 const crypto = require('crypto');
 
 
