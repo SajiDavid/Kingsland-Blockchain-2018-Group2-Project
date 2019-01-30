@@ -7,8 +7,7 @@
 const crypto = require("crypto");
 const ethers = require("ethers");
 const fs = require("fs");
-path = require('path')
-
+path = require('path');
 
 class Wallet{
 
@@ -42,7 +41,7 @@ class Wallet{
     createNewWallet(){
        const newWallet =  createRandomWallet();
        const {signingKey} = newWallet;
-        this.seed = signingKey.mnemonic;
+       this.seed = signingKey.mnemonic;
        this.privateKey = signingKey.privateKey;
        this.publicKey = signingKey.publicKey;
        this.address = signingKey.address;
