@@ -16,35 +16,121 @@ html
           button#myButton.myBlueButton Import JSON file
         form.formBox(action='/privatekeywallet', method='get')
           button#myButton.myBlueButton Create from Private Key
-      .SendingBlock
+      if uploadKeyFlag
+          .SendingBlock
+            h2.containerHeaderText Upload your Key File
+              form.formBoxUploadKey(name='formBoxUploadKey' enctype="multipart/form-data" method='post' action='/uploadkeyfile')
+                table.tablebox
+                      tbody
+                          tr
+                            td.itemText File Name
+                            td
+                              input.myTextInput(name='file',
+                                      id='file',
+                                      type='file',
+                                      size='100px',
+                                      ) 
+                          tr
+                            td(colspan="2")
+                                  input.myBlueButton(type='submit', value='Upload')
+              if displayMessageUploadKey
+                if !messagetype
+                    .messagebox(id='messagebox',style="display:-webkit-inline-box;background:#ffb9b9;color:black;")
+                      p.textMsg #{message} 
+                      button.closeButton(onClick="hideMessageBox()") X
+                else
+                    .messagebox(id='messagebox',style="display:-webkit-inline-box")
+                      p.textMsg #{message} 
+                      button.closeButton(onClick="hideMessageBox()") X
+      if privateKeyFlag 
+          .SendingBlock
+            h2.containerHeaderText Create from Private Key
+            form.formBoxPrivateKey(name='formBoxPrivateKey' method='post' action='/createfromprivatekey')
+              table.tablebox
+                    tbody
+                        tr
+                          td.itemText Private Key
+                          td
+                            input.myTextInput(name='privatekey',
+                                    id='privatekey',
+                                    type='text',
+                                    size='100px',
+                                    placeholder='Enter your Private Key',
+                                    value = ""
+                                    ) 
+                        tr
+                          td(colspan="2")
+                                input.myBlueButton(type='submit', value='Create')
+            if displayMessagePrivatekey
+                if !messagetype
+                    .messagebox(id='messagebox',style="display:-webkit-inline-box;background:#ffb9b9;color:black;")
+                        p.textMsg #{message} 
+                        button.closeButton(onClick="hideMessageBox()") X
+                else
+                    .messagebox(id='messagebox',style="display:-webkit-inline-box")
+                        p.textMsg #{message} 
+                        button.closeButton(onClick="hideMessageBox()") X
+      if addressFlag 
+        .SendingBlock
+          form.formBoxAddress(name='formBoxAddress' method='get' action='/downloadkeyfile')
             h2.containerHeaderText Wallet Information
             table.tablebox
-                tbody
-                    tr
-                        td.itemText Address
-                        td.displayTextLight #{address}
-            if displayMessage
-              .messagebox(id='messagebox',style="display:-webkit-inline-box")
-                    p.textMsg #{message}
-                      br
-                      strong  #{seed}
-                    button.closeButton(onClick="hideMessageBox()") X
+              tbody
+                  tr
+                      td.itemText Address
+                      td.displayTextLight #{address}
+                      td(style="padding-left:150px;")
+                        input.myBlueButton(type='submit', value='Download Key file')
+                  tr
+                      td.itemText Balance
+                      td.displayText #{balance}
+            if displayMessageAddress
+                if !messagetype
+                  .messagebox(id='messagebox',style="display:-webkit-inline-box;background:#ffb9b9;color:black;")
+                      p.textMsg #{message}
+                       br
+                       strong  #{seed}
+                      button.closeButton(onClick="hideMessageBox()") X
+                else
+                  .messagebox(id='messagebox',style="display:-webkit-inline-box")
+                      p.textMsg #{message}
+                       br
+                       strong  #{seed}
+                      button.closeButton(onClick="hideMessageBox()") X
       .SendingBlock
         h2.containerHeaderText Send Coin
-        form(action='/action_page.php')
+         form.formBoxTransaction(name='formBoxTransaction' method='post' action='/transactionsend')
           table.tableBox
             tbody
               tr
                 td.itemText  Sender
                 td(style='width: 94px;')
-                  input.myTextInput(name='sender', type='text', value='', size='80px')
+                  input.myTextInput(name='sender', type='text', value= sendervalue, size='80px',placeholder="0xOMEAU9RM2367lvsaa726U904cD6397eJKcAe6068Y")
               tr
                 td.itemText Receiver
                 td(style='width: 209px;')
-                  input.myTextInput(name='receiver', type='text', value='', size='80px')
+                  input.myTextInput(name='receiver', type='text', value= receivervalue, size='80px',placeholder="0xDECAF9CD2367cdbb726E904cD6397eDFcAe6068D")
               tr
                 td.itemText Amount
                 td(style='width: 209px;')
-                  input.myTextInput(name='amount', type='text', value='', size='40px')
-          br
-          input.myButton(type='submit', value='Send')
+                  input.myTextInput(name='amount', type='text', value= amountvalue, size='40px',placeholder="0")
+              tr
+                td.itemText Description
+                td(style='width: 209px;')
+                  input.myTextInput(name='description', type='text', value= descriptionvalue, size='40px',placeholder="Enter transaction note here")
+              tr
+                td(colspan="2")
+                  input.myBlueButton(type='submit', value='Send')
+        if displayMessageTransaction
+          if !messagetype
+            .messagebox(id='messagebox',style="display:-webkit-inline-box;background:#ffb9b9;color:black;")
+                p.textMsg #{message} 
+                button.closeButton(onClick="hideMessageBox()") X
+          else
+            .messagebox(id='messagebox',style="display:-webkit-inline-box")
+                p.textMsg #{message} 
+                button.closeButton(onClick="hideMessageBox()") X
+    script(src='/jquery.js')
+    script(src='/jquery.min.js')
+    script(src='//cdn.jsdelivr.net/npm/alertifyjs@1.11.2/build/alertify.min.js')
+    script(src='/app.js')

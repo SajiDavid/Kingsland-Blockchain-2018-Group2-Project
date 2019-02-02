@@ -5,54 +5,58 @@
 /* Developed by : Jey                               */
 /****************************************************/
 
-
 /* Block Declaration */
 
 // SHA256 Declaration
-const SHA256 = require('crypto-js/sha256');
-const Transaction = require('./transaction');
-var dateFormat = require('dateformat');
+const SHA256 = require("crypto-js/sha256");
+const Transaction = require("./transaction");
+var dateFormat = require("dateformat");
 
-class Block{
+class Block {
+  // Block Constructor
+  constructor(index, previousBlockHash, data, proof, nonce) {
+    this.index = index; // Block Index
+    this.timeStamp = dateFormat(Date.now(), "dddd, mmmm dS, yyyy, h:MM:ss TT"); // TimeStamp
+    this.datenow  = Date.now();
+    this.previousBlockHash = previousBlockHash; // Intital Previous Hash is Zero
+    this.data = data; // Data
+    this.hash = this.calculateHash(); // Current Block Hash
+    this.proof = proof;
+    this.proofHex = "";
+    this.nonce = nonce; // Initial Nonce
+    this.confirmations = 1;
+  }
 
-    // Block Constructor 
-    constructor(index, previousBlockHash, data,proof,nonce ) 
-    {
-        this.index = index;                     // Block Index
-        this.timeStamp = dateFormat(Date.now(), "dddd, mmmm dS, yyyy, h:MM:ss TT");         // TimeStamp
-        this.previousBlockHash = previousBlockHash;            // Intital Previous Hash is Zero  
-        this.data = data;                   // Data
-        this.hash = this.calculateHash();   // Current Block Hash
-        this.proof = proof;
-        this.nonce = nonce;                     // Initial Nonce
-    }
+  calculateHash() {
+    // Retrun new calculate SHA256 Hash
+    return SHA256(
+      this.index +
+        this.previousBlockHash +
+        this.timeStamp +
+        this.data +
+        this.nonce
+    ).toString();
+  }
 
-    calculateHash()
-    {
-        // Retrun new calculate SHA256 Hash
-        return  SHA256(this.index+this.previousBlockHash+this.timeStamp+this.data+this.nonce).toString();
-    }
+  setProof(proof, proofHex) {
+    this.proof = proof;
+    this.proofHex = proofHex;
+  }
 
-    setProof(proof,proofHex) {
-        this.proof = proof;
-        this.proofHex = proofHex;
-    }
+  getProof() {
+    return this.proof;
+  }
 
-    
-      getProof() {
-        return this.proof;
-      }
-    
-      getIndex() {
-        return this.index;
-      }
-    
-      getPreviousBlockHash() {
-        return this.previousBlockHash;
-      }
-      hashValue() {
-        return this.hash;
-      }
+  getIndex() {
+    return this.index;
+  }
+
+  getPreviousBlockHash() {
+    return this.previousBlockHash;
+  }
+  hashValue() {
+    return this.hash;
+  }
 }
 
 /*
@@ -63,4 +67,4 @@ function Tiger() {
     return roar;
 }
 */
-module.exports  = Block ;
+module.exports = Block;

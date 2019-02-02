@@ -1,17 +1,18 @@
 /****************************************************/
 /* Main Class                                      */
 /* Date Create : December 06,2018                   */
-/* Team : Tulaja,Calvin,Jey                         */
+/* Team : Thulaja,Calvin,Jey                         */
 /* Developed by : Jey                               */
 /****************************************************/
 
 // Load Blockchain and Block Classes
-const ethers = require("ethers");
 const fs = require("fs");
 let BlockClass = require("./app/components/block");
 let BlockchainClass = require("./app/components/blockchain");
 let TransactionClass = require("./app/components/transaction");
 let walletClass = require("./app/components/wallet");
+var multer = require("multer");
+const web3 = require("web3");
 
 let RouterClass = require("./app/routes/routes");
 let socketListener = require("./app/components/socketlistener");
@@ -19,6 +20,7 @@ let socketActions = require("./app/util/constants");
 let bodyParser = require("body-parser");
 let axios = require("axios");
 let portscanner = require("portscanner");
+
 // create application/json parser
 var jsonParser = bodyParser.json();
 
@@ -31,55 +33,38 @@ const express = require("express");
 const session = require("express-session");
 
 let Router = new RouterClass();
-let Blockchain = new BlockchainClass(Router.io); // This will create Genesis Block
-let Block = new BlockClass(1, Date.now(), "New Block 1", "0000000000"); // adding new Block
+let Blockchain = new BlockchainClass(Router.io,socketActions.BLOCKSIZE_TRANSACTIONS); // This will create Genesis Block
+//let Block = new BlockClass(1, Date.now(), "New Block 1", "0000000000"); // adding new Block
 var path = require("path");
 let Wallet = new walletClass();
+const filename = "Wallet_keystore_upload.txt";
+const upload = multer({
+  dest: "./app/util/"
+});
 
 var messageVar = "";
-var messageStatus = false;
+var messageStatus = (messageStatus0 = messageStatus1 = messageStatus2 = messageStatus3 = false);
+var addressFlag = (uploadKeyFlag = privateKeyFlag = messageRedirect = false);
+var balanceAddress = 0;
 var defaultHost = "";
 var defaultPort = "";
 var port2;
 var port_status;
+var block_data = "";
+var previous_block_data = ""; // Store previous block data during transaction
+
+var messagetype = true;
+
+var sendervalue = "";
+var receivervalue = "";
+var amountvalue = "";
+var descriptionvalue = "";
+var blocknumber = "";
+var transactionFlag = false;
+var transactionid = "";
 
 Router.app.set("view engine", "pug");
 Router.app.set("views", path.join(__dirname, "views"));
-
-/*
-// Making DB Connection for Persistance data store
-
-// Connection URL
-const url = "mongodb://localhost:27017";
-// Create a new MongoClient
-const client = new MongoClient(url, { useNewUrlParser: true });
-
-// Database Name
-const dbName = "blockchain";
-
-// Use connect method to connect to the Server
-client.connect(function(err) {
-  assert.equal(null, err);
-  console.log("Connected successfully to Mongo server");
-
-  const db = client.db(dbName);
-
-  const findDocuments = function(db, callback) {
-    // Get the documents collection
-    const collection = db.collection("Testme");
-    // Find some documents
-    collection.find({}).toArray(function(err, docs) {
-      assert.equal(err, null);
-      console.log("Found the following records");
-      console.log(docs);
-      callback(docs);
-    });
-  };
-
-  client.close();
-});
-*/
-
 //Router.app.use(express.cookieParser('keyboard cat'));
 Router.app.use(
   session({
@@ -112,13 +97,17 @@ Router.app.get("/home", function(req, res) {
   res.render("index", {
     chainId: Blockchain.id,
     chainLength: Blockchain.getLength(),
-    startedOn: Blockchain.timestamp,
+    startedOn: Blockchain.timeStamp,
     connectedNodes: Blockchain.getNodeCount(),
+    pendingTransactionsCount:Blockchain.currentTransactions.length,
     defaultHost: defaultHost,
     defaultPort: defaultPort,
-    displayMessage: messageStatus,
+    messagetype: messagetype,
+    displayMessageChain: messageStatus0,
+    displayMessageNode: messageStatus1,
     message: messageVar
   });
+
   clearMessageVar();
 });
 
@@ -174,11 +163,6 @@ Router.app.get("/info", function(req, res) {
 *************************************************/
 });
 
-/*************************************************
- * Output Needed
- *
- *************************************************/
-
 // To Debug Blockchain
 Router.app.get("/debug", function(req, res) {
   res.send("This is Test Debug api");
@@ -203,24 +187,24 @@ Router.app.get("/debug", function(req, res) {
 
 // To Reset Whole Chain
 Router.app.get("/reset-chain", function(req, res) {
-  var message = {
-    message: "The chain was reset to its genesis block"
-  };
-
-  res.send(message);
-});
-
-// Returns All Blocks  Information in JSON format
-Router.app.get("/blocks", function(req, res) {
-  res.send(JSON.stringify(Blockchain.chain, null, 4));
+  Blockchain = new BlockchainClass(Router.io,socketActions.BLOCKSIZE_TRANSACTIONS); // This will create Genesis Block
+  messageStatus0 = true;
+  messageRedirect = true;
+  messageVar = "Chain has been successfully reset.";
+  Blockchain.addNode(
+    socketListener(Router.client(`http://localhost:${port2}`), Blockchain)
+  );
+  res.redirect("/home");
 });
 
 // Goes to Faucet to pour coin
 Router.app.get("/faucet", function(req, res) {
   res.render("faucet", {
     addressWallet: Blockchain.addressWallet,
-    balance: Blockchain.getAddressBallance(Blockchain.addressWallet),
+    balance: Blockchain.getAddressBalance(Blockchain.addressWallet),
+    sendervalue: sendervalue,
     displayMessage: messageStatus,
+    messagetype: messagetype,
     message: messageVar
   });
   clearMessageVar();
@@ -230,15 +214,49 @@ Router.app.get("/faucet", function(req, res) {
 Router.app.get("/wallet", function(req, res) {
   //res.send('This is Wallet Page..coming up')
   //res.sendFile(__dirname + "/wallet.html");
-  res.render("wallet");
+  // res.render("wallet");
+  var balance = "";
+  if (!messageRedirect) {
+    privateKeyFlag = messageStatus = false;
+
+    if (addressFlag) {
+      balance = Blockchain.getAddressBalance(Wallet.address);
+      if (balance === "" || balance === "0") balance = "0";
+    }
+  } else {
+    balance = Blockchain.getAddressBalance(balanceAddress);
+    if (balance === "" || balance === "0") balance = "0";
+    messageRedirect = false;
+  }
+  res.render("wallet", {
+    privateKey: Wallet.privateKey,
+    publicKey: Wallet.publicKey,
+    address: Wallet.address,
+    seed: Wallet.getSeed(),
+    uploadKeyFlag: uploadKeyFlag,
+    privateKeyFlag: privateKeyFlag,
+    addressFlag: addressFlag,
+    balance: balance,
+    sendervalue: sendervalue,
+    receivervalue: receivervalue,
+    amountvalue: amountvalue,
+    descriptionvalue:descriptionvalue,
+    displayMessageUploadKey: messageStatus0,
+    displayMessagePrivateKey: messageStatus1,
+    displayMessageAddress: messageStatus2,
+    displayMessageTransaction: messageStatus3,
+    messagetype: messagetype,
+    message: messageVar
+  });
+
+  messageStatus0 = messageStatus1 = messageStatus2 = messageStatus3 = false;
+  messagetype = true;
 });
 
 // Goes to Faucet to pour coin
 Router.app.get("/test", function(req, res) {
   res.send("This is test Page..coming up");
 });
-
-
 
 // Socket IO conncetion
 
@@ -281,46 +299,313 @@ Router.app.post("/nodes", urlencodedParser, function(req, res) {
   }
 });
 
-Router.app.post("/transaction", (req, res) => {
+Router.app.post("/transactionsend", urlencodedParser, function(req, res) {
   const { sender, receiver, amount, description } = req.body;
-  Blockchain.io.emit(
-    socketActions.ADD_TRANSACTION,
-    sender,
-    receiver,
-    amount,
-    description
-  );
-  res.json({ message: "transaction success" }).end();
+  var valid = true;
+  receivervalue = receiver;
+  sendervalue = sender;
+  amountvalue = amount;
+  descriptionvalue = description;
+  if (Wallet.address == undefined || Wallet.address == "") {
+    messageVar = `No Wallet found, Please upload or Create one.`;
+
+    valid = false;
+  }
+
+  // Validation
+  if (valid) {
+   if(sender != Wallet.address)
+   {
+    messageVar = `Sender address "${sender}" not belong to you!!`;
+    valid = false;
+   }
+   else{
+    if (!web3.utils.isAddress(sender)) {
+      receivervalue = receiver;
+      // sendervalue = sender;
+      // amountvalue = amount;
+      messageVar = `Sender address "${sender}" is invalid!!`;
+      valid = false;
+    } else {
+      if (!web3.utils.isAddress(receiver)) {
+        // sendervalue = sender;
+        // amountvalue = amount;
+        messageVar = `Receiver address "${receiver}" is invalid!!`;
+        valid = false;
+      } else {
+        if (amount == 0) {
+          // sendervalue = sender;
+          // receivervalue = receiver;
+          messageVar = `Amount cannot be "0"!!`;
+          valid = false;
+        } else {
+          var balanceSender = Blockchain.getAddressBalance(sender);
+          if (balanceSender < amount) {
+            // sendervalue = sender;
+            // receivervalue = receiver;
+            messageVar = `Insufficent balance, you have only "${balanceSender}" Coins !!`;
+            valid = false;
+          }
+          }
+        }
+      }
+    }
+  }
+
+  if (!valid) {
+    messageStatus3 = true;
+    messagetype = false;
+  } else {
+    const signature =  Wallet.getSignTransation(sender, receiver, amount, description);
+    Blockchain.io.emit(
+      socketActions.ADD_TRANSACTION,
+      sender,
+      receiver,
+      amount,
+      description,
+      signature
+    );
+
+    messageVar = `Transaction successfully sent`;
+    messageStatus3 = true;
+    if (Wallet.address != "") addressFlag = true;
+
+    privateKeyFlag = false;
+    messageRedirect = true;
+    balanceAddress = sender;
+  }
+  res.redirect("/wallet");
+
+  messageRedirect = false;
 });
 
 Router.app.post("/receiveform", urlencodedParser, function(req, res) {
   const address = req.body.address;
-  if (address != undefined && address != "") {
-    Blockchain.giveAwayFaucetCoin(address, Blockchain);
-
-    messageVar = `Free Coin Sent Successfully to ${address}`;
+  var valid = true;
+  if ( address == undefined || address == "")
+  {
+    messageVar = `Please enter address to send coins!!`;
+    messagetype = false;
+    valid = false;
     messageStatus = true;
-    res.redirect("/faucet");
   }
+  else if(!web3.utils.isAddress(address)) {
+    sendervalue = address;
+    messageVar = `Address "${address}" is invalid!!`;
+    messagetype = false;
+    valid = false;
+    messageStatus = true;
+  }
+  else{
+   valid =  Blockchain.validateCoinGreediness(address);
+   if(!valid){
+   sendervalue = address;
+    messageVar = `Please wait for an hour to get your next coins..Freee..!!`;
+    messagetype = false;
+    messageStatus = true;
+   }
+  }
+  if (valid) {
+    Blockchain.giveAwayFaucetCoin(address, Blockchain);
+    messageVar = `${socketActions.FREE_COINS} Free Coins Sent Successfully to ${address}`;
+    messagetype = true;
+    messageStatus = true;
+  }
+  res.redirect("/faucet");
 });
 
 // Creating New Wallet
 Router.app.get("/createwallet", function(req, res, next) {
   Wallet.createNewWallet();
   messageVar = `New Wallet successfully created, Please note down and store the seeds for recovery: `;
-  messageStatus = true;
-  res.render("wallet", {
-    privateKey: Wallet.privateKey,
-    publicKey: Wallet.publicKey,
-    address : Wallet.address,
-    seed : Wallet.getSeed(),
+  messageStatus2 = true;
+  if (Wallet.address != "") addressFlag = true;
+  messageRedirect = true;
+  balanceAddress = Wallet.address;
+
+  res.redirect("/wallet");
+
+  // res.render("wallet", {
+  //   privateKey: Wallet.privateKey,
+  //   publicKey: Wallet.publicKey,
+  //   address: Wallet.address,
+  //   seed: Wallet.getSeed(),
+  //   privateKeyFlag: privateKeyFlag,
+  //   addressFlag: addressFlag,
+  //   displayMessagePrivateKey: messageStatus1,
+  //   displayMessageTransaction: messageStatus2,
+  //   displayMessageAddress: messageStatus3,
+  //   message: messageVar
+  // });
+});
+
+// Creating New Wallet
+Router.app.get("/privatekeywallet", function(req, res, next) {
+  //messageVar = `New Wallet created from private key successfully`;
+
+  messageStatus2 = true;
+  addressFlag = false;
+  privateKeyFlag = true;
+  messageRedirect = true;
+  balanceAddress = Wallet.address;
+
+  res.redirect("/wallet");
+  // res.render("wallet", {
+  //   privateKey: Wallet.privateKey,
+  //   publicKey: Wallet.publicKey,
+  //   address : Wallet.address,
+  //   seed : "",
+  //   privateKeyFlag:privateKeyFlag,
+  //   addressFlag:addressFlag,
+  //   displayMessage: messageStatus,
+  //   message: messageVar
+  // });
+});
+
+// Creating New Wallet from privateKey
+Router.app.post("/createfromprivatekey", urlencodedParser, function(req, res) {
+  const privateKey = req.body.privatekey;
+  Wallet.initializeWallet();
+  Wallet.createFromPrivateKey(privateKey);
+  messageVar = `New Wallet created from Private key provided`;
+  messageStatus2 = true;
+  if (Wallet.address != "") addressFlag = true;
+
+  privateKeyFlag = false;
+  messageRedirect = true;
+
+  res.redirect("/wallet");
+
+  // res.render("wallet", {
+  //   privateKey: Wallet.privateKey,
+  //   publicKey: Wallet.publicKey,
+  //   address : Wallet.address,
+  //   seed :"",
+  //   privateKeyFlag:privateKeyFlag,
+  //   addressFlag:addressFlag,
+  //   displayMessage: messageStatus,
+  //   message: messageVar
+  // });
+});
+
+// Goes to Faucet to pour coin
+Router.app.get("/downloadkeyfile", function(req, res) {
+  const filename = Wallet.getWalletFileName();
+  res.download(filename);
+  //res.send("This is test Page..coming up");
+});
+
+// Goes to Faucet to pour coin
+Router.app.get("/importjson", function(req, res) {
+  uploadKeyFlag = true;
+  messageStatus0 = false;
+  addressFlag = false;
+  privateKeyFlag = false;
+  messageRedirect = true;
+
+  res.redirect("/wallet");
+  //res.send("This is test Page..coming up");
+});
+
+// Goes to Faucet to pour coin
+Router.app.post("/uploadkeyfile", upload.single("file"), (req, res) => {
+  if (req.file) {
+    console.log("Uploading file...");
+    var filename = req.file.filename;
+    messageVar = `File has been uploaded successfully`;
+  } else {
+    console.log("No File Uploaded");
+    messageVar = `File having issue uploading`;
+  }
+  uploadKeyFlag = true;
+  messageStatus0 = true;
+  addressFlag = true;
+  privateKeyFlag = false;
+  messageRedirect = true;
+
+  res.redirect("/wallet");
+  //res.send("This is test Page..coming up");
+});
+
+// Returns All Blocks  Information
+Router.app.get("/blocks", function(req, res) {
+  //res.send(JSON.stringify(Blockchain.chain, null, 4));
+  if (messageRedirect) {
+  } else {
+    transactionFlag = false;
+  }
+  res.render("explorer", {
+    searchBoxFlag: true,
+    transactionFlag: transactionFlag,
+    transactionid: transactionid,
+    blocknumber: blocknumber,
+    blockcontent: block_data,
+    timestamp: block_data.timestamp,
     displayMessage: messageStatus,
+    messagetype: messagetype,
     message: messageVar
   });
 
+  transactionFlag = false;
+  messageStatus = false;
+  block_data = "";
+  messageRedirect = false;
 });
 
+// Returns All Blocks  Information
+Router.app.get("/getblock/:number", function(req, res) {
+  //res.send(JSON.stringify(Blockchain.chain, null, 4));
+  blocknumber = req.params.number;
+  block_data = Blockchain.getBlockData(blocknumber);
+  transactionFlag = false;
+  messageRedirect = true;
+  res.redirect("/blocks");
+});
 
+// Goes to Blockdata to display
+Router.app.post("/searchblock", urlencodedParser, function(req, res) {
+  blocknumber = req.body.searchblockvalue;
+
+  messageRedirect = true;
+  if (blocknumber == undefined || blocknumber == "") {
+    transactionFlag = false;
+    messageStatus = true;
+    messagetype = false;
+    messageVar = "Invalid Block Number";
+  } else {
+    block_data = Blockchain.getBlockData(blocknumber);
+    if (block_data == undefined || block_data == "") {
+      transactionFlag = false;
+      messageStatus = true;
+      messagetype = false;
+      messageVar = "No valid Block found!!";
+    }
+  }
+  messageRedirect = true;
+  res.redirect("/blocks");
+
+  //block_data = block_data.replace(/\"([^(\")"]+)\":/g,"$1:");
+  //block_data=JSON.stringify(block_data, null, '\t')
+
+  //res.send("This is test Page..coming up");
+});
+
+Router.app.get("/transaction/:id", function(req, res) {
+  transactionid = req.params.id;
+  if (transactionid == undefined || transactionid == "") {
+    messageStatus = true;
+    messagetype = false;
+    messageVar = "Transaction ID is empty!!";
+    transactionFlag = false;
+  } else {
+    //previous_block_data = block_data;
+    block_data = Blockchain.getTransactionBlock(transactionid);
+    transactionFlag = true;
+  }
+  messageRedirect = true;
+  res.redirect("/blocks");
+  //res.send('user' + req.params.id);
+});
 /*var Block2 = new BlockClass(0,Date.now(),"New Block 2","0");
 Blockchain.addBlock(Block);
 Blockchain.addBlock(Block2);*/
@@ -362,6 +647,10 @@ console.log("Is blockchain valid?" + Blockchain.checkValid());
 function clearMessageVar() {
   messageStatus = false;
   messageVar = "";
+  messageStatus0 = messageStatus1 = messageStatus2 = messageStatus3 = false;
+  sendervalue = receivervalue = amountvalue = descriptionvalue =  "";
+  messagetype = true;
+  blocknumber = "";
 }
 
 function ListenPort(PORT) {

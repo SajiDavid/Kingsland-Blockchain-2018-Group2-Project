@@ -1,0 +1,71 @@
+html
+  head
+    link(rel='stylesheet', type='text/css', href='/stylesheet.css')
+  body.mainBody
+    .mainBody
+      .enjoy-css Block Explorer
+      link(async='', href='http://fonts.googleapis.com/css?family=Aldrich', data-generated='http://enjoycss.com', rel='stylesheet', type='text/css')
+      link(async='', href='http://fonts.googleapis.com/css?family=Arvo', data-generated='http://enjoycss.com', rel='stylesheet', type='text/css')
+      link(async='', href='http://fonts.googleapis.com/css?family=Oswald', data-generated='http://enjoycss.com', rel='stylesheet', type='text/css')
+      .menuTop
+        form.formBox(action='/home', method='get')
+          button#myButton.myYellowButton Home
+      if searchBoxFlag
+       .SendingBlockAuto
+        if blocknumber == ""
+         - blocktxt = "Blocks"
+        if transactionFlag
+         - link = "/getblock/"+ blocknumber
+         - blocktxt = "Blocks# "+ blocknumber
+          a(href=link) 
+            h2.containerHeaderText #{blocktxt}          
+        else
+         - blocktxt = "Blocks# "+ blocknumber
+          h2.containerHeaderText #{blocktxt}          
+        if transactionFlag
+         - transtxt = "Transaction# "+  transactionid
+          h2.containerHeaderTextTransaction #{transtxt}
+        form.formBoxSearch( name='formBoxSearch' method='post' action='/searchblock')
+          input.myTextInput(name='searchblockvalue',
+                                      id='searchblockvalue',
+                                      type='text',
+                                      size='40px',
+                                      placeholder="Enter Block# to search"
+                                      ) 
+          input.myBlueButton(type='submit', value='Search')
+        .contentTable
+          table.paleBlueRows
+           tbody
+            for object,value in blockcontent
+              - header = value.charAt(0).toUpperCase() + value.slice(1);
+                if header != "Data"
+                  tr
+                    td #{header} 
+                    td.itemText #{object} 
+                else
+                  tr
+                    td #{header}
+                    td.itemText2
+                     for object2,value2 in object
+                       for object3,value3 in object2
+                          if value3 == "id"
+                           - link = "/transaction/"+ object3
+                           a(href= link)
+                            small #{value3} : #{object3}
+                            br
+                          else 
+                            small #{value3} : #{object3}
+                            br
+            if displayMessage
+              if !messagetype
+                .messagebox(id='messagebox',style="display:-webkit-inline-box;background:#ffb9b9;color:black;")
+                    p.textMsg #{message} 
+                    button.closeButton(onClick="hideMessageBox()") X
+              else
+                .messagebox(id='messagebox',style="display:-webkit-inline-box;")
+                    p.textMsg #{message} 
+                    button.closeButton(onClick="hideMessageBox()") X
+    script(src='/jquery.js')
+    script(src='/jquery.min.js')
+    script(src='//cdn.jsdelivr.net/npm/alertifyjs@1.11.2/build/alertify.min.js')
+    script(src='/app.js')
