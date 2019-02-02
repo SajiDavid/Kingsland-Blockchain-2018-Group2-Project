@@ -4,18 +4,21 @@ html
         link(rel="stylesheet",type="text/css", href="/stylesheet.css")
         script(src='/app.js')
     body.mainBody 
-       div.enjoy-css Kings Blockchain Project
+       div.enjoy-css-main Kings Blockchain Project
        div.menuTop
             //form.formBox(method='GET' action='/info')
             //    button.myYellowButton(type='submit') Blockchain Information
-            form.formBox1(method='GET' action='/blocks')
-                button.myButton(type='submit') Block Information
-            form.formBox(method='GET' action='/faucet')
+            form.formBox1(method='GET' action='/faucet')
                 button.myButton(type='submit') Faucet
             form.formBox(method='GET' action='/wallet')
                 button.myButton(type='submit') Wallet
+            form.formBox(method='GET' action='/blocks')
+                button.myButton(type='submit') Block Explorer
        div.SendingBlock
-            h2.containerHeaderText Blockchain Information
+            div.blockHeader
+              h2.containerHeaderText Blockchain Information
+              form.formBoxResetChain( name='formBoxResetChain' method='get' action='/reset-chain')
+                           input.myBlueButton(type='submit', value='Reset Chain')
             table.tablebox
                 tbody
                     tr
@@ -30,9 +33,21 @@ html
                     tr
                         td.itemText Nodes connected
                         td.displayText #{connectedNodes}
+                    tr
+                        td.itemText Pending Transactions
+                        td.displayText #{pendingTransactionsCount}
+            if displayMessageChain
+              if !messagetype
+                .messagebox(id='messagebox',style="display:-webkit-inline-box;background:#ffb9b9;color:black;")
+                    p.textMsg #{message} 
+                    button.closeButton(onClick="hideMessageBox()") X
+              else
+                  .messagebox(id='messagebox',style="display:-webkit-inline-box")
+                    p.textMsg #{message} 
+                    button.closeButton(onClick="hideMessageBox()") X
        div.SendingBlock
             h2.containerHeaderText Add New Node
-            form.formBox1(name='formBox1' method='post' action='/nodes')
+            form.formBox(name='formBox1' method='post' action='/nodes')
                 table.tablebox
                     tbody
                         tr
@@ -57,7 +72,12 @@ html
                         tr
                             td(colspan="2")
                                 input.myBlueButton(type='submit', value='Add Node')
-            if displayMessage
-                .messagebox(id='messagebox',style="display:-webkit-inline-box")
+            if displayMessageNode
+              if !messagetype
+                .messagebox(id='messagebox',style="display:-webkit-inline-box;background:#ffb9b9;color:black;")
+                    p.textMsg #{message} 
+                    button.closeButton(onClick="hideMessageBox()") X
+              else
+                  .messagebox(id='messagebox',style="display:-webkit-inline-box")
                     p.textMsg #{message} 
                     button.closeButton(onClick="hideMessageBox()") X

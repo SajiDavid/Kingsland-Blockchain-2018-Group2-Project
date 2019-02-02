@@ -27,14 +27,19 @@ body.mainBody
             tr
               td.itemText   Address 
               td(style='width: 94px;')
-                input.myTextInput(id='address',name='address', type='text', value='', size='80px',placeholder="0xDECAF9CD2367cdbb726E904cD6397eDFcAe6068D")              
+                input.myTextInput(id='address',name='address', type='text', value= sendervalue, size='80px',placeholder="0xDECAF9CD2367cdbb726E904cD6397eDFcAe6068D")              
             tr
               td(colspan='2')
                  input.myBlueButton(type='submit', value='Receive Coin')
       if displayMessage
-        .messagebox(id='messagebox',style="display:-webkit-inline-box")
-          p.textMsg #{message}
-          button.closeButton(onClick="hideMessageBox()") X
+        if !messagetype
+          .messagebox(id='messagebox',style="display:-webkit-inline-box;background:#ffb9b9;color:black;")
+              p.textMsg #{message} 
+              button.closeButton(onClick="hideMessageBox()") X
+        else
+          .messagebox(id='messagebox',style="display:-webkit-inline-box;")
+              p.textMsg #{message} 
+              button.closeButton(onClick="hideMessageBox()") X
     script(src='/jquery.js')
     script(src='/jquery.min.js')
     script(src='//cdn.jsdelivr.net/npm/alertifyjs@1.11.2/build/alertify.min.js')

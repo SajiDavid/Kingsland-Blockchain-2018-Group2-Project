@@ -1,7 +1,7 @@
 /****************************************************/
 /* Router Class                                      */
 /* Date Create : December 06,2018                   */
-/* Team : Tulaja,Calvin,Jey                         */
+/* Team : Thulaja,Calvin,Jey                         */
 /* Developed by : Jey                               */
 /* Description : Router class                       */
 /****************************************************/
