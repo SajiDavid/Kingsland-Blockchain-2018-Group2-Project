@@ -25,6 +25,8 @@ class BlockChain {
     this.currentTransactions = [];
     this.nodes = [];
     this.io = io;
+    this.privatekey = "";
+    this.walletMain = "";
     this.addressWallet = this.getWalletAddress();
     this.datenow = Date.now();
     this.timeStamp = dateFormat(Date.now(), "dddd, mmmm dS, yyyy, h:MM:ss TT"); // TimeStamp
@@ -66,40 +68,54 @@ class BlockChain {
     );
     this.newTransaction(transaction);*/
     //const socketNode = socketListener(this.nodes[0], blockchain);
+    (async () => {
+      // let privateKey = "0x495d5c34c912291807c25d5e8300d20b749f6be44a178d5c50f167d495f3315a";
+      //let wallet = createWalletFromPrivateKey(Wallet.privateKey);
+      // let toAddress = "0x7725f560672A512e0d6aDFE7a761F0DbD8336aA7";
+      // let etherValue = "1";
 
-    this.io.emit(
-      socketActions.ADD_TRANSACTION,
-      this.addressWallet,
-      address,
-      socketActions.FREE_COINS,
-      "Giving Away Coin"
-    );
+      let signedTransaction = await signTransaction(
+        this.addressWallet,
+        address,
+        socketActions.FREE_COINS,
+        "Giving Away Coin",
+        this.walletMain
+      );
+      console.log("Signed Transaction: \n" + signedTransaction);
+      this.io.emit(
+        socketActions.ADD_TRANSACTION,
+        this.addressWallet,
+        address,
+        socketActions.FREE_COINS,
+        "Giving Away Coin",
+        signedTransaction
+      );
+    })();
   }
 
   //Check Faucet coin request greedyness
-  validateCoinGreediness(receiver)
-  {
-
+  validateCoinGreediness(receiver) {
     var valid = true;
     var transaction;
     //Checking in pending transactions
     const pendingLength = this.currentTransactions.length;
-    if(pendingLength>0)
-    {
+    if (pendingLength > 0) {
       for (let i = 0; i < pendingLength; i++) {
-       transaction = this.currentTransactions[i];
+        transaction = this.currentTransactions[i];
         var oneHourBefore = new Date();
         var compareDate = new Date(transaction.datenow);
         oneHourBefore.setHours(oneHourBefore.getHours() - 1);
-         if (transaction.sender == this.addressWallet && 
-             transaction.receiver == receiver && 
-             compareDate >= oneHourBefore) {
+        if (
+          transaction.sender == this.addressWallet &&
+          transaction.receiver == receiver &&
+          compareDate >= oneHourBefore
+        ) {
           valid = false;
-         }
-       }
-     }
-     return valid;
+        }
+      }
     }
+    return valid;
+  }
   // Block Length
   getLength() {
     return this.chain.length;
@@ -126,9 +142,10 @@ class BlockChain {
   }
 
   getWalletAddress() {
-    var wallet = ethers.Wallet.createRandom();
+    this.walletMain = ethers.Wallet.createRandom();
+    this.privatekey = this.walletMain.privateKey;
 
-    const { address } = wallet;
+    const { address } = this.walletMain;
     return address;
   }
 
@@ -152,9 +169,10 @@ class BlockChain {
 
   // Adding New Block to Chain
   addBlock(newBlock) {
-    newBlock.index = this.lastBlock().index + 1;
-    newBlock.previousBlockHash = this.lastBlock().hash;
-    newBlock.hash = newBlock.calculateHash();
+      newBlock.index = this.lastBlock().index + 1;
+      newBlock.previousBlockHash = this.lastBlock().hash;
+      newBlock.hash = newBlock.calculateHash();
+    
     this.chain.push(newBlock);
   }
 
@@ -164,27 +182,48 @@ class BlockChain {
     this.incrementNonce();
     this.io.emit(socketActions.END_MINING, this);
   }
-  async newTransaction(transaction) {
-    this.currentTransactions.push(transaction);
-    if (this.currentTransactions.length === this.blocksize) {
-      console.info("Starting mining block...");
-      const previousBlock = this.lastBlock();
-      process.env.BREAK = false;
-      //const block = new Block(previousBlock.getIndex() + 1, previousBlock.hashValue(), previousBlock.getProof(), this.currentTransactions);
-      const block = new Block(
-        previousBlock.getIndex() + 1,
-        previousBlock.hashValue(),
-        this.currentTransactions,
-        previousBlock.getProof(),
-        this.nonce
-      );
-      const { proof, proofHex, dontMine } = await generateProof(
-        previousBlock.getProof()
-      );
-      block.setProof(proof, proofHex);
-      this.currentTransactions = [];
-      if (dontMine !== "true") {
-        this.mineBlock(block);
+  async newTransaction(transaction, nodeSync) {
+    var valid = true;
+
+    if (valid) {
+      this.currentTransactions.push(transaction);
+      if (this.currentTransactions.length >= this.blocksize) {
+        console.info("Starting mining block...");
+        const previousBlock = this.lastBlock();
+        process.env.BREAK = false;
+        //const block = new Block(previousBlock.getIndex() + 1, previousBlock.hashValue(), previousBlock.getProof(), this.currentTransactions);
+        var block;
+        if (previousBlock.index == 0) {
+          // this.mineBlock(block);
+          
+          //  newBlock.index = this.lastBlock().index + 1;
+          //  newBlock.previousBlockHash = this.lastBlock().hash;
+          //  newBlock.hash = newBlock.calculateHash();
+          this.chain.push(block);
+          this.incrementNonce();
+          this.io.emit(socketActions.END_MINING, this);
+
+
+    
+    this.chain.push(newBlock);
+        } else {
+          block = new Block(
+            previousBlock.getIndex() + 1,
+            previousBlock.hashValue(),
+            this.currentTransactions,
+            previousBlock.getProof(),
+            this.nonce
+          );
+
+          const { proof, proofHex, dontMine } = await generateProof(
+            previousBlock.getProof()
+          );
+          block.setProof(proof, proofHex);
+          this.currentTransactions = [];
+          if (dontMine !== "true") {
+            this.mineBlock(block);
+          }
+        }
       }
     }
   }
@@ -259,5 +298,26 @@ class BlockChain {
     return transaction;
   }
 }
+
+async function signTransaction(
+  sender,
+  receiver,
+  amount,
+  description,
+  walletfrom
+) {
+  let transaction = {
+    sender: sender,
+    receiver: receiver,
+    amount: amount,
+    description: description
+  };
+  return walletfrom.sign(transaction);
+}
+process.on("unhandledRejection", (reason, promise) => {
+  // console.log("Unhandled Rejection at(main):", reason.stack || reason);
+  // Recommended: send the information to sentry.io
+  // or whatever crash reporting service you use
+});
 
 module.exports = BlockChain;

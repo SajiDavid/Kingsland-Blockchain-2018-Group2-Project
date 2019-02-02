@@ -27,6 +27,20 @@ class Block {
     this.confirmations = 1;
   }
 
+  nodeSyncedBlock(index, timeStamp,datenow,previousBlockHash, data, proof,proofHex, nonce,confirmations) {
+    this.index = index; // Block Index
+    this.timeStamp = timeStamp; // TimeStamp
+    this.datenow  = datenow;
+    this.previousBlockHash = previousBlockHash; // Intital Previous Hash is Zero
+    this.data = data; // Data
+    this.proof = proof;
+    this.proofHex = proofHex;
+    this.nonce = nonce; // Initial Nonce
+    this.confirmations = confirmations;
+    this.hash = this.calculateHash(); // Current Block Hash
+
+  }
+
   calculateHash() {
     // Retrun new calculate SHA256 Hash
     return SHA256(

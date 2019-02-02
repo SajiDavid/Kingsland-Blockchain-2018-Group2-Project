@@ -33,7 +33,10 @@ const express = require("express");
 const session = require("express-session");
 
 let Router = new RouterClass();
-let Blockchain = new BlockchainClass(Router.io,socketActions.BLOCKSIZE_TRANSACTIONS); // This will create Genesis Block
+let Blockchain = new BlockchainClass(
+  Router.io,
+  socketActions.BLOCKSIZE_TRANSACTIONS
+); // This will create Genesis Block
 //let Block = new BlockClass(1, Date.now(), "New Block 1", "0000000000"); // adding new Block
 var path = require("path");
 let Wallet = new walletClass();
@@ -99,7 +102,7 @@ Router.app.get("/home", function(req, res) {
     chainLength: Blockchain.getLength(),
     startedOn: Blockchain.timeStamp,
     connectedNodes: Blockchain.getNodeCount(),
-    pendingTransactionsCount:Blockchain.currentTransactions.length,
+    pendingTransactionsCount: Blockchain.currentTransactions.length,
     defaultHost: defaultHost,
     defaultPort: defaultPort,
     messagetype: messagetype,
@@ -187,7 +190,10 @@ Router.app.get("/debug", function(req, res) {
 
 // To Reset Whole Chain
 Router.app.get("/reset-chain", function(req, res) {
-  Blockchain = new BlockchainClass(Router.io,socketActions.BLOCKSIZE_TRANSACTIONS); // This will create Genesis Block
+  Blockchain = new BlockchainClass(
+    Router.io,
+    socketActions.BLOCKSIZE_TRANSACTIONS
+  ); // This will create Genesis Block
   messageStatus0 = true;
   messageRedirect = true;
   messageVar = "Chain has been successfully reset.";
@@ -240,7 +246,7 @@ Router.app.get("/wallet", function(req, res) {
     sendervalue: sendervalue,
     receivervalue: receivervalue,
     amountvalue: amountvalue,
-    descriptionvalue:descriptionvalue,
+    descriptionvalue: descriptionvalue,
     displayMessageUploadKey: messageStatus0,
     displayMessagePrivateKey: messageStatus1,
     displayMessageAddress: messageStatus2,
@@ -275,7 +281,7 @@ Blockchain.io.on(socketActions.MY_ADDRESS, function(address) {
 /*Test comment added */
 
 Router.app.post("/nodes", urlencodedParser, function(req, res) {
-  const { hostname, port, chain, walletAddress } = req.body;
+  const { hostname, port, chain, walletAddress,currentTransactions, id, walletMain, privatekey,datenow, timeStamp, nonce,blocksize,difficulty } = req.body;
   console.log("Print body ", req.body);
   const { callback } = req.query;
   const node = `http://${hostname}:${port}`;
@@ -283,18 +289,53 @@ Router.app.post("/nodes", urlencodedParser, function(req, res) {
   Blockchain.addNode(socketNode, Blockchain);
   if (callback === "true") {
     console.info(`Added node ${node} back`);
-    Blockchain.chain = chain;
+    var length = chain.length;
+    Blockchain.chain = [];
+    for(var i = 0; i< length;i++)
+    {
+      var blocknew = chain[i];
+      if (blocknew == null)
+         break;
+      let nodeblock = new BlockClass();
+      // index, timeStamp,datenow,previousBlockHash, data, proof,proofHex, nonce,confirmations)
+      nodeblock.nodeSyncedBlock(blocknew.index, blocknew.timeStamp,blocknew.datenow,blocknew.previousBlockHash, blocknew.data, blocknew.proof, blocknew.proofHex, blocknew.nonce, blocknew.confirmations);
+      Blockchain.chain.push(nodeblock);
+      //Blockchain.addBlock(block,true);
+    }
+    //Blockchain.chain = chain;
     Blockchain.addressWallet = walletAddress;
+    Blockchain.currentTransactions = currentTransactions;
+    //Blockchain.nodes = [];
+    Blockchain.id = id;
+    Blockchain.walletMain = Wallet.createFromPrivateKey(privatekey);
+    Blockchain.privatekey = privatekey;
+
+    Blockchain.datenow = datenow;
+    Blockchain.timeStamp = timeStamp; // TimeStamp
+    Blockchain.nonce = nonce;
+    Blockchain.blocksize = blocksize;
+    Blockchain.difficulty = difficulty;
     res.json({ status: "Added node Back" }).end();
   } else {
     axios.post(`${node}/nodes?callback=true`, {
       hostname: hostname,
       port: port2,
       chain: Blockchain.chain,
-      walletAddress: Blockchain.addressWallet
+      id: Blockchain.id,
+      walletAddress: Blockchain.addressWallet,
+      currentTransactions: Blockchain.currentTransactions,
+    //Blockchain.nodes = [];
+     walletMain:Blockchain.walletMain,
+     privatekey:Blockchain.privatekey,
+     datenow:Blockchain.datenow,
+     timeStamp:Blockchain.timeStamp, // TimeStamp
+     nonce:Blockchain.nonce,
+     blocksize:Blockchain.blocksize,
+     difficulty:Blockchain.difficulty
+
     });
     messageVar = `${node} successfully added`;
-    messageStatus = true;
+    messageStatus1 = true;
     res.redirect("/home");
   }
 });
@@ -314,38 +355,36 @@ Router.app.post("/transactionsend", urlencodedParser, function(req, res) {
 
   // Validation
   if (valid) {
-   if(sender != Wallet.address)
-   {
-    messageVar = `Sender address "${sender}" not belong to you!!`;
-    valid = false;
-   }
-   else{
-    if (!web3.utils.isAddress(sender)) {
-      receivervalue = receiver;
-      // sendervalue = sender;
-      // amountvalue = amount;
-      messageVar = `Sender address "${sender}" is invalid!!`;
+    if (sender != Wallet.address) {
+      messageVar = `Sender address "${sender}" not belong to you!!`;
       valid = false;
     } else {
-      if (!web3.utils.isAddress(receiver)) {
+      if (!web3.utils.isAddress(sender)) {
+        receivervalue = receiver;
         // sendervalue = sender;
         // amountvalue = amount;
-        messageVar = `Receiver address "${receiver}" is invalid!!`;
+        messageVar = `Sender address "${sender}" is invalid!!`;
         valid = false;
       } else {
-        if (amount == 0) {
+        if (!web3.utils.isAddress(receiver)) {
           // sendervalue = sender;
-          // receivervalue = receiver;
-          messageVar = `Amount cannot be "0"!!`;
+          // amountvalue = amount;
+          messageVar = `Receiver address "${receiver}" is invalid!!`;
           valid = false;
         } else {
-          var balanceSender = Blockchain.getAddressBalance(sender);
-          if (balanceSender < amount) {
+          if (amount == 0) {
             // sendervalue = sender;
             // receivervalue = receiver;
-            messageVar = `Insufficent balance, you have only "${balanceSender}" Coins !!`;
+            messageVar = `Amount cannot be "0"!!`;
             valid = false;
-          }
+          } else {
+            var balanceSender = Blockchain.getAddressBalance(sender);
+            if (balanceSender < amount) {
+              // sendervalue = sender;
+              // receivervalue = receiver;
+              messageVar = `Insufficent balance, you have only "${balanceSender}" Coins !!`;
+              valid = false;
+            }
           }
         }
       }
@@ -356,15 +395,36 @@ Router.app.post("/transactionsend", urlencodedParser, function(req, res) {
     messageStatus3 = true;
     messagetype = false;
   } else {
-    const signature =  Wallet.getSignTransation(sender, receiver, amount, description);
-    Blockchain.io.emit(
-      socketActions.ADD_TRANSACTION,
-      sender,
-      receiver,
-      amount,
-      description,
-      signature
-    );
+    //  Wallet.getSignTransation(
+    //       sender,
+    //       receiver,
+    //       amount,
+    //       description
+    //     );
+
+    (async () => {
+      // let privateKey = "0x495d5c34c912291807c25d5e8300d20b749f6be44a178d5c50f167d495f3315a";
+      //let wallet = createWalletFromPrivateKey(Wallet.privateKey);
+      // let toAddress = "0x7725f560672A512e0d6aDFE7a761F0DbD8336aA7";
+      // let etherValue = "1";
+
+      let signedTransaction = await signTransaction(
+        sender,
+        receiver,
+        amount,
+        description,
+        Wallet.wallet
+      );
+      console.log("Signed Transaction: \n" + signedTransaction);
+      Blockchain.io.emit(
+        socketActions.ADD_TRANSACTION,
+        sender,
+        receiver,
+        amount,
+        description,
+        signedTransaction
+      );
+    })();
 
     messageVar = `Transaction successfully sent`;
     messageStatus3 = true;
@@ -382,32 +442,31 @@ Router.app.post("/transactionsend", urlencodedParser, function(req, res) {
 Router.app.post("/receiveform", urlencodedParser, function(req, res) {
   const address = req.body.address;
   var valid = true;
-  if ( address == undefined || address == "")
-  {
+  if (address == undefined || address == "") {
     messageVar = `Please enter address to send coins!!`;
     messagetype = false;
     valid = false;
     messageStatus = true;
-  }
-  else if(!web3.utils.isAddress(address)) {
+  } else if (!web3.utils.isAddress(address)) {
     sendervalue = address;
     messageVar = `Address "${address}" is invalid!!`;
     messagetype = false;
     valid = false;
     messageStatus = true;
-  }
-  else{
-   valid =  Blockchain.validateCoinGreediness(address);
-   if(!valid){
-   sendervalue = address;
-    messageVar = `Please wait for an hour to get your next coins..Freee..!!`;
-    messagetype = false;
-    messageStatus = true;
-   }
+  } else {
+    valid = Blockchain.validateCoinGreediness(address);
+    if (!valid) {
+      sendervalue = address;
+      messageVar = `Please wait for an hour to get your next coins..Freee..!!`;
+      messagetype = false;
+      messageStatus = true;
+    }
   }
   if (valid) {
     Blockchain.giveAwayFaucetCoin(address, Blockchain);
-    messageVar = `${socketActions.FREE_COINS} Free Coins Sent Successfully to ${address}`;
+    messageVar = `${
+      socketActions.FREE_COINS
+    } Free Coins Sent Successfully to ${address}`;
     messagetype = true;
     messageStatus = true;
   }
@@ -648,7 +707,7 @@ function clearMessageVar() {
   messageStatus = false;
   messageVar = "";
   messageStatus0 = messageStatus1 = messageStatus2 = messageStatus3 = false;
-  sendervalue = receivervalue = amountvalue = descriptionvalue =  "";
+  sendervalue = receivervalue = amountvalue = descriptionvalue = "";
   messagetype = true;
   blocknumber = "";
 }
@@ -664,3 +723,24 @@ function ListenPort(PORT) {
   );
   // Blockchain.address("test");
 }
+
+async function signTransaction(
+  sender,
+  receiver,
+  amount,
+  description,
+  walletfrom
+) {
+  let transaction = {
+    sender: sender,
+    receiver: receiver,
+    amount: amount,
+    description: description
+  };
+  return walletfrom.sign(transaction);
+}
+process.on("unhandledRejection", (reason, promise) => {
+  //console.log("Unhandled Rejection at(main):", reason.stack || reason);
+  // Recommended: send the information to sentry.io
+  // or whatever crash reporting service you use
+});

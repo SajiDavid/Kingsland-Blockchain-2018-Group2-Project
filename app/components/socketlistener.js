@@ -9,8 +9,8 @@ const Blockchain = require('./blockchain');
 const socketActions = require('../util/constants');
 
 const socketListeners = (socket, chain) => {
-  socket.on(socketActions.ADD_TRANSACTION, (sender, receiver, amount,description) => {
-    const transaction = new Transaction(sender, receiver, amount,description);
+  socket.on(socketActions.ADD_TRANSACTION, (sender, receiver, amount,description,signature) => {
+    const transaction = new Transaction(sender, receiver, amount,description,signature);
     chain.newTransaction(transaction);
     console.info(`Added transaction: ${JSON.stringify(transaction.getDetails(), null, '\t')}`);
   });

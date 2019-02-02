@@ -19,7 +19,7 @@ class Wallet {
     this.address = "";
     this.seed = [];
     this.timestamp = dateFormat(Date.now(), "dddd, mmmm dS, yyyy, h:MM:ss TT");  ;
-    this.Wallet = "";
+    this.wallet = "";
   }
 
   initializeWallet() {
@@ -55,7 +55,7 @@ class Wallet {
     this.address = signingKey.address;
     this.data = ""
     await saveWallet(newWallet);
-    this.Wallet = newWallet;
+    this.wallet = newWallet;
 
   }
 
@@ -67,7 +67,7 @@ class Wallet {
       this.privateKey = newWallet.privateKey;
       this.publicKey = newWallet.publicKey;
       await saveWallet(newWallet);
-      this.Wallet = newWallet;
+      this.wallet = newWallet;
     } catch (err) {
       console.log("Error : " + err);
     }
@@ -77,21 +77,23 @@ class Wallet {
     return path.join(__dirname, "../util/Wallet_keystore.txt");
   }
 
-   getSignTransation(sender,receiver,amount,description){
-    
-    let signedTransaction =  signTransaction(sender,receiver,amount,description);
+   async getSignTransation(sender,receiver,amount,description){
 
-    return  signedTransaction;
+      const signed = await signTransaction(sender,receiver,amount,description,this.Wallet);
+    
+    //let signedTransaction =  signTransaction(sender,receiver,amount,description,this.Wallet);
+
+    return  signed;
   }
 }
- function signTransaction(sender,receiver,amount,description){
+ async function signTransaction(sender,receiver,amount,description,walletfrom){
   let transaction = {
     sender:sender,
     receiver:receiver,
     amount:amount,
     description:description
   };
-  return this.Wallet.sign(transaction);
+  return walletfrom.sign(transaction);
 
 }
 async function saveWalletToJSON(wallet, password) {

@@ -41,11 +41,11 @@ html
                 if header != "Data"
                   tr
                     td #{header} 
-                    td.itemText #{object} 
+                    td.itemText(style="word-wrap: break-word;max-width: 650px;") #{object} 
                 else
                   tr
                     td #{header}
-                    td.itemText2
+                    td.itemText2(style="word-wrap: break-word;max-width: 150px;")
                      for object2,value2 in object
                        for object3,value3 in object2
                           if value3 == "id"

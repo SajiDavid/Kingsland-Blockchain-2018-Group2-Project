@@ -9,7 +9,7 @@ var dateFormat = require('dateformat');
 
 class Transaction{
 
-    constructor(sender,receiver,amount,description) {
+    constructor(sender,receiver,amount,description,signature) {
         this.id = this.generateRandomID();
         this.sender = sender;
         this.receiver = receiver;
@@ -17,6 +17,7 @@ class Transaction{
         this.description = description;
         this.timestamp = dateFormat(Date.now(), "dddd, mmmm dS, yyyy, h:MM:ss TT");  
         this.datenow  = Date.now();
+        this.signature = signature;
         
     }
     generateRandomID(){
