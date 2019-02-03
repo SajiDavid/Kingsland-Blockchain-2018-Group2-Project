@@ -15,10 +15,10 @@ Router Class      ->  /routes/routes.js<br>
 - execute **node main.js \<portnumber\>**  e.g node main.js 7550
   
 ### End Points URL to access in browser
-- http://localhost:5550         ->    Home Page
-- http://localhost:5550/faucet  ->    Faucet Page
-- http:localhost:5550/blocks    ->    Block Explorer
-- http:localhost:5550/wallet    ->    Wallet
+- http://localhost:5550           ->    Home Page
+- http://localhost:5550/faucet    ->    Faucet Page
+- http://localhost:5550/blocks    ->    Block Explorer
+- http://localhost:5550/wallet    ->    Wallet
 
 
 
