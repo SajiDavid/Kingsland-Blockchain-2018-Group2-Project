@@ -91,7 +91,7 @@ Router.app.use(express.static(__dirname + "/public"));
 */
 
 Router.router.use(function(req, res, next) {
-  console.log("/" + req.method);
+  //console.log("/" + req.method);
   next();
 });
 
@@ -164,6 +164,16 @@ Router.app.get("/info", function(req, res) {
         "pendingTransactions" : 7
         }
 *************************************************/
+});
+
+
+Router.app.get("/endmining", function(req, res) {
+  (async () => { 
+    Blockchain.io.emit(socketActions.END_MINING, Blockchain);
+     })();
+
+     res.send("mining ended");
+
 });
 
 // To Debug Blockchain
@@ -239,6 +249,7 @@ Router.app.get("/wallet", function(req, res) {
     publicKey: Wallet.publicKey,
     address: Wallet.address,
     seed: Wallet.getSeed(),
+    privateKey:Wallet.privateKey,
     uploadKeyFlag: uploadKeyFlag,
     privateKeyFlag: privateKeyFlag,
     addressFlag: addressFlag,
@@ -282,10 +293,10 @@ Blockchain.io.on(socketActions.MY_ADDRESS, function(address) {
 
 Router.app.post("/nodes", urlencodedParser, function(req, res) {
   const { hostname, port, chain, walletAddress,currentTransactions, id, walletMain, privatekey,datenow, timeStamp, nonce,blocksize,difficulty } = req.body;
-  console.log("Print body ", req.body);
+ // console.log("Print body ", req.body);
   const { callback } = req.query;
   const node = `http://${hostname}:${port}`;
-  const socketNode = socketListener(Router.client(node), Blockchain);
+  //const socketNode = socketListener(Router.client(node), Blockchain);
   Blockchain.addNode(socketNode, Blockchain);
   if (callback === "true") {
     console.info(`Added node ${node} back`);
@@ -415,7 +426,7 @@ Router.app.post("/transactionsend", urlencodedParser, function(req, res) {
         description,
         Wallet.wallet
       );
-      console.log("Signed Transaction: \n" + signedTransaction);
+      //console.log("Signed Transaction: \n" + signedTransaction);
       Blockchain.io.emit(
         socketActions.ADD_TRANSACTION,
         sender,
@@ -428,6 +439,7 @@ Router.app.post("/transactionsend", urlencodedParser, function(req, res) {
 
     messageVar = `Transaction successfully sent`;
     messageStatus3 = true;
+    sendervalue = receivervalue = amountvalue = descriptionvalue = "";
     if (Wallet.address != "") addressFlag = true;
 
     privateKeyFlag = false;
@@ -532,7 +544,7 @@ Router.app.post("/createfromprivatekey", urlencodedParser, function(req, res) {
 
   privateKeyFlag = false;
   messageRedirect = true;
-
+  balanceAddress = Wallet.address;
   res.redirect("/wallet");
 
   // res.render("wallet", {
@@ -569,11 +581,11 @@ Router.app.get("/importjson", function(req, res) {
 // Goes to Faucet to pour coin
 Router.app.post("/uploadkeyfile", upload.single("file"), (req, res) => {
   if (req.file) {
-    console.log("Uploading file...");
+    //console.log("Uploading file...");
     var filename = req.file.filename;
     messageVar = `File has been uploaded successfully`;
   } else {
-    console.log("No File Uploaded");
+    //("No File Uploaded");
     messageVar = `File having issue uploading`;
   }
   uploadKeyFlag = true;
@@ -700,7 +712,7 @@ portscanner.checkPortStatus(port2, "localhost", function(error, status) {
   }
 });
 
-console.log(JSON.stringify(Blockchain.chain, null, 4));
+//console.log(JSON.stringify(Blockchain.chain, null, 4));
 console.log("Is blockchain valid?" + Blockchain.checkValid());
 
 function clearMessageVar() {
@@ -737,7 +749,7 @@ async function signTransaction(
     amount: amount,
     description: description
   };
-  return walletfrom.sign(transaction);
+  return true;//walletfrom.sign(transaction);
 }
 process.on("unhandledRejection", (reason, promise) => {
   //console.log("Unhandled Rejection at(main):", reason.stack || reason);
