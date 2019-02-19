@@ -17,7 +17,10 @@ let socketActions = require("../util/constants");
 var dateFormat = require("dateformat");
 const crypto = require("crypto");
 const initialHash = ethers.constants.AddressZero; // "00000000000000000000";
-const { generateProof, isProofValid } = require("./pow");
+const {
+  generateProof,
+  isProofValid
+} = require("./pow");
 
 class BlockChain {
   constructor(io, blocksize) {
@@ -39,6 +42,14 @@ class BlockChain {
     this.incrementNonce();
   }
 
+  getTimeStamp() {
+    return this.timeStamp;
+  }
+
+  getPendingTransactionLength() {
+    return this.currentTransactions.length;
+  }
+
   generateRandomID() {
     return crypto.randomBytes(16).toString("hex");
   }
@@ -46,17 +57,20 @@ class BlockChain {
   incrementNonce() {
     this.nonce++;
   }
-
+  generateRandomID(){
+    return crypto.randomBytes(32).toString("hex");
+  }
   // Creation of Genesis Block
   createGenesisBlock() {
     const transaction = new TransactionClass(
+      this.generateRandomID(),
       initialHash,
       this.addressWallet,
       40000000,
       "Kings Genesis Block"
     );
     const currentTransactions = [transaction];
-    return new Block(0, initialHash, currentTransactions, "0", this.nonce);
+    return new Block(0, Date.now(), initialHash, currentTransactions, "0", this.nonce);
   }
 
   giveAwayFaucetCoin(address, blockchain) {
@@ -81,15 +95,21 @@ class BlockChain {
         "Giving Away Coin",
         this.walletMain
       );
-      //console.log("Signed Transaction: \n" + signedTransaction);
-      this.io.emit(
-        socketActions.ADD_TRANSACTION,
-        this.addressWallet,
-        address,
-        socketActions.FREE_COINS,
-        "Giving Away Coin",
-        signedTransaction
-      );
+
+      try {
+        //console.log("Signed Transaction: \n" + signedTransaction);
+        this.io.emit(
+          socketActions.ADD_TRANSACTION,
+          this.generateRandomID(),
+          this.addressWallet,
+          address,
+          socketActions.FREE_COINS,
+          "Giving Away Coin",
+          signedTransaction
+        );
+      } catch (exp) {
+        console.log("Exception " + exp);
+      }
     })();
   }
 
@@ -125,17 +145,22 @@ class BlockChain {
     return this.nodes.length;
   }
 
-  checkValid() {
+  checkValidity() {
     for (let i = 1; i < this.chain.length; i++) {
-      const currentBlock = this.chain[i];
-      const previousBlock = this.chain[i - 1];
-
+      var j = i - 1; // Previous Block Index
+      let currentBlock = new Block();
+      currentBlock.nodeSyncedBlock(this.chain[i].index, this.chain[i].timeStamp, this.chain[i].datenow, this.chain[i].previousBlockHash, this.chain[i].hash, this.chain[i].data, this.chain[i].proof, this.chain[i].proofHex, this.chain[i].nonce, this.chain[i].confirmations);
+      //currentBlock = this.chain[i];
+      let previousBlock = new Block();
+      currentBlock.nodeSyncedBlock(this.chain[j].index, this.chain[j].timeStamp, this.chain[j].datenow, this.chain[j].previousBlockHash, this.chain[j].hash, this.chain[j].data, this.chain[j].proof, this.chain[j].proofHex, this.chain[j].nonce, this.chain[j].confirmations);
+      //this.chain[i - 1];
       if (currentBlock.hash !== currentBlock.calculateHash()) {
         return false;
       }
-
-      if (currentBlock.previousBlockHash !== previousBlock.hash) {
-        return false;
+      if (j != 0) {
+        if (currentBlock.previousBlockHash !== previousBlock.hash) {
+          return false;
+        }
       }
     }
     return true;
@@ -145,12 +170,24 @@ class BlockChain {
     this.walletMain = ethers.Wallet.createRandom();
     this.privatekey = this.walletMain.privateKey;
 
-    const { address } = this.walletMain;
+    const {
+      address
+    } = this.walletMain;
+    return address;
+  }
+
+  async createWalletAddress(privateKey) {
+    this.walletMain = await new ethers.Wallet(privateKey);
+    this.privatekey = this.walletMain.privateKey;
+    const {
+      address
+    } = this.walletMain;
+    console.log("New address " + address);
     return address;
   }
 
   // Adding Node to Chain
-  addNode(socketnode, chain) {
+  addNode(socketnode) {
     this.nodes.push(socketnode); // Adding to list
 
     //this.io.emit("myaddress", node);
@@ -176,14 +213,18 @@ class BlockChain {
     this.chain.push(newBlock);
   }
 
-  mineBlock(block,chain) {
-    
+  mineBlock(block, chain) {
     this.addBlock(block);
     console.log("Mined Successfully");
     this.incrementNonce();
-   // socketListener(chain.io,chain);
-   (async () => { 
-   chain.io.emit(socketActions.END_MINING, chain);
+    const socket = this.nodes[0];
+    // socketListener(chain.io,chain);
+    (async () => {
+      try {
+        this.io.emit(socketActions.END_MINING, chain.chain);
+      } catch (exp) {
+        console.log("Exception at Mining Emit " + exp);
+      }
     })();
   }
   async newTransaction(transaction, chain) {
@@ -197,10 +238,11 @@ class BlockChain {
         process.env.BREAK = false;
         // index, previousBlockHash, data, proof, nonce)
         let block = new Block(
-          previousBlock.getIndex() + 1,
-          previousBlock.hashValue(),
+          previousBlock.index + 1,
+          previousBlock.datenow,
+          previousBlock.hashValue,
           this.currentTransactions,
-          previousBlock.getProof(),
+          previousBlock.proof,
           this.nonce
         );
         //var block;
@@ -210,13 +252,17 @@ class BlockChain {
           //  newBlock.index = this.lastBlock().index + 1;
           //  newBlock.previousBlockHash = this.lastBlock().hash;
           //  newBlock.hash = newBlock.calculateHash();
-          const { proof, proofHex, dontMine } = await generateProof(
+          const {
+            proof,
+            proofHex,
+            dontMine
+          } = await generateProof(
             block.proof
           );
           block.setProof(proof, proofHex);
           this.currentTransactions = [];
           if (dontMine !== "true") {
-            this.mineBlock(block,chain);
+            this.mineBlock(block, chain);
           }
           // this.chain.push(block);
           // this.incrementNonce();
@@ -224,20 +270,25 @@ class BlockChain {
           //this.chain.push(newBlock);
         } else {
           block = new Block(
-            previousBlock.getIndex() + 1,
-            previousBlock.hashValue(),
-            this.currentTransactions,
-            previousBlock.getProof(),
-            this.nonce
+            previousBlock.index + 1,
+          previousBlock.datenow,
+          previousBlock.hashValue,
+          this.currentTransactions,
+          previousBlock.proof,
+          this.nonce
           );
 
-          const { proof, proofHex, dontMine } = await generateProof(
-            previousBlock.getProof()
+          const {
+            proof,
+            proofHex,
+            dontMine
+          } = await generateProof(
+            previousBlock.proof
           );
           block.setProof(proof, proofHex);
           this.currentTransactions = [];
           if (dontMine !== "true") {
-            this.mineBlock(block,chain);
+            this.mineBlock(block, chain);
           }
         }
       }

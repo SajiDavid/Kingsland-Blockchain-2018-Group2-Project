@@ -9,25 +9,26 @@
 
 // SHA256 Declaration
 const SHA256 = require("crypto-js/sha256");
-const Transaction = require("./transaction");
+//const Transaction = require("./transaction");
 var dateFormat = require("dateformat");
 
 class Block {
   // Block Constructor
-  constructor(index, previousBlockHash, data, proof, nonce) {
+  constructor(index, date,previousBlockHash, data, proof, nonce) {
     this.index = index; // Block Index
-    this.timeStamp = dateFormat(Date.now(), "dddd, mmmm dS, yyyy, h:MM:ss TT"); // TimeStamp
-    this.datenow  = Date.now();
+    this.timeStamp = dateFormat(date, "dddd, mmmm dS, yyyy, h:MM:ss TT"); // TimeStamp
+    this.datenow  = date;
     this.previousBlockHash = previousBlockHash; // Intital Previous Hash is Zero
     this.data = data; // Data
-    this.hash = this.calculateHash(); // Current Block Hash
     this.proof = proof;
     this.proofHex = "";
     this.nonce = nonce; // Initial Nonce
     this.confirmations = 1;
+    this.hash = this.calculateHash(); // Current Block Hash
+
   }
 
-  nodeSyncedBlock(index, timeStamp,datenow,previousBlockHash, data, proof,proofHex, nonce,confirmations) {
+  nodeSyncedBlock(index, timeStamp,datenow,previousBlockHash, hash,data, proof,proofHex, nonce,confirmations) {
     this.index = index; // Block Index
     this.timeStamp = timeStamp; // TimeStamp
     this.datenow  = datenow;
@@ -37,7 +38,7 @@ class Block {
     this.proofHex = proofHex;
     this.nonce = nonce; // Initial Nonce
     this.confirmations = confirmations;
-    this.hash = this.calculateHash(); // Current Block Hash
+    this.hash = hash; // Current Block Hash
 
   }
 

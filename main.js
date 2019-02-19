@@ -7,20 +7,22 @@
 
 // Load Blockchain and Block Classes
 const fs = require("fs");
+let socketListener = require("./app/components/socketlistener");
 let BlockClass = require("./app/components/block");
 let BlockchainClass = require("./app/components/blockchain");
 let TransactionClass = require("./app/components/transaction");
 let walletClass = require("./app/components/wallet");
 var multer = require("multer");
+var debug = require("debug")("main");
 const web3 = require("web3");
 
 let RouterClass = require("./app/routes/routes");
-let socketListener = require("./app/components/socketlistener");
+
 let socketActions = require("./app/util/constants");
 let bodyParser = require("body-parser");
 let axios = require("axios");
 let portscanner = require("portscanner");
-
+let socket_global;
 // create application/json parser
 var jsonParser = bodyParser.json();
 
@@ -37,6 +39,8 @@ let Blockchain = new BlockchainClass(
   Router.io,
   socketActions.BLOCKSIZE_TRANSACTIONS
 ); // This will create Genesis Block
+
+
 //let Block = new BlockClass(1, Date.now(), "New Block 1", "0000000000"); // adding new Block
 var path = require("path");
 let Wallet = new walletClass();
@@ -97,12 +101,13 @@ Router.router.use(function(req, res, next) {
 
 // Home End-Point
 Router.app.get("/home", function(req, res) {
+  debug("Home get function");
   res.render("index", {
     chainId: Blockchain.id,
     chainLength: Blockchain.getLength(),
-    startedOn: Blockchain.timeStamp,
+    startedOn: Blockchain.getTimeStamp(),
     connectedNodes: Blockchain.getNodeCount(),
-    pendingTransactionsCount: Blockchain.currentTransactions.length,
+    pendingTransactionsCount: Blockchain.getPendingTransactionLength(),
     defaultHost: defaultHost,
     defaultPort: defaultPort,
     messagetype: messagetype,
@@ -119,13 +124,13 @@ Router.app.get("/", function(req, res) {
   res.render("index", {
     chainId: Blockchain.id,
     chainLength: Blockchain.getLength(),
-    startedOn: Blockchain.timestamp,
+    startedOn: Blockchain.getTimeStamp(),
     connectedNodes: Blockchain.getNodeCount(),
+    pendingTransactionsCount: Blockchain.getPendingTransactionLength(),
     defaultHost: defaultHost,
     defaultPort: defaultPort,
     displayMessage: messageStatus,
-    message: messageVar
-  });
+    message: messageVar });
 });
 
 Router.app.get("/src/arrow.png", function(req, res, next) {
@@ -208,7 +213,7 @@ Router.app.get("/reset-chain", function(req, res) {
   messageRedirect = true;
   messageVar = "Chain has been successfully reset.";
   Blockchain.addNode(
-    socketListener(Router.client(`http://localhost:${port2}`), Blockchain)
+    socket_global
   );
   res.redirect("/home");
 });
@@ -296,8 +301,8 @@ Router.app.post("/nodes", urlencodedParser, function(req, res) {
  // console.log("Print body ", req.body);
   const { callback } = req.query;
   const node = `http://${hostname}:${port}`;
-  //const socketNode = socketListener(Router.client(node), Blockchain);
-  Blockchain.addNode(socketNode, Blockchain);
+  const socketNode = socketListener(Router.client(node), Blockchain);
+  Blockchain.addNode(socketNode);
   if (callback === "true") {
     console.info(`Added node ${node} back`);
     var length = chain.length;
@@ -309,16 +314,22 @@ Router.app.post("/nodes", urlencodedParser, function(req, res) {
          break;
       let nodeblock = new BlockClass();
       // index, timeStamp,datenow,previousBlockHash, data, proof,proofHex, nonce,confirmations)
-      nodeblock.nodeSyncedBlock(blocknew.index, blocknew.timeStamp,blocknew.datenow,blocknew.previousBlockHash, blocknew.data, blocknew.proof, blocknew.proofHex, blocknew.nonce, blocknew.confirmations);
+      nodeblock.nodeSyncedBlock(blocknew.index, 
+                                blocknew.timeStamp,blocknew.datenow,
+                                blocknew.previousBlockHash,blocknew.hash,
+                                blocknew.data, 
+                                blocknew.proof, blocknew.proofHex, 
+                                blocknew.nonce, blocknew.confirmations);
       Blockchain.chain.push(nodeblock);
       //Blockchain.addBlock(block,true);
     }
     //Blockchain.chain = chain;
     Blockchain.addressWallet = walletAddress;
+    console.log("Wallet address"+ walletAddress);
     Blockchain.currentTransactions = currentTransactions;
     //Blockchain.nodes = [];
     Blockchain.id = id;
-    Blockchain.walletMain = Wallet.createFromPrivateKey(privatekey);
+    Blockchain.address =  Blockchain.createWalletAddress(privatekey);//Wallet.createFromPrivateKey(privatekey);
     Blockchain.privatekey = privatekey;
 
     Blockchain.datenow = datenow;
@@ -409,7 +420,8 @@ Router.app.post("/transactionsend", urlencodedParser, function(req, res) {
     //  Wallet.getSignTransation(
     //       sender,
     //       receiver,
-    //       amount,
+    //       amount,*78/
+    
     //       description
     //     );
 
@@ -429,12 +441,14 @@ Router.app.post("/transactionsend", urlencodedParser, function(req, res) {
       //console.log("Signed Transaction: \n" + signedTransaction);
       Blockchain.io.emit(
         socketActions.ADD_TRANSACTION,
+        Blockchain.generateRandomID(),
         sender,
         receiver,
         amount,
         description,
         signedTransaction
       );
+    
     })();
 
     messageVar = `Transaction successfully sent`;
@@ -713,7 +727,7 @@ portscanner.checkPortStatus(port2, "localhost", function(error, status) {
 });
 
 //console.log(JSON.stringify(Blockchain.chain, null, 4));
-console.log("Is blockchain valid?" + Blockchain.checkValid());
+console.log("Is blockchain valid?" + Blockchain.checkValidity());
 
 function clearMessageVar() {
   messageStatus = false;
@@ -730,8 +744,10 @@ function ListenPort(PORT) {
   });
 
   //let client = Router.client(`http://localhost:${PORT}`);
+  socket_global = socketListener(Router.client(`http://localhost:${PORT}`), Blockchain);
   Blockchain.addNode(
-    socketListener(Router.client(`http://localhost:${PORT}`), Blockchain)
+    // socketListener(Router.client(`http://localhost:${PORT}`), Blockchain)
+    socket_global
   );
   // Blockchain.address("test");
 }
@@ -749,7 +765,7 @@ async function signTransaction(
     amount: amount,
     description: description
   };
-  return true;//walletfrom.sign(transaction);
+  return await walletfrom.signMessage(transaction);
 }
 process.on("unhandledRejection", (reason, promise) => {
   //console.log("Unhandled Rejection at(main):", reason.stack || reason);

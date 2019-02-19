@@ -9,8 +9,8 @@ var dateFormat = require('dateformat');
 
 class Transaction{
 
-    constructor(sender,receiver,amount,description,signature) {
-        this.id = this.generateRandomID();
+    constructor(id,sender,receiver,amount,description,signature) {
+        this.id = id;//this.generateRandomID();
         this.sender = sender;
         this.receiver = receiver;
         this.amount = amount;
