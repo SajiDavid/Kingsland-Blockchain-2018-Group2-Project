@@ -34,7 +34,8 @@ html
                         td.displayTextLight #{startedOn}
                     tr
                         td.itemText Nodes connected
-                        td.displayText #{connectedNodes}
+                        td.displayText 
+                          a(href="/connectednodes") #{connectedNodes}
                     tr
                         td.itemText Pending Transactions
                         td.displayText #{pendingTransactionsCount}

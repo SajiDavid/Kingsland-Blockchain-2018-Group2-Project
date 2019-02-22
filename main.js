@@ -27,7 +27,9 @@ let socket_global;
 var jsonParser = bodyParser.json();
 
 // create application/x-www-form-urlencoded parser
-var urlencodedParser = bodyParser.urlencoded({ extended: false });
+var urlencodedParser = bodyParser.urlencoded({
+  extended: false
+});
 
 //const MongoClient = require("mongodb").MongoClient;
 const assert = require("assert");
@@ -70,6 +72,63 @@ var blocknumber = "";
 var transactionFlag = false;
 var transactionid = "";
 
+function intervalFunc() {
+  /* Share all nodes */
+  for (let i = 0; i < Blockchain.nodes.length; i++) {
+
+    const new_node = `http:\\${Blockchain.nodes[i]}`;
+
+    (async () => {
+      
+      Blockchain.io.emit(
+        socketActions.ADD_NEW_NODE,
+        new_node,
+        Blockchain.nodes[i]
+      );
+
+      //console.log("Nodes sync "+ Blockchain.nodes[i]);
+    })();
+  }
+
+}
+setInterval(intervalFunc, 5000);
+// Socket IO conncetion
+
+Blockchain.io.on("connection", function (socket) {
+  var hostname = socket.handshake.headers.host;
+  var valid_host = Blockchain.validateNodeHost(hostname);
+
+  console.log("Socket connected, ID", socket.id, " URL 2" + hostname);
+  /*console.log('socket.client.conn.remoteAddress', socket.client.conn.remoteAddress);
+    console.log('socket.request.connection.remoteAddress', socket.request.connection.remoteAddress);
+    console.log('socket.handshake.address', socket.handshake.address);
+    console.log('socket.request.connection.localAddress', socket.request.connection.localAddress);
+    console.log('socket.request.connection.localPort', socket.request.connection.localPort);
+    console.log('socket.request.connection.remotePort', socket.request.connection.remotePort);
+*/
+
+  socket.on("disconnect", function () {
+    console.log("user disconnected, ID", socket.id, " URL 2" + hostname);
+    //Blockchain.removeNode(hostname)  
+  });
+  socket.on("connect", function () {
+    if (valid) {
+      //Blockchain.addNodeHost(hostname);
+    }
+    console.log("user connected, ID", socket.id, " URL 2" + hostname);
+  });
+  socket.on("reconnect", function () {
+    console.log("user reconnected, ID", socket.id, " URL 2" + hostname);
+  });
+});
+
+/*
+Blockchain.io.on(socketActions.MY_ADDRESS, function(address) {
+  console.log("New node address", address);
+});
+*/
+
+
 Router.app.set("view engine", "pug");
 Router.app.set("views", path.join(__dirname, "views"));
 //Router.app.use(express.cookieParser('keyboard cat'));
@@ -78,7 +137,9 @@ Router.app.use(
     secret: "keyboard cat",
     resave: false,
     saveUninitialized: true,
-    cookie: { secure: true }
+    cookie: {
+      secure: true
+    }
   })
 );
 
@@ -94,13 +155,126 @@ Router.app.use(express.static(__dirname + "/public"));
     /blocks         ->  List Blocks
 */
 
-Router.router.use(function(req, res, next) {
+Router.router.use(function (req, res, next) {
   //console.log("/" + req.method);
   next();
 });
 
+/*Test comment added */
+
+Router.app.post("/nodes", urlencodedParser, function (req, res) {
+  const {
+    hostname,
+    port,
+    chain,
+    walletAddress,
+    currentTransactions,
+    id,
+    walletMain,
+    privatekey,
+    datenow,
+    timeStamp,
+    nonce,
+    blocksize,
+    difficulty
+  } = req.body;
+  // console.log("Print body ", req.body);
+  const {
+    callback
+  } = req.query;
+  const node = `http://${hostname}:${port}`;
+  const valid = Blockchain.validateNode(hostname, port);
+  if (valid) {
+    const host = `${hostname}:${port}`;
+    /* Sending New Peer to connected Nodes */
+
+    (async () => {
+
+      Blockchain.io.emit(
+        socketActions.ADD_NEW_NODE,
+        node,
+        host
+      );
+
+    })();
+
+
+    const new_client = require('socket.io-client');
+    const socketNode = socketListener(new_client(node), Blockchain);
+    Blockchain.addNode(socketNode, hostname, port);
+    if (callback === "true") {
+      console.info(`Added node ${node} back`);
+      var length = chain.length;
+      Blockchain.chain = [];
+      for (var i = 0; i < length; i++) {
+        var blocknew = chain[i];
+        if (blocknew == null)
+          break;
+        let nodeblock = new BlockClass();
+        // index, timeStamp,datenow,previousBlockHash, data, proof,proofHex, nonce,confirmations)
+        nodeblock.nodeSyncedBlock(blocknew.index,
+          blocknew.timeStamp, blocknew.datenow,
+          blocknew.previousBlockHash, blocknew.hash,
+          blocknew.data,
+          blocknew.proof, blocknew.proofHex,
+          blocknew.nonce, blocknew.confirmations);
+        Blockchain.chain.push(nodeblock);
+        //Blockchain.addBlock(block,true);
+      }
+      //Blockchain.chain = chain;
+      //Blockchain.addressWallet = walletAddress;
+      console.log("Wallet address" + walletAddress);
+      Blockchain.currentTransactions = currentTransactions;
+      //Blockchain.nodes = [];
+      //Blockchain.id = id;
+      ( async () => {
+        Blockchain.addressWallet = await Blockchain.createWalletAddress(privatekey); //Wallet.createFromPrivateKey(privatekey);
+      })();
+      Blockchain.privatekey = privatekey;
+
+      Blockchain.datenow = datenow;
+      Blockchain.timeStamp = timeStamp; // TimeStamp
+      Blockchain.nonce = nonce;
+      Blockchain.blocksize = blocksize;
+      Blockchain.difficulty = difficulty;
+      res.json({
+        status: "Added node Back"
+      }).end();
+    } else {
+      axios.post(`${node}/nodes?callback=true`, {
+        hostname: hostname,
+        port: port2,
+        chain: Blockchain.chain,
+        id: Blockchain.id,
+        walletAddress: Blockchain.addressWallet,
+        currentTransactions: Blockchain.currentTransactions,
+        //Blockchain.nodes = [];
+        walletMain: Blockchain.walletMain,
+        privatekey: Blockchain.privatekey,
+        datenow: Blockchain.datenow,
+        timeStamp: Blockchain.timeStamp, // TimeStamp
+        nonce: Blockchain.nonce,
+        blocksize: Blockchain.blocksize,
+        difficulty: Blockchain.difficulty
+      });
+
+      messageVar = `${node} successfully added`;
+      messageStatus1 = true;
+      messagetype = true;
+
+      res.redirect("/home");
+    }
+  } else {
+    messageVar = `${node} already added`;
+    messageStatus1 = true;
+    messagetype = false;
+    res.redirect("/home");
+  }
+
+
+});
 // Home End-Point
-Router.app.get("/home", function(req, res) {
+Router.app.get("/home", function (req, res) {
   debug("Home get function");
   res.render("index", {
     chainId: Blockchain.id,
@@ -120,7 +294,7 @@ Router.app.get("/home", function(req, res) {
 });
 
 // Home End-Point
-Router.app.get("/", function(req, res) {
+Router.app.get("/", function (req, res) {
   res.render("index", {
     chainId: Blockchain.id,
     chainLength: Blockchain.getLength(),
@@ -130,29 +304,33 @@ Router.app.get("/", function(req, res) {
     defaultHost: defaultHost,
     defaultPort: defaultPort,
     displayMessage: messageStatus,
-    message: messageVar });
+    message: messageVar
+  });
 });
 
-Router.app.get("/src/arrow.png", function(req, res, next) {
+Router.app.get("/src/arrow.png", function (req, res, next) {
   res.sendFile(__dirname + "/src/arrow.png");
 });
 
-Router.app.get("/src/background.jpg", function(req, res, next) {
+Router.app.get("/src/background.jpg", function (req, res, next) {
   res.sendFile(__dirname + "/src/background.jpg");
 });
 
-Router.app.get("/src/Block.gif", function(req, res, next) {
+Router.app.get("/src/Block.gif", function (req, res, next) {
   res.sendFile(__dirname + "/src/Block.gif");
 });
 
 // To get Blockchain Information
-Router.app.get("/info", function(req, res) {
-  let chaininfo = { Chain: Blockchain.Chain, Nodes: Blockchain.nodes };
+Router.app.get("/info", function (req, res) {
+  let chaininfo = {
+    Chain: Blockchain.Chain,
+    Nodes: Blockchain.nodes
+  };
   res.send(
     "Chain Detail :\n " +
-      JSON.stringify(Blockchain.chain, null, 4) +
-      "Nodes: " +
-      JSON.stringify(Blockchain.node)
+    JSON.stringify(Blockchain.chain, null, 4) +
+    "Nodes: " +
+    JSON.stringify(Blockchain.node)
   );
 
   /*************************************************
@@ -172,17 +350,8 @@ Router.app.get("/info", function(req, res) {
 });
 
 
-Router.app.get("/endmining", function(req, res) {
-  (async () => { 
-    Blockchain.io.emit(socketActions.END_MINING, Blockchain);
-     })();
-
-     res.send("mining ended");
-
-});
-
 // To Debug Blockchain
-Router.app.get("/debug", function(req, res) {
+Router.app.get("/debug", function (req, res) {
   res.send("This is Test Debug api");
 
   /*************************************************
@@ -203,8 +372,17 @@ Router.app.get("/debug", function(req, res) {
 *************************************************/
 });
 
+Router.app.get("/connectednodes", function (req, res) {
+
+  res.render("connected_nodes", {
+    blockcontent: Blockchain.nodes,
+    displayMessage: messageStatus,
+    message: messageVar
+  });
+
+});
 // To Reset Whole Chain
-Router.app.get("/reset-chain", function(req, res) {
+Router.app.get("/reset-chain", function (req, res) {
   Blockchain = new BlockchainClass(
     Router.io,
     socketActions.BLOCKSIZE_TRANSACTIONS
@@ -213,13 +391,13 @@ Router.app.get("/reset-chain", function(req, res) {
   messageRedirect = true;
   messageVar = "Chain has been successfully reset.";
   Blockchain.addNode(
-    socket_global
+    socket_global, "localhost", port2
   );
   res.redirect("/home");
 });
 
 // Goes to Faucet to pour coin
-Router.app.get("/faucet", function(req, res) {
+Router.app.get("/faucet", function (req, res) {
   res.render("faucet", {
     addressWallet: Blockchain.addressWallet,
     balance: Blockchain.getAddressBalance(Blockchain.addressWallet),
@@ -232,7 +410,7 @@ Router.app.get("/faucet", function(req, res) {
 });
 
 // Goes to Faucet to pour coin
-Router.app.get("/wallet", function(req, res) {
+Router.app.get("/wallet", function (req, res) {
   //res.send('This is Wallet Page..coming up')
   //res.sendFile(__dirname + "/wallet.html");
   // res.render("wallet");
@@ -254,7 +432,7 @@ Router.app.get("/wallet", function(req, res) {
     publicKey: Wallet.publicKey,
     address: Wallet.address,
     seed: Wallet.getSeed(),
-    privateKey:Wallet.privateKey,
+    privateKey: Wallet.privateKey,
     uploadKeyFlag: uploadKeyFlag,
     privateKeyFlag: privateKeyFlag,
     addressFlag: addressFlag,
@@ -276,94 +454,20 @@ Router.app.get("/wallet", function(req, res) {
 });
 
 // Goes to Faucet to pour coin
-Router.app.get("/test", function(req, res) {
+Router.app.get("/test", function (req, res) {
   res.send("This is test Page..coming up");
 });
 
-// Socket IO conncetion
 
-Blockchain.io.on("connection", function(socket) {
-  console.log("Socket connected, ID", socket.id);
-  socket.on("disconnect", function() {
-    console.log("user disconnected, ID", socket.id);
-  });
-});
 
-/*
-Blockchain.io.on(socketActions.MY_ADDRESS, function(address) {
-  console.log("New node address", address);
-});
-*/
-/*Test comment added */
 
-Router.app.post("/nodes", urlencodedParser, function(req, res) {
-  const { hostname, port, chain, walletAddress,currentTransactions, id, walletMain, privatekey,datenow, timeStamp, nonce,blocksize,difficulty } = req.body;
- // console.log("Print body ", req.body);
-  const { callback } = req.query;
-  const node = `http://${hostname}:${port}`;
-  const socketNode = socketListener(Router.client(node), Blockchain);
-  Blockchain.addNode(socketNode);
-  if (callback === "true") {
-    console.info(`Added node ${node} back`);
-    var length = chain.length;
-    Blockchain.chain = [];
-    for(var i = 0; i< length;i++)
-    {
-      var blocknew = chain[i];
-      if (blocknew == null)
-         break;
-      let nodeblock = new BlockClass();
-      // index, timeStamp,datenow,previousBlockHash, data, proof,proofHex, nonce,confirmations)
-      nodeblock.nodeSyncedBlock(blocknew.index, 
-                                blocknew.timeStamp,blocknew.datenow,
-                                blocknew.previousBlockHash,blocknew.hash,
-                                blocknew.data, 
-                                blocknew.proof, blocknew.proofHex, 
-                                blocknew.nonce, blocknew.confirmations);
-      Blockchain.chain.push(nodeblock);
-      //Blockchain.addBlock(block,true);
-    }
-    //Blockchain.chain = chain;
-    Blockchain.addressWallet = walletAddress;
-    console.log("Wallet address"+ walletAddress);
-    Blockchain.currentTransactions = currentTransactions;
-    //Blockchain.nodes = [];
-    Blockchain.id = id;
-    Blockchain.address =  Blockchain.createWalletAddress(privatekey);//Wallet.createFromPrivateKey(privatekey);
-    Blockchain.privatekey = privatekey;
-
-    Blockchain.datenow = datenow;
-    Blockchain.timeStamp = timeStamp; // TimeStamp
-    Blockchain.nonce = nonce;
-    Blockchain.blocksize = blocksize;
-    Blockchain.difficulty = difficulty;
-    res.json({ status: "Added node Back" }).end();
-  } else {
-    axios.post(`${node}/nodes?callback=true`, {
-      hostname: hostname,
-      port: port2,
-      chain: Blockchain.chain,
-      id: Blockchain.id,
-      walletAddress: Blockchain.addressWallet,
-      currentTransactions: Blockchain.currentTransactions,
-    //Blockchain.nodes = [];
-     walletMain:Blockchain.walletMain,
-     privatekey:Blockchain.privatekey,
-     datenow:Blockchain.datenow,
-     timeStamp:Blockchain.timeStamp, // TimeStamp
-     nonce:Blockchain.nonce,
-     blocksize:Blockchain.blocksize,
-     difficulty:Blockchain.difficulty
-
-    });
-    messageVar = `${node} successfully added`;
-    messageStatus1 = true;
-    res.redirect("/home");
-  }
-});
-
-Router.app.post("/transactionsend", urlencodedParser, function(req, res) {
-  const { sender, receiver, amount, description } = req.body;
+Router.app.post("/transactionsend", urlencodedParser, function (req, res) {
+  const {
+    sender,
+    receiver,
+    amount,
+    description
+  } = req.body;
   var valid = true;
   receivervalue = receiver;
   sendervalue = sender;
@@ -421,7 +525,7 @@ Router.app.post("/transactionsend", urlencodedParser, function(req, res) {
     //       sender,
     //       receiver,
     //       amount,*78/
-    
+
     //       description
     //     );
 
@@ -448,7 +552,7 @@ Router.app.post("/transactionsend", urlencodedParser, function(req, res) {
         description,
         signedTransaction
       );
-    
+
     })();
 
     messageVar = `Transaction successfully sent`;
@@ -465,7 +569,7 @@ Router.app.post("/transactionsend", urlencodedParser, function(req, res) {
   messageRedirect = false;
 });
 
-Router.app.post("/receiveform", urlencodedParser, function(req, res) {
+Router.app.post("/receiveform", urlencodedParser, function (req, res) {
   const address = req.body.address;
   var valid = true;
   if (address == undefined || address == "") {
@@ -500,7 +604,7 @@ Router.app.post("/receiveform", urlencodedParser, function(req, res) {
 });
 
 // Creating New Wallet
-Router.app.get("/createwallet", function(req, res, next) {
+Router.app.get("/createwallet", function (req, res, next) {
   Wallet.createNewWallet();
   messageVar = `New Wallet successfully created, Please note down and store the seeds for recovery: `;
   messageStatus2 = true;
@@ -525,7 +629,7 @@ Router.app.get("/createwallet", function(req, res, next) {
 });
 
 // Creating New Wallet
-Router.app.get("/privatekeywallet", function(req, res, next) {
+Router.app.get("/privatekeywallet", function (req, res, next) {
   //messageVar = `New Wallet created from private key successfully`;
 
   messageStatus2 = true;
@@ -548,7 +652,7 @@ Router.app.get("/privatekeywallet", function(req, res, next) {
 });
 
 // Creating New Wallet from privateKey
-Router.app.post("/createfromprivatekey", urlencodedParser, function(req, res) {
+Router.app.post("/createfromprivatekey", urlencodedParser, function (req, res) {
   const privateKey = req.body.privatekey;
   Wallet.initializeWallet();
   Wallet.createFromPrivateKey(privateKey);
@@ -574,14 +678,14 @@ Router.app.post("/createfromprivatekey", urlencodedParser, function(req, res) {
 });
 
 // Goes to Faucet to pour coin
-Router.app.get("/downloadkeyfile", function(req, res) {
+Router.app.get("/downloadkeyfile", function (req, res) {
   const filename = Wallet.getWalletFileName();
   res.download(filename);
   //res.send("This is test Page..coming up");
 });
 
 // Goes to Faucet to pour coin
-Router.app.get("/importjson", function(req, res) {
+Router.app.get("/importjson", function (req, res) {
   uploadKeyFlag = true;
   messageStatus0 = false;
   addressFlag = false;
@@ -613,10 +717,9 @@ Router.app.post("/uploadkeyfile", upload.single("file"), (req, res) => {
 });
 
 // Returns All Blocks  Information
-Router.app.get("/blocks", function(req, res) {
+Router.app.get("/blocks", function (req, res) {
   //res.send(JSON.stringify(Blockchain.chain, null, 4));
-  if (messageRedirect) {
-  } else {
+  if (messageRedirect) {} else {
     transactionFlag = false;
   }
   res.render("explorer", {
@@ -638,7 +741,7 @@ Router.app.get("/blocks", function(req, res) {
 });
 
 // Returns All Blocks  Information
-Router.app.get("/getblock/:number", function(req, res) {
+Router.app.get("/getblock/:number", function (req, res) {
   //res.send(JSON.stringify(Blockchain.chain, null, 4));
   blocknumber = req.params.number;
   block_data = Blockchain.getBlockData(blocknumber);
@@ -648,7 +751,7 @@ Router.app.get("/getblock/:number", function(req, res) {
 });
 
 // Goes to Blockdata to display
-Router.app.post("/searchblock", urlencodedParser, function(req, res) {
+Router.app.post("/searchblock", urlencodedParser, function (req, res) {
   blocknumber = req.body.searchblockvalue;
 
   messageRedirect = true;
@@ -675,7 +778,7 @@ Router.app.post("/searchblock", urlencodedParser, function(req, res) {
   //res.send("This is test Page..coming up");
 });
 
-Router.app.get("/transaction/:id", function(req, res) {
+Router.app.get("/transaction/:id", function (req, res) {
   transactionid = req.params.id;
   if (transactionid == undefined || transactionid == "") {
     messageStatus = true;
@@ -710,7 +813,7 @@ if (process.argv[2] == undefined) {
 }
 
 // Checks the status of a single port
-portscanner.checkPortStatus(port2, "localhost", function(error, status) {
+portscanner.checkPortStatus(port2, "localhost", function (error, status) {
   // Status is 'open' if currently in use or 'closed' if available
   //console.log(port2 +" "+ status);
   port_status = status;
@@ -739,16 +842,22 @@ function clearMessageVar() {
 }
 
 function ListenPort(PORT) {
-  Router.http.listen(PORT, function() {
+  Router.http.listen(PORT, function () {
     console.log(`Living at URL http://localhost:${PORT}`);
   });
 
-  //let client = Router.client(`http://localhost:${PORT}`);
-  socket_global = socketListener(Router.client(`http://localhost:${PORT}`), Blockchain);
-  Blockchain.addNode(
-    // socketListener(Router.client(`http://localhost:${PORT}`), Blockchain)
-    socket_global
-  );
+  var valid = Blockchain.validateNode('localhost', PORT)
+  if (valid) {
+    //let client = Router.client(`http://localhost:${PORT}`);
+    const new_client = require('socket.io-client');
+    socket_global = socketListener(new_client(`http://localhost:${PORT}`), Blockchain);
+    Blockchain.addNode(
+      // socketListener(Router.client(`http://localhost:${PORT}`), Blockchain)
+      socket_global, "localhost", PORT
+    );
+  } else {
+    console.log(`http://localhost:${PORT}` + " already a Peer :)")
+  }
   // Blockchain.address("test");
 }
 
@@ -765,7 +874,7 @@ async function signTransaction(
     amount: amount,
     description: description
   };
-  return await walletfrom.signMessage(transaction);
+  return true; //uawait walletfrom.signMessage(transaction);
 }
 process.on("unhandledRejection", (reason, promise) => {
   //console.log("Unhandled Rejection at(main):", reason.stack || reason);

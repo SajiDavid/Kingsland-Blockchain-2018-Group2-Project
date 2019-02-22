@@ -19,36 +19,44 @@ const socketListeners = (socket, ownchain) => {
     process.env.BREAK = true;
     let blockChain;
 
-    try{
-      blockChain = new BlockchainClass(Router.io,"2");
-    }
-    catch(exp){
-      console.log("Excep : "+exp)
+    try {
+      blockChain = new BlockchainClass(Router.io, "2");
+    } catch (exp) {
+      console.log("Excep : " + exp)
     }
     //let blockChain = new BlockChain(ownchain.io,ownchain.blocksize);
     //blockChain.parseChain(newBlock);
     blockChain.chain = newChain;
     var newLength = blockChain.getLength();
     var ownLength = ownchain.getLength();
-    if (blockChain.checkValidity() &&  newLength >= ownLength) {
+    if (blockChain.checkValidity() && newLength >= ownLength) {
       ownchain.chain = blockChain.chain;
       console.log('New Block added');
-    }
-    else{
+    } else {
       console.log('Invalid Block ');
     }
   });
-  
-  socket.on(socketActions.ADD_TRANSACTION, (id,sender, receiver, amount,description,signature) => {
-    const transaction = new Transaction(id,sender, receiver, amount,description,signature);
-    ownchain.newTransaction(transaction,ownchain);
+
+  socket.on(socketActions.ADD_TRANSACTION, (id, sender, receiver, amount, description, signature) => {
+    const transaction = new Transaction(id, sender, receiver, amount, description, signature);
+    ownchain.newTransaction(transaction, ownchain);
     console.info(`Added transaction: ${JSON.stringify(transaction.getDetails(), null, '\t')}`);
   });
   socket.on(socketActions.MY_ADDRESS, (address) => {
-    
+
     console.info(`My address ${address}`);
   });
-  
+
+
+  socket.on(socketActions.ADD_NEW_NODE, (node, hostname) => {
+    const valid = ownchain.validateNodeHost(hostname);
+    if (valid) {
+      const new_client = require('socket.io-client');
+      const socketNode = new_client(node);
+      ownchain.addNodeHost(hostname);
+      console.info(`New Node added ${hostname}`);
+      }
+ });
 
   return socket;
 };

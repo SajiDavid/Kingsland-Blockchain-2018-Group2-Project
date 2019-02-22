@@ -49,16 +49,16 @@ class BlockChain {
   getPendingTransactionLength() {
     return this.currentTransactions.length;
   }
-
+/*
   generateRandomID() {
-    return crypto.randomBytes(16).toString("hex");
+    return crypto.randomBytes(16);//.toString("hex");
   }
-
+*/
   incrementNonce() {
     this.nonce++;
   }
   generateRandomID(){
-    return crypto.randomBytes(32).toString("hex");
+    return crypto.randomBytes(8).toString("hex");
   }
   // Creation of Genesis Block
   createGenesisBlock() {
@@ -152,7 +152,7 @@ class BlockChain {
       currentBlock.nodeSyncedBlock(this.chain[i].index, this.chain[i].timeStamp, this.chain[i].datenow, this.chain[i].previousBlockHash, this.chain[i].hash, this.chain[i].data, this.chain[i].proof, this.chain[i].proofHex, this.chain[i].nonce, this.chain[i].confirmations);
       //currentBlock = this.chain[i];
       let previousBlock = new Block();
-      currentBlock.nodeSyncedBlock(this.chain[j].index, this.chain[j].timeStamp, this.chain[j].datenow, this.chain[j].previousBlockHash, this.chain[j].hash, this.chain[j].data, this.chain[j].proof, this.chain[j].proofHex, this.chain[j].nonce, this.chain[j].confirmations);
+      previousBlock.nodeSyncedBlock(this.chain[j].index, this.chain[j].timeStamp, this.chain[j].datenow, this.chain[j].previousBlockHash, this.chain[j].hash, this.chain[j].data, this.chain[j].proof, this.chain[j].proofHex, this.chain[j].nonce, this.chain[j].confirmations);
       //this.chain[i - 1];
       if (currentBlock.hash !== currentBlock.calculateHash()) {
         return false;
@@ -187,14 +187,64 @@ class BlockChain {
   }
 
   // Adding Node to Chain
-  addNode(socketnode) {
-    this.nodes.push(socketnode); // Adding to list
-
+  addNode(socketnode,host,port) {
+    const address=host+":"+port;
+    this.nodes.push(address); // Adding to list
+    console.log(`${address} is added`);
     //this.io.emit("myaddress", node);
 
-    console.log("Nodes:" + this.nodes);
+    //console.log("Nodes:" + this.nodes);
   }
 
+  addNodeHost(hostname) {
+   // const address=host+":"+port;
+    this.nodes.push(hostname); // Adding to list
+    console.log(`${hostname} is added`);
+    //this.io.emit("myaddress", node);
+
+    //console.log("Nodes:" + this.nodes);
+  }
+   // Adding Node to Chain
+   removeNode(hostname) {
+    //const address=host+":"+port;
+
+    var index = this.nodes.indexOf(hostname); // Adding to list
+    if (index !== -1) {
+      this.nodes.splice(index, 1);
+    }
+    console.log(`${hostname} is removed`);
+    //this.io.emit("myaddress", node);
+
+    //console.log("Nodes:" + this.nodes);
+  }
+  // Validating Node already added
+  validateNode(host,port){
+    var valid = true;
+    const address=host+":"+port;
+   
+  valid = this.nodes.includes(address);
+
+  if(valid)
+     valid = false;
+  else
+    valid = true;
+   
+    return valid;
+  }
+
+  validateNodeHost(hostname){
+    var valid = true;
+    
+   
+  valid = this.nodes.includes(hostname);
+
+  if(valid)
+     valid = false;
+  else
+    valid = true;
+   
+    return valid;
+  }
   address() {
     this.io.emit("myaddress", "test");
   }

@@ -367,7 +367,14 @@
 	-webkit-background-size: auto auto;
 	background-size: auto auto;
 
-  }
+	}
+	
+	.displayText a:link{
+		color: blue;
+	}
+	.displayText a:hover{
+		color: green;
+	}
   .displayText:hover{
 	-webkit-box-shadow: 0 0 2px 2px rgba(0,0,0,0.5) ;
 	box-shadow: 0 0 2px 2px rgba(0,0,0,0.5) ;
@@ -465,7 +472,7 @@ table.paleBlueRows {
 	font-family: "Times New Roman", Times, serif;
 	border: 1px solid #FFFFFF;
 	width: 350px;
-	height: 200px;
+	height: 50px;
 	text-align: left;
 	border-collapse: collapse;
 	margin-bottom:20px;
