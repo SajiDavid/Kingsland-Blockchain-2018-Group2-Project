@@ -24,7 +24,8 @@ const {
 
 class BlockChain {
   constructor(io, blocksize) {
-    this.id = this.generateRandomID();
+    this.id = this.generateRandomChainID();
+    this.nodeid = this.generateRandomChainID();
     this.currentTransactions = [];
     this.nodes = [];
     this.io = io;
@@ -57,13 +58,16 @@ class BlockChain {
   incrementNonce() {
     this.nonce++;
   }
-  generateRandomID(){
+  generateRandomChainID(){
     return crypto.randomBytes(8).toString("hex");
+  }
+  generateRandomTransactionID(){
+    return crypto.randomBytes(16).toString("hex");
   }
   // Creation of Genesis Block
   createGenesisBlock() {
     const transaction = new TransactionClass(
-      this.generateRandomID(),
+      this.generateRandomTransactionID(),
       initialHash,
       this.addressWallet,
       40000000,
@@ -100,7 +104,7 @@ class BlockChain {
         //console.log("Signed Transaction: \n" + signedTransaction);
         this.io.emit(
           socketActions.ADD_TRANSACTION,
-          this.generateRandomID(),
+          this.generateRandomTransactionID(),
           this.addressWallet,
           address,
           socketActions.FREE_COINS,
@@ -221,7 +225,7 @@ class BlockChain {
   validateNode(host,port){
     var valid = true;
     const address=host+":"+port;
-   
+
   valid = this.nodes.includes(address);
 
   if(valid)

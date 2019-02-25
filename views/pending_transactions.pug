@@ -1,0 +1,45 @@
+html
+  head
+    link(rel='stylesheet', type='text/css', href='/stylesheet.css')
+  body.mainBody
+    .mainBody
+      .enjoy-css Chain Explorer
+      link(async='', href='http://fonts.googleapis.com/css?family=Aldrich', data-generated='http://enjoycss.com', rel='stylesheet', type='text/css')
+      link(async='', href='http://fonts.googleapis.com/css?family=Arvo', data-generated='http://enjoycss.com', rel='stylesheet', type='text/css')
+      link(async='', href='http://fonts.googleapis.com/css?family=Oswald', data-generated='http://enjoycss.com', rel='stylesheet', type='text/css')
+      .menuTop
+        form.formBox(action='/home', method='get')
+          button#myButton.myYellowButton Home
+      .SendingBlock
+          h2.containerHeaderText Pending Transactions         
+          .contentTable
+           table.paleBlueRows(style="height=0px;")
+            tbody
+              tr
+                - var flag = false
+                for object,value in pendingTransactions
+                 for object2,value2 in object
+                  tr
+                    - header = value2.charAt(0).toUpperCase() + value2.slice(1);
+                    - flag = true
+                    td.itemText(style="word-wrap: break-word;max-width: 150px;") #{header}
+                    if value2 == "id"
+                     td.itemText2(style="word-wrap: break-word;color:black; ") #{object2}        
+                    else
+                     td.itemText2(style="word-wrap: break-word; ") #{object2}  
+                if flag == false
+                 td.itemText No pending transactions to display !!!     
+      
+          if displayMessage
+              if !messagetype
+                .messagebox(id='messagebox',style="display:-webkit-inline-box;background:#ffb9b9;color:black;")
+                    p.textMsg #{message} 
+                    button.closeButton(onClick="hideMessageBox()") X
+              else
+                .messagebox(id='messagebox',style="display:-webkit-inline-box;")
+                    p.textMsg #{message} 
+                    button.closeButton(onClick="hideMessageBox()") X
+    script(src='/jquery.js')
+    script(src='/jquery.min.js')
+    script(src='//cdn.jsdelivr.net/npm/alertifyjs@1.11.2/build/alertify.min.js')
+    script(src='/app.js')

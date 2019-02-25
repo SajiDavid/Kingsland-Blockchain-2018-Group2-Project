@@ -14,8 +14,6 @@ html
                 button.myButton(type='submit') Wallet
             form.formBox(method='GET' action='/blocks')
                 button.myButton(type='submit') Block Explorer
-            form.formBox(method='GET' action='/endmining')
-                button.myButton(type='submit') End Mining
        div.SendingBlock
             div.blockHeader
               h2.containerHeaderText Blockchain Information
@@ -25,20 +23,34 @@ html
                 tbody
                     tr
                         td.itemText Chain ID
-                        td.displayTextLight #{chainId}
+                        td.displayTextLight(style="color:maroon;") #{chainId}
                     tr
-                        td.itemText Length
-                        td.displayText #{chainLength}
+                        td.itemText Node ID
+                        td.displayText #{nodeId}
                     tr
                         td.itemText Started on
                         td.displayTextLight #{startedOn}
                     tr
-                        td.itemText Nodes connected
+                    - var a = 0
+                    - a = chainLength - 1
+                    - link_url = "/getblock/"+ a + "/"
+                        td.itemText Length
                         td.displayText 
+                            a(href= link_url) #{chainLength}
+                    tr
+                        td.itemText Nodes connected
+                        td.displayTextLight 
                           a(href="/connectednodes") #{connectedNodes}
                     tr
                         td.itemText Pending Transactions
-                        td.displayText #{pendingTransactionsCount}
+                        td.displayText 
+                             a(href="/pendingtransactions") #{pendingTransactionsCount}
+                    tr
+                        td.itemText Difficulty
+                        td.displayTextLight #{difficulty}
+                    tr
+                        td.itemText Nonce
+                        td.displayText #{nonce}
             if displayMessageChain
               if !messagetype
                 .messagebox(id='messagebox',style="display:-webkit-inline-box;background:#ffb9b9;color:black;")

@@ -15,9 +15,23 @@ let walletClass = require("./app/components/wallet");
 var multer = require("multer");
 var debug = require("debug")("main");
 const web3 = require("web3");
+const args = require('minimist')(process.argv.slice(2))
+const cport = args['port'];
+const cnode_flag = args['node'];
+const chelp = args['help'];
+const cmining_flag = args['mining'];
+const cwallet_flag = args['wallet'];
+console.log("test"+ cport );
+if(cport == undefined || cport == ""){
+
+  console.log("port is mandatory,Please provide");
+  console.log("Syntax: node main.js --port=3000");
+  return;
+}
+
+
 
 let RouterClass = require("./app/routes/routes");
-
 let socketActions = require("./app/util/constants");
 let bodyParser = require("body-parser");
 let axios = require("axios");
@@ -60,6 +74,9 @@ var defaultPort = "";
 var port2;
 var port_status;
 var block_data = "";
+var blocklast = false;
+var blockfirst = false;
+var blockblank = false;
 var previous_block_data = ""; // Store previous block data during transaction
 
 var messagetype = true;
@@ -79,7 +96,7 @@ function intervalFunc() {
     const new_node = `http:\\${Blockchain.nodes[i]}`;
 
     (async () => {
-      
+
       Blockchain.io.emit(
         socketActions.ADD_NEW_NODE,
         new_node,
@@ -182,6 +199,16 @@ Router.app.post("/nodes", urlencodedParser, function (req, res) {
   const {
     callback
   } = req.query;
+  if(hostname==undefined || hostname == "" ||
+     port == undefined || port == ""){
+    
+    messageVar = `Host:${hostname} or Port:${port} is invalid, Please verify and add`;
+    messageStatus1 = true;
+    messagetype = false;
+    res.redirect("/home");
+
+  }
+  else{ 
   const node = `http://${hostname}:${port}`;
   const valid = Blockchain.validateNode(hostname, port);
   if (valid) {
@@ -226,8 +253,8 @@ Router.app.post("/nodes", urlencodedParser, function (req, res) {
       console.log("Wallet address" + walletAddress);
       Blockchain.currentTransactions = currentTransactions;
       //Blockchain.nodes = [];
-      //Blockchain.id = id;
-      ( async () => {
+      Blockchain.id = id;
+      (async () => {
         Blockchain.addressWallet = await Blockchain.createWalletAddress(privatekey); //Wallet.createFromPrivateKey(privatekey);
       })();
       Blockchain.privatekey = privatekey;
@@ -271,6 +298,7 @@ Router.app.post("/nodes", urlencodedParser, function (req, res) {
     res.redirect("/home");
   }
 
+  }
 
 });
 // Home End-Point
@@ -278,10 +306,13 @@ Router.app.get("/home", function (req, res) {
   debug("Home get function");
   res.render("index", {
     chainId: Blockchain.id,
+    nodeId: Blockchain.nodeid,
     chainLength: Blockchain.getLength(),
     startedOn: Blockchain.getTimeStamp(),
     connectedNodes: Blockchain.getNodeCount(),
     pendingTransactionsCount: Blockchain.getPendingTransactionLength(),
+    nonce:Blockchain.nonce,
+    difficulty:Blockchain.difficulty,
     defaultHost: defaultHost,
     defaultPort: defaultPort,
     messagetype: messagetype,
@@ -297,6 +328,7 @@ Router.app.get("/home", function (req, res) {
 Router.app.get("/", function (req, res) {
   res.render("index", {
     chainId: Blockchain.id,
+    nodeId: Blockchain.nodeid,
     chainLength: Blockchain.getLength(),
     startedOn: Blockchain.getTimeStamp(),
     connectedNodes: Blockchain.getNodeCount(),
@@ -381,6 +413,17 @@ Router.app.get("/connectednodes", function (req, res) {
   });
 
 });
+
+Router.app.get("/pendingtransactions", function (req, res) {
+
+  res.render("pending_transactions", {
+    pendingTransactions: Blockchain.currentTransactions,
+    displayMessage: messageStatus,
+    message: messageVar
+  });
+
+});
+
 // To Reset Whole Chain
 Router.app.get("/reset-chain", function (req, res) {
   Blockchain = new BlockchainClass(
@@ -545,7 +588,7 @@ Router.app.post("/transactionsend", urlencodedParser, function (req, res) {
       //console.log("Signed Transaction: \n" + signedTransaction);
       Blockchain.io.emit(
         socketActions.ADD_TRANSACTION,
-        Blockchain.generateRandomID(),
+        Blockchain.generateRandomTransactionID(),
         sender,
         receiver,
         amount,
@@ -722,12 +765,35 @@ Router.app.get("/blocks", function (req, res) {
   if (messageRedirect) {} else {
     transactionFlag = false;
   }
+  if (block_data == null || block_data == "" || block_data == undefined) {
+    blockblank = true;
+  } else {
+    blockblank = false;
+  }
+  if(blocknumber >= Blockchain.getLength() - 1)
+  {
+    blocklast = true;
+  }
+  else{
+    blocklast = false;
+  }
+
+  if(blocknumber == 0 || blocknumber == "0")
+  {
+    blockfirst = true;
+  }
+  else{
+    blockfirst = false;
+  }
   res.render("explorer", {
     searchBoxFlag: true,
     transactionFlag: transactionFlag,
     transactionid: transactionid,
     blocknumber: blocknumber,
     blockcontent: block_data,
+    blockblank:blockblank,
+    blocklast:blocklast,
+    blockfirst:blockfirst,
     timestamp: block_data.timestamp,
     displayMessage: messageStatus,
     messagetype: messagetype,
@@ -745,6 +811,12 @@ Router.app.get("/getblock/:number", function (req, res) {
   //res.send(JSON.stringify(Blockchain.chain, null, 4));
   blocknumber = req.params.number;
   block_data = Blockchain.getBlockData(blocknumber);
+  if (block_data == undefined || block_data == "") {
+    transactionFlag = false;
+    messageStatus = true;
+    messagetype = false;
+    messageVar = "No valid Block found!!";
+  }
   transactionFlag = false;
   messageRedirect = true;
   res.redirect("/blocks");
@@ -807,9 +879,9 @@ Blockchain.addBlock(Block2);*/
 // Default Port 5550, application listening on 5550
 
 if (process.argv[2] == undefined) {
-  port2 = 5550;
+  port2 = cport;
 } else {
-  port2 = process.argv[2];
+  port2 = cport;
 }
 
 // Checks the status of a single port

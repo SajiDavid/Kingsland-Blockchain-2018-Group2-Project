@@ -31,6 +31,7 @@ const socketListeners = (socket, ownchain) => {
     var ownLength = ownchain.getLength();
     if (blockChain.checkValidity() && newLength >= ownLength) {
       ownchain.chain = blockChain.chain;
+      ownchain.incrementNonce();
       console.log('New Block added');
     } else {
       console.log('Invalid Block ');
