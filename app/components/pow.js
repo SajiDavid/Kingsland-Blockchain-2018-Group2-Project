@@ -11,11 +11,18 @@ const generateProof = (previousProof) => new Promise((resolve) => {
   setImmediate(async () => {
     let proof = Math.random() * 10000000001;
     const dontMine = process.env.BREAK;
-    const {validFlag,proofHex} = isProofValid(previousProof, proof);
+    const {
+      validFlag,
+      proofHex
+    } = isProofValid(previousProof, proof);
 
-    if (validFlag == true|| dontMine === 'true') {
-      resolve({ proof, proofHex,dontMine });
-    } else  {
+    if (validFlag == true || dontMine === 'true') {
+      resolve({
+        proof,
+        proofHex,
+        dontMine
+      });
+    } else {
       resolve(await generateProof2(previousProof));
     }
   });
@@ -32,8 +39,11 @@ const isProofValid = (previousProof, currentProof) => {
   const zeros = new Array(constants.CURRENT_DIFFICULTY + 1).join("0");
   //if (proofHex.includes('00')) {
   //  console.log("String:  "+proofHex.substring(0,2)+" Zeros: "+zeros);
-  if(proofHex.substring(0,constants.CURRENT_DIFFICULTY) === zeros){
-    return {validFlag:true,proofHex:proofHex};
+  if (proofHex.substring(0, constants.CURRENT_DIFFICULTY) === zeros) {
+    return {
+      validFlag: true,
+      proofHex: proofHex
+    };
   }
   return false;
 };
@@ -41,13 +51,20 @@ const isProofValid = (previousProof, currentProof) => {
 const generateProof2 = (previousProof) => new Promise((resolve) => {
   setImmediate(async () => {
     let proof = Math.random() * 10000000001;
-   
-    const dontMine = process.env.BREAK;
-    const {validFlag,proofHex} = isProofValid(previousProof, proof);
 
-    if ( validFlag == true || dontMine === 'true') {
-      resolve({ proof, proofHex,dontMine });
-    } else  {
+    const dontMine = process.env.BREAK;
+    const {
+      validFlag,
+      proofHex
+    } = isProofValid(previousProof, proof);
+
+    if (validFlag == true || dontMine === 'true') {
+      resolve({
+        proof,
+        proofHex,
+        dontMine
+      });
+    } else {
       resolve(await generateProof(previousProof));
     }
   });

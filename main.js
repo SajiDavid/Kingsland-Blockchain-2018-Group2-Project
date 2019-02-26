@@ -20,15 +20,12 @@ const args = require('minimist')(process.argv.slice(2))
 const EthCrypto = require("eth-crypto");
 const ethers = require("ethers");
 
-
-
-
 const cport = args['port'];
 const cnode_flag = args['node'];
 const chelp = args['help'];
 const cmining_flag = args['mining'];
 const cwallet_flag = args['wallet'];
-console.log("test" + cport);
+//console.log("test" + cport);
 if (cport == undefined || cport == "") {
 
   console.log("port is mandatory,Please provide");
@@ -47,7 +44,6 @@ let socket_global;
 // create application/json parser
 var jsonParser = bodyParser.json();
 
-// create application/x-www-form-urlencoded parser
 var urlencodedParser = bodyParser.urlencoded({
   extended: false
 });
@@ -91,60 +87,23 @@ var messagetype = true;
 
 var sendervalue = "";
 var receivervalue = "";
+var senderdisable = "";
 var amountvalue = "";
 var descriptionvalue = "";
 var blocknumber = "";
 var transactionFlag = false;
 var transactionid = "";
 
-// function intervalFunc() {
-//   /* Share all nodes */
-//   for (let i = 0; i < Blockchain.nodes.length; i++) {
-//     var valid_host = Blockchain.validateNode(Blockchain.nodes[i]);
-
-//     if (!valid_host) {
-//       const new_node = `http:\\${Blockchain.nodes[i]}`;
-
-//       (async () => {
-
-//         Blockchain.io.emit(
-//           socketActions.ADD_NEW_NODE,
-//           new_node,
-//           Blockchain.nodes[i]
-//         );
-
-//         //console.log("Nodes sync "+ Blockchain.nodes[i]);
-//       })();
-//     }
-//   }
-
-// }
-// setInterval(intervalFunc, 120000);
-// Socket IO conncetion
-
 Blockchain.io.on("connection", function (socket) {
   var hostname = socket.handshake.headers.host;
   var valid_host = Blockchain.validateNodeHost(hostname);
   successLog(cport, "Socket connected, ID " + socket.id);
 
-  //console.log("Socket connected, ID", socket.id, " URL 2" + hostname);
-  /*console.log('socket.client.conn.remoteAddress', socket.client.conn.remoteAddress);
-    console.log('socket.request.connection.remoteAddress', socket.request.connection.remoteAddress);
-    console.log('socket.handshake.address', socket.handshake.address);
-    console.log('socket.request.connection.localAddress', socket.request.connection.localAddress);
-    console.log('socket.request.connection.localPort', socket.request.connection.localPort);
-    console.log('socket.request.connection.remotePort', socket.request.connection.remotePort);
-*/
-
   socket.on("disconnect", function () {
     successLog(cport, "user disconnected, ID " + socket.id);
-
-    //Blockchain.removeNode(hostname)  
   });
   socket.on("connect", function () {
-    if (valid) {
-      //Blockchain.addNodeHost(hostname);
-    }
+    if (valid) {}
     console.log("user connected, ID", socket.id, " URL 2" + hostname);
   });
   socket.on("reconnect", function () {
@@ -152,16 +111,8 @@ Blockchain.io.on("connection", function (socket) {
   });
 });
 
-/*
-Blockchain.io.on(socketActions.MY_ADDRESS, function(address) {
-  console.log("New node address", address);
-});
-*/
-
-
 Router.app.set("view engine", "pug");
 Router.app.set("views", path.join(__dirname, "views"));
-//Router.app.use(express.cookieParser('keyboard cat'));
 Router.app.use(
   session({
     secret: "keyboard cat",
@@ -348,8 +299,7 @@ Router.app.post("/newpeer", urlencodedParser, function (req, res) {
 
     res.end();
 
-  }
-  else{
+  } else {
     res.end();
 
   }
@@ -366,7 +316,7 @@ Router.app.get("/home", function (req, res) {
     startedOn: Blockchain.getTimeStamp(),
     connectedNodes: Blockchain.getNodeCount(),
     pendingTransactionsCount: Blockchain.getPendingTransactionLength(),
-    browser_url:process.env.BROWSER_REFRESH_URL,
+    browser_url: process.env.BROWSER_REFRESH_URL,
     nonce: Blockchain.nonce,
     difficulty: Blockchain.difficulty,
     defaultHost: defaultHost,
@@ -396,7 +346,7 @@ Router.app.get("/", function (req, res) {
     pendingTransactionsCount: Blockchain.getPendingTransactionLength(),
     nonce: Blockchain.nonce,
     difficulty: Blockchain.difficulty,
-    browser_url:process.env.BROWSER_REFRESH_URL,
+    browser_url: process.env.BROWSER_REFRESH_URL,
     defaultHost: defaultHost,
     defaultPort: defaultPort,
     displayMessage: messageStatus,
@@ -545,6 +495,7 @@ Router.app.get("/wallet", function (req, res) {
     addressFlag: addressFlag,
     balance: balance,
     sendervalue: sendervalue,
+    senderdisable:senderdisable,
     receivervalue: receivervalue,
     amountvalue: amountvalue,
     descriptionvalue: descriptionvalue,
@@ -573,6 +524,7 @@ Router.app.post("/transactionsend", urlencodedParser, function (req, res) {
     sender,
     receiver,
     amount,
+    txreward,
     description
   } = req.body;
   var valid = true;
@@ -605,7 +557,7 @@ Router.app.post("/transactionsend", urlencodedParser, function (req, res) {
           messageVar = `Receiver address "${receiver}" is invalid!!`;
           valid = false;
         } else {
-          if (amount <= 0 ) {
+          if (amount <= 0) {
             // sendervalue = sender;
             // receivervalue = receiver;
             messageVar = `Amount cannot be "0" or lesser!!`;
@@ -647,6 +599,7 @@ Router.app.post("/transactionsend", urlencodedParser, function (req, res) {
         sender,
         receiver,
         amount,
+        txreward,
         description,
         signedTransaction
       );
@@ -715,18 +668,6 @@ Router.app.get("/createwallet", function (req, res, next) {
 
   res.redirect("/wallet");
 
-  // res.render("wallet", {
-  //   privateKey: Wallet.privateKey,
-  //   publicKey: Wallet.publicKey,
-  //   address: Wallet.address,
-  //   seed: Wallet.getSeed(),
-  //   privateKeyFlag: privateKeyFlag,
-  //   addressFlag: addressFlag,
-  //   displayMessagePrivateKey: messageStatus1,
-  //   displayMessageTransaction: messageStatus2,
-  //   displayMessageAddress: messageStatus3,
-  //   message: messageVar
-  // });
 });
 
 // Creating New Wallet
@@ -740,16 +681,7 @@ Router.app.get("/privatekeywallet", function (req, res, next) {
   balanceAddress = Wallet.address;
 
   res.redirect("/wallet");
-  // res.render("wallet", {
-  //   privateKey: Wallet.privateKey,
-  //   publicKey: Wallet.publicKey,
-  //   address : Wallet.address,
-  //   seed : "",
-  //   privateKeyFlag:privateKeyFlag,
-  //   addressFlag:addressFlag,
-  //   displayMessage: messageStatus,
-  //   message: messageVar
-  // });
+
 });
 
 // Creating New Wallet from privateKey
@@ -759,30 +691,22 @@ Router.app.post("/createfromprivatekey", urlencodedParser, function (req, res) {
   Wallet.createFromPrivateKey(privateKey);
   messageVar = `New Wallet created from Private key provided`;
   messageStatus2 = true;
-  if (Wallet.address != "") addressFlag = true;
-
+  if (Wallet.address != "") {
+    addressFlag = true;
+    sendervalue = Wallet.address;
+    senderdisable = "pointer-events: none;";
+  }
   privateKeyFlag = false;
   messageRedirect = true;
   balanceAddress = Wallet.address;
   res.redirect("/wallet");
 
-  // res.render("wallet", {
-  //   privateKey: Wallet.privateKey,
-  //   publicKey: Wallet.publicKey,
-  //   address : Wallet.address,
-  //   seed :"",
-  //   privateKeyFlag:privateKeyFlag,
-  //   addressFlag:addressFlag,
-  //   displayMessage: messageStatus,
-  //   message: messageVar
-  // });
 });
 
 // Goes to Faucet to pour coin
 Router.app.get("/downloadkeyfile", function (req, res) {
   const filename = Wallet.getWalletFileName();
   res.download(filename);
-  //res.send("This is test Page..coming up");
 });
 
 // Goes to Faucet to pour coin
@@ -794,13 +718,11 @@ Router.app.get("/importjson", function (req, res) {
   messageRedirect = true;
 
   res.redirect("/wallet");
-  //res.send("This is test Page..coming up");
 });
 
 // Goes to Faucet to pour coin
 Router.app.post("/uploadkeyfile", upload.single("file"), (req, res) => {
   if (req.file) {
-    //console.log("Uploading file...");
     var filename = req.file.filename;
     messageVar = `File has been uploaded successfully`;
   } else {
@@ -898,10 +820,6 @@ Router.app.post("/searchblock", urlencodedParser, function (req, res) {
   messageRedirect = true;
   res.redirect("/blocks");
 
-  //block_data = block_data.replace(/\"([^(\")"]+)\":/g,"$1:");
-  //block_data=JSON.stringify(block_data, null, '\t')
-
-  //res.send("This is test Page..coming up");
 });
 
 Router.app.get("/transaction/:id", function (req, res) {
@@ -935,8 +853,7 @@ portscanner.checkPortStatus(port2, "localhost", function (error, status) {
   port_status = status;
 
   if (port_status == "closed") {
-    //console.log(port2 + " is available");
-    //successLog(cport, "Port is available");
+
     ListenPort(port2);
   } else if (port_status == "open") {
     console.log(
@@ -947,7 +864,6 @@ portscanner.checkPortStatus(port2, "localhost", function (error, status) {
   }
 });
 
-//console.log(JSON.stringify(Blockchain.chain, null, 4));
 console.log("Is blockchain valid?" + Blockchain.checkValidity());
 
 function clearMessageVar() {
@@ -963,7 +879,6 @@ function ListenPort(PORT) {
   Blockchain.port = PORT; // Assign port to Blockchain
   Router.http.listen(PORT, function () {
     console.log(`Living at URL http://localhost:${PORT}`);
-    //successlog.info(`Chain Living at URL http://localhost:${PORT}`);
     successLog(cport, `Chain Living at URL http://localhost:${PORT}`);
     if (process.send) {
       process.send('online');
@@ -972,17 +887,14 @@ function ListenPort(PORT) {
 
   var valid = Blockchain.validateNode('localhost', PORT)
   if (valid) {
-    //let client = Router.client(`http://localhost:${PORT}`);
     const new_client = require('socket.io-client');
     socket_global = socketListener(new_client(`http://localhost:${PORT}`), Blockchain);
     Blockchain.addNode(
-      // socketListener(Router.client(`http://localhost:${PORT}`), Blockchain)
       socket_global, "localhost", PORT
     );
   } else {
     console.log(`http://localhost:${PORT}` + " already a Peer :)")
   }
-  // Blockchain.address("test");
 }
 
 
@@ -1009,14 +921,11 @@ async function signTransaction(
 function successLog(port, message) {
   successlog.info(` ${port}: ${message}`);
 }
+
 function errorLog(port, message) {
   successlog.error(`${port}: ${message}`);
 }
 
 process.on("unhandledRejection", (reason, promise) => {
   errorlog.error("Exception occured:", reason.stack || reason);
-
-  //console.log("Unhandled Rejection at(main):", reason.stack || reason);
-  // Recommended: send the information to sentry.io
-  // or whatever crash reporting service you use
 });

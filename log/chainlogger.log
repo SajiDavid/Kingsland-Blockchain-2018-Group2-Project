@@ -1,145 +1,323 @@
-2019-02-26 12:15:22 info: 6550: Free Coin sent to 0x957E0F8Cde6B8D85260e9a631Ca282951e2a7Ef2
-2019-02-26 12:15:22 info: 6550: Signed Transaction0x705fdbd3b5665c0f1a9e9d45a75c69c3b02f2568b99c655122737ee96cec9b674eaf5efc0751da781e8251018a02c4790b77618eca780f08c8eb5cee538b54441c
-2019-02-26 12:15:26 info: 6550: c842c1914b368bd97decc55e10ac8cdc signature validated
-2019-02-26 12:15:26 info: 6550: Added transaction c842c1914b368bd97decc55e10ac8cdc
-2019-02-26 12:15:26 error: 6550: error in adding transaction
-2019-02-26 12:25:32 info: 6550: Chain Living at URL http://localhost:6550
-2019-02-26 12:25:32 info: 6550: Socket connected, ID pb5mzsy_PbslqjnOAAAA
-2019-02-26 12:26:04 info: 6550: Free Coin sent to 0x957E0F8Cde6B8D85260e9a631Ca282951e2a7Ef2
-2019-02-26 12:26:04 info: 6550: Signed Transaction0xdf89067eeef05a733b5fb0189e359959760d1723a928a1df519463d1d0abb3ea460e997fc5d5d3b8e920fc324fe85abaabf1ddad92a3bca883f975de3e9e28b61b
-2019-02-26 12:26:05 info: 6550: user disconnected, ID pb5mzsy_PbslqjnOAAAA
-2019-02-26 12:26:05 info:  6550: Transaction Id 7f3ebf04d332d948e90a6c890a4f7378 signature validated
-2019-02-26 12:26:05 info:  6550: Added transaction Id 7f3ebf04d332d948e90a6c890a4f7378
-2019-02-26 12:26:09 info: 6550: Socket connected, ID Dt3ALcxYCId1u1ViAAAB
-2019-02-26 12:28:39 info:  6550: Chain Living at URL http://localhost:6550
-2019-02-26 12:28:39 info:  6550: Socket connected, ID euETpGm3dSPeNgD-AAAA
-2019-02-26 12:29:08 info:  6550: Free Coin sent to 0x957E0F8Cde6B8D85260e9a631Ca282951e2a7Ef2
-2019-02-26 12:29:08 info:  6550: Signed Transaction0x5f4d1664a49f8fcefd6417aebe023a0ca9a78b36253e643041eebda4395a56a537adcff2251c7c338ee30b4190892efbedf3e5fd7b6f216e7b5389faa97e2ce61b
-2019-02-26 12:29:09 info:  6550: Transaction Id 89c91adb2fecc575c48b7c0014d4dec1 signature validated
-2019-02-26 12:29:09 info:  6550: Added transaction Id 89c91adb2fecc575c48b7c0014d4dec1
-2019-02-26 12:30:37 info:  6550: Chain Living at URL http://localhost:6550
-2019-02-26 12:30:37 info:  6550: Socket connected, ID 7KgqLA0iAbsme_BbAAAA
-2019-02-26 12:31:12 info:  6550: Free Coin sent to 0x957E0F8Cde6B8D85260e9a631Ca282951e2a7Ef2
-2019-02-26 12:31:12 info:  6550: Signed Transaction0x5182858a00b892a644f26c931a3f3d2d485303075271e92be27cef97770aa2615e3bb1759ccc5a1cbfc69c409fc32dde15a5a6808c8d53340d2ac56d3f73867d1b
-2019-02-26 12:31:13 info:  6550: Transaction Id ca95d816bc861ae95d1b1cecda03d953 signature validated
-2019-02-26 12:31:13 info:  6550: Added transaction Id ca95d816bc861ae95d1b1cecda03d953
-2019-02-26 12:32:06 info:  6550: Free Coin sent to 0xF4AA21d14526297Af26B34785D3E1B46e7C0fed0
-2019-02-26 12:32:06 info:  6550: Signed Transaction0x5182858a00b892a644f26c931a3f3d2d485303075271e92be27cef97770aa2615e3bb1759ccc5a1cbfc69c409fc32dde15a5a6808c8d53340d2ac56d3f73867d1b
-2019-02-26 12:32:07 info:  6550: Transaction Id 8e62811f46fb0fa23a16574267328965 signature validated
-2019-02-26 12:32:07 info:  6550: Added transaction Id 8e62811f46fb0fa23a16574267328965
-2019-02-26 12:32:33 info:  6550: Puzzle solved with Proof1872447468.799331 and 00001e8b855b11a14b22be8cb652a7ab32e8a82743af8988a50c88f6c91bc958
-2019-02-26 12:32:33 info:  6550: End mining encountered
-2019-02-26 12:32:33 info:  6550: New Block added[object Object]
-2019-02-26 12:40:16 info:  6550: Chain Living at URL http://localhost:6550
-2019-02-26 12:40:16 info:  6550: Socket connected, ID H13qoPvmImsUKizTAAAA
-2019-02-26 12:51:40 info:  6550: Free Coin sent to 0x957E0F8Cde6B8D85260e9a631Ca282951e2a7Ef2
-2019-02-26 12:51:40 info:  6550: Signed GiveAway Transaction Coins: 10
-2019-02-26 12:51:43 info:  6550: Transaction Id 80f6e029bcea643c875fa7a7b6692ea7 signature validated
-2019-02-26 12:51:43 info:  6550: Added transaction Id 80f6e029bcea643c875fa7a7b6692ea7
-2019-02-26 12:51:58 info:  6550: Free Coin sent to 0xF4AA21d14526297Af26B34785D3E1B46e7C0fed0
-2019-02-26 12:51:58 info:  6550: Signed GiveAway Transaction Coins: 10
-2019-02-26 12:51:58 info:  6550: Starting mining block...
-2019-02-26 12:51:58 info:  6550: Transaction Id ed9336800d3c9cdada6cd1b644fd7db9 signature validated
-2019-02-26 12:51:58 info:  6550: Added transaction Id ed9336800d3c9cdada6cd1b644fd7db9
-2019-02-26 12:52:05 info:  6550: Puzzle solved with Proof8486678289.518339 and 0000e5339c52f8a63c44842cda1df81892340d76b8ced11e01f55d4d784f22a7
-2019-02-26 12:52:05 info:  6550: Mined Successfully
-2019-02-26 12:52:05 info:  6550: End mining encountered
-2019-02-26 12:52:05 info:  6550: New Block added[object Object]
-2019-02-26 13:07:44 error: Exception occured:
-2019-02-26 13:09:33 info:  6550: Chain Living at URL http://localhost:6550
-2019-02-26 13:09:33 info:  6550: Socket connected, ID _BJI-GIrw3EPADeNAAAA
-2019-02-26 13:10:53 info:  6550: Chain Living at URL http://localhost:6550
-2019-02-26 13:10:53 info:  6550: Socket connected, ID TEW4k5dW5xdwgasVAAAA
-2019-02-26 13:11:26 info:  6550: Free Coin sent to 0x957E0F8Cde6B8D85260e9a631Ca282951e2a7Ef2
-2019-02-26 13:11:26 error: Exception occured:
-2019-02-26 13:12:55 info:  6550: Free Coin sent to 0xF4AA21d14526297Af26B34785D3E1B46e7C0fed0
-2019-02-26 13:12:55 error: Exception occured:
-2019-02-26 13:14:40 info:  6550: Chain Living at URL http://localhost:6550
-2019-02-26 13:14:40 info:  6550: Socket connected, ID wXl02J6IZ1L5ehRNAAAA
-2019-02-26 13:15:00 info:  6550: Free Coin sent to 0x957E0F8Cde6B8D85260e9a631Ca282951e2a7Ef2
-2019-02-26 13:15:00 error: Exception occured:
-2019-02-26 13:16:01 info:  6550: Chain Living at URL http://localhost:6550
-2019-02-26 13:16:01 info:  6550: Socket connected, ID qGVvsdmI2hcgny8bAAAA
-2019-02-26 13:17:21 info:  6550: Free Coin sent to 0x957E0F8Cde6B8D85260e9a631Ca282951e2a7Ef2
-2019-02-26 13:17:21 error: Exception occured:
-2019-02-26 13:17:21 info:  6550: user disconnected, ID qGVvsdmI2hcgny8bAAAA
-2019-02-26 13:17:22 info:  6550: Socket connected, ID c_B14UwL2YLEUMmzAAAB
-2019-02-26 13:20:56 info:  6550: Chain Living at URL http://localhost:6550
-2019-02-26 13:20:56 info:  6550: Socket connected, ID FPJkDMugBpPUfzKkAAAA
-2019-02-26 13:21:22 info:  6550: Free Coin sent to 0x957E0F8Cde6B8D85260e9a631Ca282951e2a7Ef2
-2019-02-26 13:21:22 error: Exception occured:
-2019-02-26 13:22:27 info:  6550: Chain Living at URL http://localhost:6550
-2019-02-26 13:22:27 info:  6550: Socket connected, ID S4DaOOQSzOc0YLi1AAAA
-2019-02-26 13:23:23 info:  6550: Chain Living at URL http://localhost:6550
-2019-02-26 13:23:23 info:  6550: Socket connected, ID T5_nRVApfM0Xz_jVAAAA
-2019-02-26 13:24:36 info:  6550: Chain Living at URL http://localhost:6550
-2019-02-26 13:24:37 info:  6550: Socket connected, ID _VvEG81kdTvUHq8aAAAA
-2019-02-26 13:25:08 info:  6550: Free Coin sent to 0x957E0F8Cde6B8D85260e9a631Ca282951e2a7Ef2
-2019-02-26 13:25:08 error: Exception occured:
-2019-02-26 13:27:43 info:  6550: Chain Living at URL http://localhost:6550
-2019-02-26 13:27:43 info:  6550: Socket connected, ID 42l3KeOe5Jqy4W1XAAAA
-2019-02-26 13:28:32 info:  6550: Free Coin sent to 0x957E0F8Cde6B8D85260e9a631Ca282951e2a7Ef2
-2019-02-26 13:28:32 info:  6550: Signed GiveAway Transaction Coins: 10
-2019-02-26 13:28:42 info:  6550: user disconnected, ID 42l3KeOe5Jqy4W1XAAAA
-2019-02-26 13:29:39 info:  6550: Chain Living at URL http://localhost:6550
-2019-02-26 13:29:39 info:  6550: Socket connected, ID oJbFrjG1jezLDmCLAAAA
-2019-02-26 13:29:57 info:  6550: Free Coin sent to 0x957E0F8Cde6B8D85260e9a631Ca282951e2a7Ef2
-2019-02-26 13:29:57 info:  6550: Signed GiveAway Transaction Coins: 10
-2019-02-26 13:30:28 info:  6550: Transaction Id 98a9d76c6d4cf13ec2c5388048df747b signature validated
-2019-02-26 13:30:28 info:  6550: Added transaction Id 98a9d76c6d4cf13ec2c5388048df747b
-2019-02-26 13:30:28 info:  6550: user disconnected, ID oJbFrjG1jezLDmCLAAAA
-2019-02-26 13:30:29 info:  6550: Socket connected, ID rX7nEhmjhxti6vHOAAAB
-2019-02-26 13:31:30 info:  6550: Chain Living at URL http://localhost:6550
-2019-02-26 13:31:30 info:  6550: Socket connected, ID wS2tpJ07VXSou_teAAAA
-2019-02-26 13:33:03 info:  6550: Free Coin sent to 0x957E0F8Cde6B8D85260e9a631Ca282951e2a7Ef2
-2019-02-26 13:33:03 info:  6550: Signed GiveAway Transaction Coins: 10
-2019-02-26 13:33:13 info:  6550: Transaction Id dd00065a7f7ba1462436a92d71ebfc77 signature validated
-2019-02-26 13:33:13 info:  6550: Added transaction Id dd00065a7f7ba1462436a92d71ebfc77
-2019-02-26 13:33:21 info:  6550: Free Coin sent to 0xF4AA21d14526297Af26B34785D3E1B46e7C0fed0
-2019-02-26 13:33:21 info:  6550: Signed GiveAway Transaction Coins: 10
-2019-02-26 13:33:21 info:  6550: Starting mining block...
-2019-02-26 13:33:21 info:  6550: Transaction Id c78036f787eeae6814d1d520b2836471 signature validated
-2019-02-26 13:33:21 info:  6550: Added transaction Id c78036f787eeae6814d1d520b2836471
-2019-02-26 13:33:22 info:  6550: Puzzle solved with Proof3705383742.393852 and 000099db29e283251b59558362e8083956e744d51ba70333b58dbf3407dd45ef
-2019-02-26 13:33:22 info:  6550: Mined Successfully
-2019-02-26 13:33:22 info:  6550: End mining encountered
-2019-02-26 13:33:22 info:  6550: New Block added[object Object]
-2019-02-26 13:34:05 error: Exception occured:
-2019-02-26 13:34:51 info:  6550: Chain Living at URL http://localhost:6550
-2019-02-26 13:34:52 info:  6550: Socket connected, ID RoEIy-kW0o1ndMPMAAAA
-2019-02-26 13:35:26 info:  6550: Free Coin sent to 0x957E0F8Cde6B8D85260e9a631Ca282951e2a7Ef2
-2019-02-26 13:35:26 info:  6550: Signed GiveAway Transaction Coins: 10
-2019-02-26 13:35:26 info:  6550: Transaction Id 1a1661803110944eba5f73ed1f1bd5d2 signature validated
-2019-02-26 13:35:26 info:  6550: Added transaction Id 1a1661803110944eba5f73ed1f1bd5d2
-2019-02-26 13:35:30 info:  6550: Free Coin sent to 0xF4AA21d14526297Af26B34785D3E1B46e7C0fed0
-2019-02-26 13:35:30 info:  6550: Signed GiveAway Transaction Coins: 10
-2019-02-26 13:35:30 info:  6550: Starting mining block...
-2019-02-26 13:35:30 info:  6550: Transaction Id 2f9ec709e8787882b00d3b2808bff748 signature validated
-2019-02-26 13:35:30 info:  6550: Added transaction Id 2f9ec709e8787882b00d3b2808bff748
-2019-02-26 13:35:36 info:  6550: Puzzle solved with Proof6017792841.950654 and 0000ec706bcb5e63e6c6654344f94947a405618327642b22afe2f9ee74c74b5b
-2019-02-26 13:35:36 info:  6550: Mined Successfully
-2019-02-26 13:35:36 info:  6550: End mining encountered
-2019-02-26 13:35:37 info:  6550: New Block added[object Object]
-2019-02-26 13:35:57 error: Exception occured:
-2019-02-26 13:36:55 info:  6550: Chain Living at URL http://localhost:6550
-2019-02-26 13:36:55 info:  6550: Socket connected, ID 0KHldxtHSmh_ZElzAAAA
-2019-02-26 13:53:37 info:  6550: Free Coin sent to 0x957E0F8Cde6B8D85260e9a631Ca282951e2a7Ef2
-2019-02-26 13:53:37 info:  6550: Signed GiveAway Transaction Coins: 10
-2019-02-26 13:53:38 info:  6550: Transaction Id a0d4e1a777610d746f1b34a8bdff00d4 signature validated
-2019-02-26 13:53:38 info:  6550: Added transaction Id a0d4e1a777610d746f1b34a8bdff00d4
-2019-02-26 13:53:42 info:  6550: Free Coin sent to 0xF4AA21d14526297Af26B34785D3E1B46e7C0fed0
-2019-02-26 13:53:42 info:  6550: Signed GiveAway Transaction Coins: 10
-2019-02-26 13:53:42 info:  6550: Starting mining block...
-2019-02-26 13:53:42 info:  6550: Transaction Id 19b9bb50613e467b4ba084e50f8d4b4a signature validated
-2019-02-26 13:53:42 info:  6550: Added transaction Id 19b9bb50613e467b4ba084e50f8d4b4a
-2019-02-26 13:53:54 info:  6550: Puzzle solved with Proof7882199178.100963 and 0000f13496951832f6dadb48e249e488804a3ee574eb95d7ca5dbb2b1eea7094
-2019-02-26 13:53:54 info:  6550: Mined Successfully
-2019-02-26 13:53:54 info:  6550: End mining encountered
-2019-02-26 13:53:55 info:  6550: New Block added[object Object]
-2019-02-26 13:54:33 info:  6550: Transaction ID6c1137e532fa5ec3a0365f5e575dea6e and broadcasted
-2019-02-26 13:54:33 info:  6550: Transaction Id 6c1137e532fa5ec3a0365f5e575dea6e signature validated
-2019-02-26 13:54:33 info:  6550: Added transaction Id 6c1137e532fa5ec3a0365f5e575dea6e
-2019-02-26 14:09:22 info:  6550: Chain Living at URL http://localhost:6550
-2019-02-26 14:09:22 info:  6550: Socket connected, ID HpG52KqhsXAu-bUCAAAA
-2019-02-26 14:11:05 info:  6550: Chain Living at URL http://localhost:6550
-2019-02-26 14:11:06 info:  6550: Socket connected, ID JwrupdYAvLUCpPqHAAAA
+
+2019-02-26 14:30:26 info:  6550: Chain Living at URL http://localhost:6550
+2019-02-26 14:30:26 info:  6550: Socket connected, ID MfIOlyNBywcUrYOrAAAA
+2019-02-26 14:32:50 info:  7550: Chain Living at URL http://localhost:7550
+2019-02-26 14:32:50 info:  7550: Socket connected, ID PeOEDDgAbFM2fNoLAAAA
+2019-02-26 14:33:43 info:  7550: 7550 is already opened, Please use node main.js <differtport>
+2019-02-26 14:34:20 info:  8550: Chain Living at URL http://localhost:8550
+2019-02-26 14:34:20 info:  8550: Socket connected, ID IuWt_ApeS3u-RXtKAAAA
+2019-02-26 14:34:28 info:  9550: Chain Living at URL http://localhost:9550
+2019-02-26 14:34:28 info:  9550: Socket connected, ID KRFXZixqRQAwwZXiAAAA
+2019-02-26 14:36:22 info:  6550: http://localhost:7550 successfully added
+2019-02-26 14:36:22 info:  7550: Socket connected, ID 5rp458R_pTkqZmQmAAAB
+2019-02-26 14:36:22 info:  7550: http://localhost:6550 successfully added
+2019-02-26 14:36:22 info:  6550: Socket connected, ID RlM-cofNfRlxAxA7AAAB
+2019-02-26 14:36:42 info:  7550: Free Coin sent to 0x957E0F8Cde6B8D85260e9a631Ca282951e2a7Ef2
+2019-02-26 14:36:42 info:  7550: Signed GiveAway Transaction Coins: 10
+2019-02-26 14:36:42 info:  6550: Transaction Id b8cbc4ea2d3a198f89f873326d55f6a2 signature 0xb8fA3E34facD00EBE8259c2ECb8F1fdFEcaE5Bbf validated
+2019-02-26 14:36:42 info:  7550: Transaction Id b8cbc4ea2d3a198f89f873326d55f6a2 signature 0xb8fA3E34facD00EBE8259c2ECb8F1fdFEcaE5Bbf validated
+2019-02-26 14:36:45 info:  7550: Free Coin sent to 0xF4AA21d14526297Af26B34785D3E1B46e7C0fed0
+2019-02-26 14:36:45 info:  6550: Starting mining block...
+2019-02-26 14:36:45 info:  6550: Transaction Id 41ad55104ac82d1b265f0d5a7e5519c8 signature 0xb8fA3E34facD00EBE8259c2ECb8F1fdFEcaE5Bbf validated
+2019-02-26 14:36:45 info:  7550: Signed GiveAway Transaction Coins: 10
+2019-02-26 14:36:45 info:  7550: Starting mining block...
+2019-02-26 14:36:45 info:  7550: Transaction Id 41ad55104ac82d1b265f0d5a7e5519c8 signature 0xb8fA3E34facD00EBE8259c2ECb8F1fdFEcaE5Bbf validated
+2019-02-26 14:36:48 info:  7550: Puzzle solved with Proof6765341082.97599 and 0000321609d8ad16459c59ddf1d3eeea1db3f64693d03e7ac7706e8f0de9b265
+2019-02-26 14:36:48 info:  7550: Mined Successfully
+2019-02-26 14:36:48 info:  7550: End mining encountered
+2019-02-26 14:36:48 info:  6550: End mining encountered
+2019-02-26 14:36:48 info:  7550: New Block added[object Object]
+2019-02-26 14:36:48 info:  6550: New Block added[object Object]
+2019-02-26 14:36:48 info:  6550: Puzzle solved with Proof904834076.4199383 and undefined
+2019-02-26 14:37:51 info:  6550: Added new peer localhost:9550
+2019-02-26 14:37:51 info:  7550: http://localhost:9550 successfully added
+2019-02-26 14:37:51 info:  6550: http://localhost:9550 successfully added
+2019-02-26 14:37:51 info:  9550: Socket connected, ID TrajxUG6ukqo7teoAAAB
+2019-02-26 14:37:52 info:  9550: http://localhost:6550 successfully added
+2019-02-26 14:37:52 info:  6550: Socket connected, ID _uUYDEZH0tcUYcVXAAAC
+2019-02-26 14:37:52 info:  9550: Socket connected, ID TKmO5IH78r1VzeHDAAAC
+2019-02-26 14:37:52 info:  9550: http://localhost:7550 successfully added
+2019-02-26 14:37:52 info:  7550: Socket connected, ID mtWi6FLmygqHoZP0AAAC
+2019-02-26 14:38:57 info:  9550: Transaction IDce479a906f8e39fb17efca1483e7ae74 and broadcasted
+2019-02-26 14:38:57 info:  6550: Transaction Id ce479a906f8e39fb17efca1483e7ae74 signature 0xF4AA21d14526297Af26B34785D3E1B46e7C0fed0 validated
+2019-02-26 14:38:57 info:  7550: Transaction Id ce479a906f8e39fb17efca1483e7ae74 signature 0xF4AA21d14526297Af26B34785D3E1B46e7C0fed0 validated
+2019-02-26 14:38:57 info:  9550: Transaction Id ce479a906f8e39fb17efca1483e7ae74 signature 0xF4AA21d14526297Af26B34785D3E1B46e7C0fed0 validated
+2019-02-26 14:39:49 info:  7550: Free Coin sent to 0x957E0F8Cde6B8D85260e9a631Ca282951e2a7Ef2
+2019-02-26 14:39:49 info:  9550: Starting mining block...
+2019-02-26 14:39:49 info:  7550: Signed GiveAway Transaction Coins: 10
+2019-02-26 14:39:49 info:  7550: Starting mining block...
+2019-02-26 14:39:49 info:  7550: Transaction Id 93599bef15cba4d157220fe9584b7e0c signature 0xb8fA3E34facD00EBE8259c2ECb8F1fdFEcaE5Bbf validated
+2019-02-26 14:39:49 info:  9550: Transaction Id 93599bef15cba4d157220fe9584b7e0c signature 0xb8fA3E34facD00EBE8259c2ECb8F1fdFEcaE5Bbf validated
+2019-02-26 14:39:49 info:  6550: Starting mining block...
+2019-02-26 14:39:49 info:  6550: Transaction Id 93599bef15cba4d157220fe9584b7e0c signature 0xb8fA3E34facD00EBE8259c2ECb8F1fdFEcaE5Bbf validated
+2019-02-26 14:40:07 info:  9550: Puzzle solved with Proof8292069170.55984 and 000085a7d1e51eb7a290040a4f5aafd88883bc8940aaa06567c5d804a85a36a2
+2019-02-26 14:40:07 info:  9550: Mined Successfully
+2019-02-26 14:40:07 info:  7550: End mining encountered
+2019-02-26 14:40:07 info:  9550: End mining encountered
+2019-02-26 14:40:07 info:  6550: End mining encountered
+2019-02-26 14:40:08 info:  9550: New Block added[object Object]
+2019-02-26 14:40:08 info:  7550: New Block added[object Object]
+2019-02-26 14:40:08 info:  7550: Puzzle solved with Proof3879441453.7095366 and undefined
+2019-02-26 14:40:08 info:  6550: New Block added[object Object]
+2019-02-26 14:40:08 info:  6550: Puzzle solved with Proof2414238370.9766307 and undefined
+2019-02-26 14:51:25 info:  6550: user disconnected, ID RlM-cofNfRlxAxA7AAAB
+2019-02-26 14:51:25 info:  6550: user disconnected, ID _uUYDEZH0tcUYcVXAAAC
+2019-02-26 14:51:37 info:  7550: Chain Living at URL http://localhost:7550
+2019-02-26 14:51:37 info:  7550: Socket connected, ID I1qXO0Y5kY6Cud6eAAAA
+2019-02-26 14:51:37 info:  9550: Chain Living at URL http://localhost:9550
+2019-02-26 14:51:37 info:  8550: Chain Living at URL http://localhost:8550
+2019-02-26 14:51:37 info:  9550: Socket connected, ID aXhdP5wiykdw4br_AAAA
+2019-02-26 14:51:37 info:  8550: Socket connected, ID hbrcZP47A8Pf6Pf7AAAA
+2019-02-26 14:51:38 info:  7550: Socket connected, ID R8OyyCO5FXnsrCR8AAAB
+2019-02-26 14:51:38 info:  9550: Socket connected, ID hUj3LMuKpnbcu_qHAAAB
+2019-02-26 14:51:57 info:  8550: Chain Living at URL http://localhost:8550
+2019-02-26 14:51:57 info:  8550: Socket connected, ID SLqYFrqlm9dwUIaXAAAA
+2019-02-26 14:51:57 info:  7550: Chain Living at URL http://localhost:7550
+2019-02-26 14:51:57 info:  9550: Chain Living at URL http://localhost:9550
+2019-02-26 14:51:57 info:  9550: Socket connected, ID Wk-nLFnw0TSPTVh3AAAA
+2019-02-26 14:51:57 info:  7550: Socket connected, ID fQb0SpknkiGYvyO8AAAA
+2019-02-26 14:51:58 info:  7550: Socket connected, ID 28yS-zzD7-99v2LOAAAB
+2019-02-26 14:51:58 info:  9550: Socket connected, ID 99oefmCZg8vTffpYAAAB
+2019-02-26 14:52:51 info:  8550: Chain Living at URL http://localhost:8550
+2019-02-26 14:52:51 info:  7550: Chain Living at URL http://localhost:7550
+2019-02-26 14:52:51 info:  9550: Chain Living at URL http://localhost:9550
+2019-02-26 14:52:51 info:  8550: Socket connected, ID BON8z0zSCOfMMdIxAAAA
+2019-02-26 14:52:51 info:  7550: Socket connected, ID sbd2CvCwLfNdHuL4AAAA
+2019-02-26 14:52:52 info:  9550: Socket connected, ID o7GhzWoiwJ1wwTmDAAAA
+2019-02-26 14:52:52 info:  9550: Socket connected, ID hL7f-Nxb7RdlZLRYAAAB
+2019-02-26 14:52:54 info:  7550: Socket connected, ID 8fDj49kc8eV8XT0aAAAB
+2019-02-26 14:53:25 info:  7550: Chain Living at URL http://localhost:7550
+2019-02-26 14:53:25 info:  9550: Chain Living at URL http://localhost:9550
+2019-02-26 14:53:25 info:  7550: Socket connected, ID ZmPlDvCptz1eUm-YAAAA
+2019-02-26 14:53:25 info:  9550: Socket connected, ID eUd6CGs-yjAqYuPKAAAA
+2019-02-26 14:53:25 info:  9550: Socket connected, ID MYg0zWiXnvK5NRgNAAAB
+2019-02-26 14:53:25 info:  8550: Chain Living at URL http://localhost:8550
+2019-02-26 14:53:25 info:  8550: Socket connected, ID L7Av56kOiZ6y-YTlAAAA
+2019-02-26 14:53:26 info:  7550: Socket connected, ID AIURfOGHIOsvIxEmAAAB
+2019-02-26 14:53:57 info:  8550: Chain Living at URL http://localhost:8550
+2019-02-26 14:53:57 info:  9550: Chain Living at URL http://localhost:9550
+2019-02-26 14:53:57 info:  7550: Chain Living at URL http://localhost:7550
+2019-02-26 14:53:57 info:  8550: Socket connected, ID ZZXgOval6a8XFK4UAAAA
+2019-02-26 14:53:57 info:  9550: Socket connected, ID LkvPt2n9SfUQpg0RAAAA
+2019-02-26 14:53:57 info:  7550: Socket connected, ID 9rlNP3W1WIXsjIteAAAA
+2019-02-26 14:53:57 info:  9550: Socket connected, ID zQa2cUW3hYaAMdZoAAAB
+2019-02-26 14:54:00 info:  7550: Socket connected, ID Py8D9gvoPKwW0lcrAAAB
+2019-02-26 14:54:17 info:  7550: Chain Living at URL http://localhost:7550
+2019-02-26 14:54:17 info:  7550: Socket connected, ID oD1mMP9MYHylFi5HAAAA
+2019-02-26 14:54:17 info:  8550: Chain Living at URL http://localhost:8550
+2019-02-26 14:54:17 info:  9550: Chain Living at URL http://localhost:9550
+2019-02-26 14:54:17 info:  8550: Socket connected, ID oeg9ZCM2nGK9T1WsAAAA
+2019-02-26 14:54:17 info:  9550: Socket connected, ID PWOZGt3bXBCJ8JhBAAAA
+2019-02-26 14:54:17 info:  9550: Socket connected, ID VE9ypQS4edzl_I8kAAAB
+2019-02-26 14:54:18 info:  7550: Socket connected, ID F-w2rDLouUV-3YKLAAAB
+2019-02-26 14:54:58 info:  7550: Chain Living at URL http://localhost:7550
+2019-02-26 14:54:58 info:  8550: Chain Living at URL http://localhost:8550
+2019-02-26 14:54:59 info:  9550: Chain Living at URL http://localhost:9550
+2019-02-26 14:54:59 info:  7550: Socket connected, ID akxnKrGjOPN3JEY0AAAA
+2019-02-26 14:54:59 info:  9550: Socket connected, ID aZ9E8TavZ5_9m5hiAAAA
+2019-02-26 14:54:59 info:  8550: Socket connected, ID UXSU_rktZL1oTbDcAAAA
+2019-02-26 14:54:59 info:  7550: Socket connected, ID Ipwp7z69yA3y2qqPAAAB
+2019-02-26 14:55:03 info:  9550: Socket connected, ID CLi60kuswHmysbwXAAAB
+2019-02-26 14:55:33 info:  8550: Chain Living at URL http://localhost:8550
+2019-02-26 14:55:34 info:  9550: Chain Living at URL http://localhost:9550
+2019-02-26 14:55:34 info:  8550: Socket connected, ID yvr1r1gkkb6eohrLAAAA
+2019-02-26 14:55:34 info:  7550: Chain Living at URL http://localhost:7550
+2019-02-26 14:55:34 info:  9550: Socket connected, ID c_FWNOMo73rSq9qaAAAA
+2019-02-26 14:55:34 info:  7550: Socket connected, ID yTXh9VmM-9yBFc7AAAAA
+2019-02-26 14:55:34 info:  9550: Socket connected, ID sqQFFlxjYOF_zclPAAAB
+2019-02-26 14:55:35 info:  7550: Socket connected, ID SnkjEAvfzgqoAu6IAAAB
+2019-02-26 14:56:27 info:  7550: user disconnected, ID SnkjEAvfzgqoAu6IAAAB
+2019-02-26 14:56:27 info:  9550: user disconnected, ID sqQFFlxjYOF_zclPAAAB
+2019-02-26 14:56:34 info:  6550: Chain Living at URL http://localhost:6550
+2019-02-26 14:56:34 info:  6550: Socket connected, ID QZMVnsMTVIDsH15pAAAA
+2019-02-26 14:57:41 info:  6550: Free Coin sent to 0x957E0F8Cde6B8D85260e9a631Ca282951e2a7Ef2
+2019-02-26 14:57:41 info:  6550: Signed GiveAway Transaction Coins: 10
+2019-02-26 14:57:41 info:  6550: Transaction Id 80a7703b1cb354ce2d1a2c18f44e9e71 signature 0xD0C9894b1fC26ccA957624cd66B037f3DA1937a1 validated
+2019-02-26 14:57:44 info:  6550: Free Coin sent to 0xF4AA21d14526297Af26B34785D3E1B46e7C0fed0
+2019-02-26 14:57:44 info:  6550: Signed GiveAway Transaction Coins: 10
+2019-02-26 14:57:44 info:  6550: Starting mining block...
+2019-02-26 14:57:44 info:  6550: Transaction Id b6e937702f90f021413702e3353c608e signature 0xD0C9894b1fC26ccA957624cd66B037f3DA1937a1 validated
+2019-02-26 14:57:47 info:  6550: Puzzle solved with Proof4135909343.6740665 and 0000d16f7167a292aaa7a1ab3293fa17853198eacca3a72bdc11605a3e0db28d
+2019-02-26 14:57:47 info:  6550: Mined Successfully
+2019-02-26 14:57:48 info:  6550: End mining encountered
+2019-02-26 14:57:48 info:  6550: New Block added[object Object]
+2019-02-26 15:00:10 info:  8550: Chain Living at URL http://localhost:8550
+2019-02-26 15:00:10 info:  8550: Socket connected, ID eK3k6I-FPY4XKPinAAAA
+2019-02-26 15:00:11 info:  7550: Chain Living at URL http://localhost:7550
+2019-02-26 15:00:11 info:  7550: Socket connected, ID 1u-0554QMnLy7rC3AAAA
+2019-02-26 15:00:11 info:  9550: Chain Living at URL http://localhost:9550
+2019-02-26 15:00:11 info:  9550: Socket connected, ID R3C_x--_7KD0Qj2AAAAA
+2019-02-26 15:00:15 info:  6550: Chain Living at URL http://localhost:6550
+2019-02-26 15:00:15 info:  6550: Socket connected, ID uFynBHBNEA4HVnEjAAAA
+2019-02-26 15:01:26 info:  8550: Chain Living at URL http://localhost:8550
+2019-02-26 15:01:27 info:  8550: Socket connected, ID TXryKqyHak8HEpZlAAAA
+2019-02-26 15:01:27 info:  9550: Chain Living at URL http://localhost:9550
+2019-02-26 15:01:27 info:  9550: Socket connected, ID AwnUQnMRisJAIGv6AAAA
+2019-02-26 15:01:27 info:  7550: Chain Living at URL http://localhost:7550
+2019-02-26 15:01:27 info:  7550: Socket connected, ID 7a79-wS_Wz_t1_QLAAAA
+2019-02-26 15:01:39 info:  7550: Chain Living at URL http://localhost:7550
+2019-02-26 15:01:39 info:  9550: Chain Living at URL http://localhost:9550
+2019-02-26 15:01:39 info:  7550: Socket connected, ID 5X7_Lc4HSYiCiuo2AAAA
+2019-02-26 15:01:39 info:  8550: Chain Living at URL http://localhost:8550
+2019-02-26 15:01:40 info:  8550: Socket connected, ID taQmj9fgWqJgPZRdAAAA
+2019-02-26 15:01:40 info:  9550: Socket connected, ID G84IsbDokqHrCAFHAAAA
+2019-02-26 15:01:58 info:  9550: Chain Living at URL http://localhost:9550
+2019-02-26 15:01:58 info:  9550: Socket connected, ID 1oYS9fGL8wp3h8FDAAAA
+2019-02-26 15:01:58 info:  8550: Chain Living at URL http://localhost:8550
+2019-02-26 15:01:59 info:  8550: Socket connected, ID vM87d8PC9CT8prTZAAAA
+2019-02-26 15:01:59 info:  7550: Chain Living at URL http://localhost:7550
+2019-02-26 15:01:59 info:  7550: Socket connected, ID cX-IG-YdSIY3wIzDAAAA
+2019-02-26 15:02:18 info:  6550: Chain Living at URL http://localhost:6550
+2019-02-26 15:02:18 info:  6550: Socket connected, ID 5xpM8vgSp0-03Q63AAAA
+2019-02-26 15:10:33 info:  9550: Chain Living at URL http://localhost:9550
+2019-02-26 15:10:33 info:  8550: Chain Living at URL http://localhost:8550
+2019-02-26 15:10:33 info:  9550: Socket connected, ID _kcpD59eoTnHK6hTAAAA
+2019-02-26 15:10:33 info:  8550: Socket connected, ID 5u1dAMOIpUOkeIRgAAAA
+2019-02-26 15:10:33 info:  7550: Chain Living at URL http://localhost:7550
+2019-02-26 15:10:33 info:  7550: Socket connected, ID S6d6eT6E148JDU44AAAA
+2019-02-26 15:11:44 info:  8550: Chain Living at URL http://localhost:8550
+2019-02-26 15:11:44 info:  9550: Chain Living at URL http://localhost:9550
+2019-02-26 15:11:44 info:  8550: Socket connected, ID c2F3lm0tAkGQWdbGAAAA
+2019-02-26 15:11:44 info:  7550: Chain Living at URL http://localhost:7550
+2019-02-26 15:11:44 info:  7550: Socket connected, ID zxl7zXtGrUVaVgpzAAAA
+2019-02-26 15:11:44 info:  9550: Socket connected, ID W7afVR1qHHPHP0a2AAAA
+2019-02-26 15:11:47 info:  6550: Chain Living at URL http://localhost:6550
+2019-02-26 15:11:47 info:  6550: Socket connected, ID nJGjBu76X9xIVonMAAAA
+2019-02-26 15:21:57 info:  9550: Chain Living at URL http://localhost:9550
+2019-02-26 15:21:57 info:  9550: Socket connected, ID Snw_ESCPZD0XfTgEAAAA
+2019-02-26 15:21:57 info:  7550: Chain Living at URL http://localhost:7550
+2019-02-26 15:21:57 info:  8550: Chain Living at URL http://localhost:8550
+2019-02-26 15:21:57 info:  7550: Socket connected, ID scQGnQezipD6QKu2AAAA
+2019-02-26 15:21:57 info:  8550: Socket connected, ID KV6duanz6qQHjj6KAAAA
+2019-02-26 15:22:07 info:  9550: Chain Living at URL http://localhost:9550
+2019-02-26 15:22:07 info:  7550: Chain Living at URL http://localhost:7550
+2019-02-26 15:22:07 info:  8550: Chain Living at URL http://localhost:8550
+2019-02-26 15:22:07 info:  9550: Socket connected, ID UWTnSi9LnKZQ9_CLAAAA
+2019-02-26 15:22:07 info:  8550: Socket connected, ID W8tyx7NgfVZWNYvMAAAA
+2019-02-26 15:22:07 info:  7550: Socket connected, ID i_Ah2HxkzVoYtTolAAAA
+2019-02-26 15:23:50 info:  8550: Chain Living at URL http://localhost:8550
+2019-02-26 15:23:50 info:  8550: Socket connected, ID i89DjfSgNX-N6akRAAAA
+2019-02-26 15:23:51 info:  7550: Chain Living at URL http://localhost:7550
+2019-02-26 15:23:51 info:  9550: Chain Living at URL http://localhost:9550
+2019-02-26 15:23:51 info:  7550: Socket connected, ID P6Hx3ksBRIbRGeJGAAAA
+2019-02-26 15:23:51 info:  9550: Socket connected, ID vvNUwx9zLE_tCGLRAAAA
+2019-02-26 15:29:04 info:  7550: Chain Living at URL http://localhost:7550
+2019-02-26 15:29:04 info:  7550: Socket connected, ID Fr_pm-hUBYVrUsqrAAAA
+2019-02-26 15:29:04 info:  8550: Chain Living at URL http://localhost:8550
+2019-02-26 15:29:04 info:  9550: Chain Living at URL http://localhost:9550
+2019-02-26 15:29:04 info:  9550: Socket connected, ID P0b4VbfxU8Wbv4dyAAAA
+2019-02-26 15:29:04 info:  8550: Socket connected, ID hFJ-dGgtwS8b76V5AAAA
+2019-02-26 15:34:34 info:  9550: Chain Living at URL http://localhost:9550
+2019-02-26 15:34:34 info:  8550: Chain Living at URL http://localhost:8550
+2019-02-26 15:34:34 info:  9550: Socket connected, ID NpmvVI_R1toA_zsOAAAA
+2019-02-26 15:34:34 info:  7550: Chain Living at URL http://localhost:7550
+2019-02-26 15:34:34 info:  8550: Socket connected, ID qXbmGjWemJe0pZkFAAAA
+2019-02-26 15:34:34 info:  7550: Socket connected, ID qs0yFoEzZJXimPRFAAAA
+2019-02-26 15:35:24 info:  7550: Chain Living at URL http://localhost:7550
+2019-02-26 15:35:24 info:  7550: Socket connected, ID SNxcGUptpaOjH899AAAA
+2019-02-26 15:35:24 info:  9550: Chain Living at URL http://localhost:9550
+2019-02-26 15:35:24 info:  8550: Chain Living at URL http://localhost:8550
+2019-02-26 15:35:24 info:  9550: Socket connected, ID 3JLkS1OqUsWafrJbAAAA
+2019-02-26 15:35:24 info:  8550: Socket connected, ID WtNkMgagCFnnSEgAAAAA
+2019-02-26 15:36:13 info:  8550: Chain Living at URL http://localhost:8550
+2019-02-26 15:36:13 info:  7550: Chain Living at URL http://localhost:7550
+2019-02-26 15:36:13 info:  8550: Socket connected, ID htmfStHr5SOhZfRSAAAA
+2019-02-26 15:36:13 info:  7550: Socket connected, ID ow5yjwxy56KyyDwLAAAA
+2019-02-26 15:36:13 info:  9550: Chain Living at URL http://localhost:9550
+2019-02-26 15:36:13 info:  9550: Socket connected, ID hB7RjfWMGYWc1XpxAAAA
+2019-02-26 15:36:55 info:  9550: Chain Living at URL http://localhost:9550
+2019-02-26 15:36:55 info:  7550: Chain Living at URL http://localhost:7550
+2019-02-26 15:36:55 info:  9550: Socket connected, ID xhpGpQWM0mBX5_zzAAAA
+2019-02-26 15:36:55 info:  8550: Chain Living at URL http://localhost:8550
+2019-02-26 15:36:55 info:  7550: Socket connected, ID K8VYsDafTbsd_EHvAAAA
+2019-02-26 15:36:55 info:  8550: Socket connected, ID Aup0HVYIs7_jeaH4AAAA
+2019-02-26 15:37:26 info:  9550: Chain Living at URL http://localhost:9550
+2019-02-26 15:37:26 info:  9550: Socket connected, ID _KPLx-WJ5dBZD_v-AAAA
+2019-02-26 15:37:27 info:  7550: Chain Living at URL http://localhost:7550
+2019-02-26 15:37:27 info:  8550: Chain Living at URL http://localhost:8550
+2019-02-26 15:37:27 info:  7550: Socket connected, ID 8UT-3OUlp2w-PDRJAAAA
+2019-02-26 15:37:27 info:  8550: Socket connected, ID -zhwVHE9Od3K-_G-AAAA
+2019-02-26 15:38:14 info:  8550: Chain Living at URL http://localhost:8550
+2019-02-26 15:38:14 info:  7550: Chain Living at URL http://localhost:7550
+2019-02-26 15:38:14 info:  8550: Socket connected, ID W8ORVfWs7U-NRBNiAAAA
+2019-02-26 15:38:14 info:  7550: Socket connected, ID a02fS1RUZSFd2MdRAAAA
+2019-02-26 15:38:14 info:  9550: Chain Living at URL http://localhost:9550
+2019-02-26 15:38:14 info:  9550: Socket connected, ID jPW1JuOt1RBt-r5HAAAA
+2019-02-26 15:41:59 error: Exception occured:
+2019-02-26 15:42:24 error: Exception occured:
+2019-02-26 15:44:14 info:  8550: Chain Living at URL http://localhost:8550
+2019-02-26 15:44:14 info:  7550: Chain Living at URL http://localhost:7550
+2019-02-26 15:44:14 info:  9550: Chain Living at URL http://localhost:9550
+2019-02-26 15:44:14 info:  8550: Socket connected, ID BS2LlxYS5YdREpmkAAAA
+2019-02-26 15:44:14 info:  7550: Socket connected, ID FwCHaAGZDB1Vc4wNAAAA
+2019-02-26 15:44:14 info:  9550: Socket connected, ID S7XEqiSR9FnBtO63AAAA
+2019-02-26 15:53:05 info:  9550: Chain Living at URL http://localhost:9550
+2019-02-26 15:53:05 info:  7550: Chain Living at URL http://localhost:7550
+2019-02-26 15:53:05 info:  7550: Socket connected, ID haLqohsCyzz9v1ucAAAA
+2019-02-26 15:53:05 info:  9550: Socket connected, ID W7KsIyOTCdSSwC08AAAA
+2019-02-26 15:53:06 info:  8550: Chain Living at URL http://localhost:8550
+2019-02-26 15:53:06 info:  8550: Socket connected, ID Z8B3zZBb4v1iFwnLAAAA
+2019-02-26 15:53:29 info:  8550: Chain Living at URL http://localhost:8550
+2019-02-26 15:53:29 info:  8550: Socket connected, ID iyRv_Et7Xo7mul7XAAAA
+2019-02-26 15:53:29 info:  9550: Chain Living at URL http://localhost:9550
+2019-02-26 15:53:29 info:  7550: Chain Living at URL http://localhost:7550
+2019-02-26 15:53:29 info:  9550: Socket connected, ID xioFvA4pfAo7u3VxAAAA
+2019-02-26 15:53:29 info:  7550: Socket connected, ID EEDA8BMmyoeyoXUzAAAA
+2019-02-26 15:53:51 info:  9550: Chain Living at URL http://localhost:9550
+2019-02-26 15:53:51 info:  8550: Chain Living at URL http://localhost:8550
+2019-02-26 15:53:51 info:  7550: Chain Living at URL http://localhost:7550
+2019-02-26 15:53:51 info:  9550: Socket connected, ID HUDEqjGAwbvyHml4AAAA
+2019-02-26 15:53:51 info:  8550: Socket connected, ID 6MCNewu1L0UkXA49AAAA
+2019-02-26 15:53:51 info:  7550: Socket connected, ID 65Y7rpiDhcEPlHwiAAAA
+2019-02-26 16:32:18 info:  9550: Chain Living at URL http://localhost:9550
+2019-02-26 16:32:18 info:  9550: Socket connected, ID JKsE64oxx-xw60txAAAA
+2019-02-26 16:32:18 info:  8550: Chain Living at URL http://localhost:8550
+2019-02-26 16:32:18 info:  8550: Socket connected, ID YYJSUPjfNCVIAuSNAAAA
+2019-02-26 16:32:18 info:  7550: Chain Living at URL http://localhost:7550
+2019-02-26 16:32:19 info:  7550: Socket connected, ID hjgAMmJuvWVRJ5TzAAAA
+2019-02-26 16:37:21 info:  7550: Chain Living at URL http://localhost:7550
+2019-02-26 16:37:22 info:  7550: Socket connected, ID rvWGeYYVCBCvhVbQAAAA
+2019-02-26 16:37:22 info:  9550: Chain Living at URL http://localhost:9550
+2019-02-26 16:37:22 info:  9550: Socket connected, ID kA55wl4VGza4ZRJdAAAA
+2019-02-26 16:37:22 info:  8550: Chain Living at URL http://localhost:8550
+2019-02-26 16:37:22 info:  8550: Socket connected, ID M9jbFzRFQ3AHhJUFAAAA
+2019-02-26 16:37:48 info:  8550: Chain Living at URL http://localhost:8550
+2019-02-26 16:37:48 info:  9550: Chain Living at URL http://localhost:9550
+2019-02-26 16:37:48 info:  8550: Socket connected, ID AgMPfOF2XtmX-Bz9AAAA
+2019-02-26 16:37:48 info:  7550: Chain Living at URL http://localhost:7550
+2019-02-26 16:37:48 info:  9550: Socket connected, ID WqxrC2CRnrMnYUEMAAAA
+2019-02-26 16:37:48 info:  7550: Socket connected, ID PJiYrYVACmeLQ60mAAAA
+2019-02-26 16:37:58 info:  7550: Chain Living at URL http://localhost:7550
+2019-02-26 16:37:58 info:  8550: Chain Living at URL http://localhost:8550
+2019-02-26 16:37:58 info:  9550: Chain Living at URL http://localhost:9550
+2019-02-26 16:37:58 info:  9550: Socket connected, ID 0zI9_GTiyhQTsgK2AAAA
+2019-02-26 16:37:58 info:  8550: Socket connected, ID 21I_NLFFyJ9k9h-pAAAA
+2019-02-26 16:37:58 info:  7550: Socket connected, ID zV3Y05d0wmJ-dPt0AAAA
+2019-02-26 16:38:07 info:  9550: Chain Living at URL http://localhost:9550
+2019-02-26 16:38:07 info:  8550: Chain Living at URL http://localhost:8550
+2019-02-26 16:38:07 info:  9550: Socket connected, ID hkF4k2LxnuZSp2GKAAAA
+2019-02-26 16:38:07 info:  7550: Chain Living at URL http://localhost:7550
+2019-02-26 16:38:07 info:  8550: Socket connected, ID 5ZMZb6X7UA9ynEIJAAAA
+2019-02-26 16:38:07 info:  7550: Socket connected, ID MQoT42GfPuTt37MsAAAA
+2019-02-26 16:38:49 info:  6550: Chain Living at URL http://localhost:6550
+2019-02-26 16:38:49 info:  6550: Socket connected, ID ZNqNw3jiHBPotoeWAAAA
+2019-02-26 16:39:01 info:  6550: Free Coin sent to 0x957E0F8Cde6B8D85260e9a631Ca282951e2a7Ef2
+2019-02-26 16:39:01 info:  6550: Signed GiveAway Transaction Coins: 10
+2019-02-26 16:39:01 error: Exception occured:
+2019-02-26 16:40:29 info:  7550: Chain Living at URL http://localhost:7550
+2019-02-26 16:40:29 info:  7550: Socket connected, ID 5au54OtbbxzZ8K7qAAAA
+2019-02-26 16:40:29 info:  9550: Chain Living at URL http://localhost:9550
+2019-02-26 16:40:29 info:  8550: Chain Living at URL http://localhost:8550
+2019-02-26 16:40:30 info:  9550: Socket connected, ID 1plTPz-ANOwb6sCgAAAA
+2019-02-26 16:40:30 info:  8550: Socket connected, ID vOjr9A4GiZW84kovAAAA
+2019-02-26 16:40:35 info:  6550: Chain Living at URL http://localhost:6550
+2019-02-26 16:40:35 info:  6550: Socket connected, ID 7UJ8qCN_pn1dt5qTAAAA
+2019-02-26 16:40:59 info:  9550: Chain Living at URL http://localhost:9550
+2019-02-26 16:40:59 info:  7550: Chain Living at URL http://localhost:7550
+2019-02-26 16:40:59 info:  7550: Socket connected, ID 6KgBn8EXd3gdgNrBAAAA
+2019-02-26 16:40:59 info:  9550: Socket connected, ID v7Yw1EZ0pWcwM4kCAAAA
+2019-02-26 16:40:59 info:  8550: Chain Living at URL http://localhost:8550
+2019-02-26 16:41:00 info:  8550: Socket connected, ID Qz8eoJSofJbClI6FAAAA
+2019-02-26 16:41:21 info:  6550: Free Coin sent to 0x957E0F8Cde6B8D85260e9a631Ca282951e2a7Ef2
+2019-02-26 16:41:21 info:  6550: Signed GiveAway Transaction Coins: 10
+2019-02-26 16:41:21 info:  6550: Transaction Id 2fd8bfda9d5def73e06abeef50601de4 signature 0x768C890c9b4C15c8cFE74256354c64c2B7c3DD52 validated

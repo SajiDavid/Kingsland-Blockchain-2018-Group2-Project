@@ -14,10 +14,10 @@ var dateFormat = require("dateformat");
 
 class Block {
   // Block Constructor
-  constructor(index, date,previousBlockHash, data, proof, nonce) {
+  constructor(index, date, previousBlockHash, data, proof, nonce) {
     this.index = index; // Block Index
     this.timeStamp = dateFormat(date, "dddd, mmmm dS, yyyy, h:MM:ss TT"); // TimeStamp
-    this.datenow  = date;
+    this.datenow = date;
     this.previousBlockHash = previousBlockHash; // Intital Previous Hash is Zero
     this.data = data; // Data
     this.proof = proof;
@@ -28,10 +28,10 @@ class Block {
 
   }
 
-  nodeSyncedBlock(index, timeStamp,datenow,previousBlockHash, hash,data, proof,proofHex, nonce,confirmations) {
+  nodeSyncedBlock(index, timeStamp, datenow, previousBlockHash, hash, data, proof, proofHex, nonce, confirmations) {
     this.index = index; // Block Index
     this.timeStamp = timeStamp; // TimeStamp
-    this.datenow  = datenow;
+    this.datenow = datenow;
     this.previousBlockHash = previousBlockHash; // Intital Previous Hash is Zero
     this.data = data; // Data
     this.proof = proof;
@@ -46,10 +46,10 @@ class Block {
     // Retrun new calculate SHA256 Hash
     return SHA256(
       this.index +
-        this.previousBlockHash +
-        this.timeStamp +
-        this.data +
-        this.nonce
+      this.previousBlockHash +
+      this.timeStamp +
+      this.data +
+      this.nonce
     ).toString();
   }
 

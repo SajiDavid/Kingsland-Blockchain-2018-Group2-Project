@@ -75,6 +75,7 @@ class BlockChain {
       initialHash,
       this.addressWallet,
       40000000,
+      "0",
       "Kings Genesis Block"
     );
     const currentTransactions = [transaction];
@@ -94,7 +95,7 @@ class BlockChain {
         this.chainId,
         this.walletMain
       );
-      successLog(this.port, "Signed GiveAway Transaction Coins: "+socketActions.FREE_COINS);
+      successLog(this.port, "Signed GiveAway Transaction Coins: " + socketActions.FREE_COINS);
 
       try {
 
@@ -105,6 +106,7 @@ class BlockChain {
           this.addressWallet,
           address,
           socketActions.FREE_COINS,
+          "0",
           "Giving Away Coin",
           signedTransaction
         );
@@ -151,10 +153,8 @@ class BlockChain {
       var j = i - 1; // Previous Block Index
       let currentBlock = new Block();
       currentBlock.nodeSyncedBlock(this.chain[i].index, this.chain[i].timeStamp, this.chain[i].datenow, this.chain[i].previousBlockHash, this.chain[i].hash, this.chain[i].data, this.chain[i].proof, this.chain[i].proofHex, this.chain[i].nonce, this.chain[i].confirmations);
-      //currentBlock = this.chain[i];
       let previousBlock = new Block();
       previousBlock.nodeSyncedBlock(this.chain[j].index, this.chain[j].timeStamp, this.chain[j].datenow, this.chain[j].previousBlockHash, this.chain[j].hash, this.chain[j].data, this.chain[j].proof, this.chain[j].proofHex, this.chain[j].nonce, this.chain[j].confirmations);
-      //this.chain[i - 1];
       if (currentBlock.hash !== currentBlock.calculateHash()) {
         return false;
       }
@@ -187,8 +187,7 @@ class BlockChain {
     return address;
   }
   addPeerNode(node) {
-    // const new_client = require('socket.io-client');
-    //  socketListener(new_client(node), this);
+
     const hostname = node.split(":");
     const own_hostname = `http://localhost:${this.port}`;
     axios.post(`${own_hostname}/newpeer`, {
@@ -202,31 +201,23 @@ class BlockChain {
     const address = host + ":" + port;
     this.nodes.push(address); // Adding to list
     console.log(`${address} is added`);
-    //this.io.emit("myaddress", node);
 
-    //console.log("Nodes:" + this.nodes);
   }
 
   addNodeHost(hostname) {
-    // const address=host+":"+port;
+
     this.nodes.push(hostname); // Adding to list
     console.log(`${hostname} is added`);
-    //this.io.emit("myaddress", node);
 
-    //console.log("Nodes:" + this.nodes);
   }
   // Adding Node to Chain
   removeNode(hostname) {
-    //const address=host+":"+port;
 
     var index = this.nodes.indexOf(hostname); // Adding to list
     if (index !== -1) {
       this.nodes.splice(index, 1);
     }
     console.log(`${hostname} is removed`);
-    //this.io.emit("myaddress", node);
-
-    //console.log("Nodes:" + this.nodes);
   }
   // Validating Node already added
   validateNode(host, port) {
@@ -276,14 +267,13 @@ class BlockChain {
 
   mineBlock(block, chain) {
     this.addBlock(block);
-    successLog(this.port,"Mined Successfully");
-    //const socket = this.nodes[0];
-    // socketListener(chain.io,chain);
+    successLog(this.port, "Mined Successfully");
+
     (async () => {
       try {
         this.io.emit(socketActions.END_MINING, chain.chain);
       } catch (exp) {
-        errorLog(this.port,"Exception at Mining Emit " + exp);
+        errorLog(this.port, "Exception at Mining Emit " + exp);
       }
     })();
   }
@@ -293,7 +283,7 @@ class BlockChain {
     if (valid) {
       this.currentTransactions.push(transaction);
       if (this.currentTransactions.length >= this.blocksize) {
-        successLog(this.port,"Starting mining block...");
+        successLog(this.port, "Starting mining block...");
         var previousBlock = this.lastBlock();
         process.env.BREAK = false;
         // index, previousBlockHash, data, proof, nonce)
@@ -307,11 +297,6 @@ class BlockChain {
         );
         //var block;
         if (previousBlock.index == 0) {
-          // this.mineBlock(block);
-
-          //  newBlock.index = this.lastBlock().index + 1;
-          //  newBlock.previousBlockHash = this.lastBlock().hash;
-          //  newBlock.hash = newBlock.calculateHash();
           const {
             proof,
             proofHex,
@@ -326,10 +311,7 @@ class BlockChain {
           if (dontMine !== "true") {
             this.mineBlock(block, chain);
           }
-          // this.chain.push(block);
-          // this.incrementNonce();
-          // this.io.emit(socketActions.END_MINING, this);
-          //this.chain.push(newBlock);
+
         } else {
           block = new Block(
             previousBlock.index + 1,
@@ -367,7 +349,6 @@ class BlockChain {
         const length = block.data.length;
         for (let j = 0; j < length; j++) {
           var transaction = block.data[j];
-          //console.log("Transaction : " +JSON.stringify(transaction));
           if (block.data[j].sender.match(address))
             balance = balance - block.data[j].amount;
 
@@ -389,15 +370,7 @@ class BlockChain {
         findFlag = true;
         break;
       }
-      // for (let j = 0; j < length; j++) {
-      //   var transaction = block.data[j];
-      //   //console.log("Transaction : " +JSON.stringify(transaction));
-      //   if (block.data[j].sender.match(address))
-      //       balance = balance - block.data[j].amount;
 
-      //   if (block.data[j].receiver.match(address))
-      //     balance = balance + block.data[j].amount;
-      // }
     }
 
     if (!findFlag) {
@@ -430,7 +403,7 @@ class BlockChain {
     return transaction;
   }
 
-  async  verifyTransaction(
+  async verifyTransaction(
     sender,
     receiver,
     amount,
@@ -438,8 +411,8 @@ class BlockChain {
     chainid,
     signature
   ) {
-  
-  
+
+
     let transaction_verify = {
       to: receiver,
       value: ethers.utils.parseEther(amount.toString() || "0"),
@@ -447,7 +420,7 @@ class BlockChain {
       chainId: chainid,
       data: "0x"
     };
-  
+
     let messageHash = ethers.utils.keccak256(ethers.utils.toUtf8Bytes(JSON.stringify(transaction_verify)));
     let messageHashBytes = ethers.utils.arrayify(messageHash)
     const signed_address = ethers.utils.recoverAddress(messageHashBytes, signature);
@@ -482,13 +455,12 @@ async function signTransaction(
 function successLog(port, message) {
   successlog.info(` ${port}: ${message}`);
 }
+
 function errorLog(port, message) {
   successlog.error(`${port}: ${message}`);
 }
 process.on("unhandledRejection", (reason, promise) => {
-  //console.log("Unhandled Rejection at(blockchain):", reason.stack || reason);
-  // Recommended: send the information to sentry.io
-  // or whatever crash reporting service you use
+
 });
 
 module.exports = BlockChain;
