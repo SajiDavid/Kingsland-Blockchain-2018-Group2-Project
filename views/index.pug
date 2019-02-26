@@ -96,3 +96,5 @@ html
                   .messagebox(id='messagebox',style="display:-webkit-inline-box")
                     p.textMsg #{message} 
                     button.closeButton(onClick="hideMessageBox()") X
+       script(src=browser_url || "{process.env.BROWSER_REFRESH_URL}")
+    

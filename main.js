@@ -10,19 +10,26 @@ const fs = require("fs");
 let socketListener = require("./app/components/socketlistener");
 let BlockClass = require("./app/components/block");
 let BlockchainClass = require("./app/components/blockchain");
-let TransactionClass = require("./app/components/transaction");
 let walletClass = require("./app/components/wallet");
 var multer = require("multer");
 var debug = require("debug")("main");
 const web3 = require("web3");
+const errorlog = require('./app/util/logger').errorlog;
+const successlog = require('./app/util/logger').successlog;
 const args = require('minimist')(process.argv.slice(2))
+const EthCrypto = require("eth-crypto");
+const ethers = require("ethers");
+
+
+
+
 const cport = args['port'];
 const cnode_flag = args['node'];
 const chelp = args['help'];
 const cmining_flag = args['mining'];
 const cwallet_flag = args['wallet'];
-console.log("test"+ cport );
-if(cport == undefined || cport == ""){
+console.log("test" + cport);
+if (cport == undefined || cport == "") {
 
   console.log("port is mandatory,Please provide");
   console.log("Syntax: node main.js --port=3000");
@@ -46,7 +53,7 @@ var urlencodedParser = bodyParser.urlencoded({
 });
 
 //const MongoClient = require("mongodb").MongoClient;
-const assert = require("assert");
+//const assert = require("assert");
 const express = require("express");
 const session = require("express-session");
 
@@ -64,6 +71,7 @@ const filename = "Wallet_keystore_upload.txt";
 const upload = multer({
   dest: "./app/util/"
 });
+
 
 var messageVar = "";
 var messageStatus = (messageStatus0 = messageStatus1 = messageStatus2 = messageStatus3 = false);
@@ -89,33 +97,37 @@ var blocknumber = "";
 var transactionFlag = false;
 var transactionid = "";
 
-function intervalFunc() {
-  /* Share all nodes */
-  for (let i = 0; i < Blockchain.nodes.length; i++) {
+// function intervalFunc() {
+//   /* Share all nodes */
+//   for (let i = 0; i < Blockchain.nodes.length; i++) {
+//     var valid_host = Blockchain.validateNode(Blockchain.nodes[i]);
 
-    const new_node = `http:\\${Blockchain.nodes[i]}`;
+//     if (!valid_host) {
+//       const new_node = `http:\\${Blockchain.nodes[i]}`;
 
-    (async () => {
+//       (async () => {
 
-      Blockchain.io.emit(
-        socketActions.ADD_NEW_NODE,
-        new_node,
-        Blockchain.nodes[i]
-      );
+//         Blockchain.io.emit(
+//           socketActions.ADD_NEW_NODE,
+//           new_node,
+//           Blockchain.nodes[i]
+//         );
 
-      //console.log("Nodes sync "+ Blockchain.nodes[i]);
-    })();
-  }
+//         //console.log("Nodes sync "+ Blockchain.nodes[i]);
+//       })();
+//     }
+//   }
 
-}
-setInterval(intervalFunc, 5000);
+// }
+// setInterval(intervalFunc, 120000);
 // Socket IO conncetion
 
 Blockchain.io.on("connection", function (socket) {
   var hostname = socket.handshake.headers.host;
   var valid_host = Blockchain.validateNodeHost(hostname);
+  successLog(cport, "Socket connected, ID " + socket.id);
 
-  console.log("Socket connected, ID", socket.id, " URL 2" + hostname);
+  //console.log("Socket connected, ID", socket.id, " URL 2" + hostname);
   /*console.log('socket.client.conn.remoteAddress', socket.client.conn.remoteAddress);
     console.log('socket.request.connection.remoteAddress', socket.request.connection.remoteAddress);
     console.log('socket.handshake.address', socket.handshake.address);
@@ -125,7 +137,8 @@ Blockchain.io.on("connection", function (socket) {
 */
 
   socket.on("disconnect", function () {
-    console.log("user disconnected, ID", socket.id, " URL 2" + hostname);
+    successLog(cport, "user disconnected, ID " + socket.id);
+
     //Blockchain.removeNode(hostname)  
   });
   socket.on("connect", function () {
@@ -199,108 +212,150 @@ Router.app.post("/nodes", urlencodedParser, function (req, res) {
   const {
     callback
   } = req.query;
-  if(hostname==undefined || hostname == "" ||
-     port == undefined || port == ""){
-    
+  if (hostname == undefined || hostname == "" ||
+    port == undefined || port == "") {
+
     messageVar = `Host:${hostname} or Port:${port} is invalid, Please verify and add`;
     messageStatus1 = true;
     messagetype = false;
     res.redirect("/home");
 
-  }
-  else{ 
-  const node = `http://${hostname}:${port}`;
-  const valid = Blockchain.validateNode(hostname, port);
-  if (valid) {
-    const host = `${hostname}:${port}`;
-    /* Sending New Peer to connected Nodes */
+  } else {
+    const node = `http://${hostname}:${port}`;
+    const valid = Blockchain.validateNode(hostname, port);
+    if (valid) {
+      const host = `${hostname}:${port}`;
+      /* Sending New Peer to connected Nodes */
 
-    (async () => {
-
-      Blockchain.io.emit(
-        socketActions.ADD_NEW_NODE,
-        node,
-        host
-      );
-
-    })();
-
-
-    const new_client = require('socket.io-client');
-    const socketNode = socketListener(new_client(node), Blockchain);
-    Blockchain.addNode(socketNode, hostname, port);
-    if (callback === "true") {
-      console.info(`Added node ${node} back`);
-      var length = chain.length;
-      Blockchain.chain = [];
-      for (var i = 0; i < length; i++) {
-        var blocknew = chain[i];
-        if (blocknew == null)
-          break;
-        let nodeblock = new BlockClass();
-        // index, timeStamp,datenow,previousBlockHash, data, proof,proofHex, nonce,confirmations)
-        nodeblock.nodeSyncedBlock(blocknew.index,
-          blocknew.timeStamp, blocknew.datenow,
-          blocknew.previousBlockHash, blocknew.hash,
-          blocknew.data,
-          blocknew.proof, blocknew.proofHex,
-          blocknew.nonce, blocknew.confirmations);
-        Blockchain.chain.push(nodeblock);
-        //Blockchain.addBlock(block,true);
-      }
-      //Blockchain.chain = chain;
-      //Blockchain.addressWallet = walletAddress;
-      console.log("Wallet address" + walletAddress);
-      Blockchain.currentTransactions = currentTransactions;
-      //Blockchain.nodes = [];
-      Blockchain.id = id;
       (async () => {
-        Blockchain.addressWallet = await Blockchain.createWalletAddress(privatekey); //Wallet.createFromPrivateKey(privatekey);
+
+        Blockchain.io.emit(
+          socketActions.ADD_NEW_NODE,
+          node,
+          host
+        );
+
       })();
-      Blockchain.privatekey = privatekey;
-
-      Blockchain.datenow = datenow;
-      Blockchain.timeStamp = timeStamp; // TimeStamp
-      Blockchain.nonce = nonce;
-      Blockchain.blocksize = blocksize;
-      Blockchain.difficulty = difficulty;
-      res.json({
-        status: "Added node Back"
-      }).end();
-    } else {
-      axios.post(`${node}/nodes?callback=true`, {
-        hostname: hostname,
-        port: port2,
-        chain: Blockchain.chain,
-        id: Blockchain.id,
-        walletAddress: Blockchain.addressWallet,
-        currentTransactions: Blockchain.currentTransactions,
+      const new_client = require('socket.io-client');
+      const socketNode = socketListener(new_client(node), Blockchain);
+      Blockchain.addNode(socketNode, hostname, port);
+      //successlog.info("New Node: "+hostname+" Port: " + port+" added");
+      if (callback === "true") {
+        //console.info(`Added node ${node} back`);
+        var length = chain.length;
+        Blockchain.chain = [];
+        for (var i = 0; i < length; i++) {
+          var blocknew = chain[i];
+          if (blocknew == null)
+            break;
+          let nodeblock = new BlockClass();
+          // index, timeStamp,datenow,previousBlockHash, data, proof,proofHex, nonce,confirmations)
+          nodeblock.nodeSyncedBlock(blocknew.index,
+            blocknew.timeStamp, blocknew.datenow,
+            blocknew.previousBlockHash, blocknew.hash,
+            blocknew.data,
+            blocknew.proof, blocknew.proofHex,
+            blocknew.nonce, blocknew.confirmations);
+          Blockchain.chain.push(nodeblock);
+          //Blockchain.addBlock(block,true);
+        }
+        //Blockchain.chain = chain;
+        //Blockchain.addressWallet = walletAddress;
+        //console.log("Wallet address" + walletAddress);
+        Blockchain.currentTransactions = currentTransactions;
         //Blockchain.nodes = [];
-        walletMain: Blockchain.walletMain,
-        privatekey: Blockchain.privatekey,
-        datenow: Blockchain.datenow,
-        timeStamp: Blockchain.timeStamp, // TimeStamp
-        nonce: Blockchain.nonce,
-        blocksize: Blockchain.blocksize,
-        difficulty: Blockchain.difficulty
-      });
+        Blockchain.id = id;
+        (async () => {
+          Blockchain.addressWallet = await Blockchain.createWalletAddress(privatekey); //Wallet.createFromPrivateKey(privatekey);
+        })();
+        Blockchain.privatekey = privatekey;
 
-      messageVar = `${node} successfully added`;
+        Blockchain.datenow = datenow;
+        Blockchain.timeStamp = timeStamp; // TimeStamp
+        Blockchain.nonce = nonce;
+        Blockchain.blocksize = blocksize;
+        Blockchain.difficulty = difficulty;
+        successLog(cport, `${node} successfully added`);
+
+        res.json({
+          status: "Added node Back"
+        }).end();
+      } else {
+        axios.post(`${node}/nodes?callback=true`, {
+          hostname: hostname,
+          port: port2,
+          chain: Blockchain.chain,
+          id: Blockchain.id,
+          walletAddress: Blockchain.addressWallet,
+          currentTransactions: Blockchain.currentTransactions,
+          //Blockchain.nodes = [];
+          walletMain: Blockchain.walletMain,
+          privatekey: Blockchain.privatekey,
+          datenow: Blockchain.datenow,
+          timeStamp: Blockchain.timeStamp, // TimeStamp
+          nonce: Blockchain.nonce,
+          blocksize: Blockchain.blocksize,
+          difficulty: Blockchain.difficulty
+        });
+        successLog(cport, `${node} successfully added`);
+        messageVar = `${node} successfully added`;
+        messageStatus1 = true;
+        messagetype = true;
+
+        res.redirect("/home");
+      }
+    } else {
+      messageVar = `${node} already added`;
       messageStatus1 = true;
-      messagetype = true;
-
+      messagetype = false;
       res.redirect("/home");
     }
-  } else {
-    messageVar = `${node} already added`;
-    messageStatus1 = true;
-    messagetype = false;
-    res.redirect("/home");
-  }
 
   }
 
 });
+
+Router.app.post("/newpeer", urlencodedParser, function (req, res) {
+  const {
+    hostname,
+    port,
+  } = req.body;
+  // console.log("Print body ", req.body);
+  const {
+    callback
+  } = req.query;
+
+  const node = `http://${hostname}:${port}`;
+  const valid = Blockchain.validateNode(hostname, port);
+  if (valid) {
+    const host = `${hostname}:${port}`;
+    const new_client = require('socket.io-client');
+    const socketNode = socketListener(new_client(node), Blockchain);
+    Blockchain.addNode(socketNode, hostname, port);
+    //successlog.info("New Node: "+hostname+" Port: " + port+" added");
+    if (callback === "true") {
+
+      successLog(cport, `${node} successfully added`);
+
+
+    } else {
+      axios.post(`${node}/newpeer?callback=true`, {
+        hostname: hostname,
+        port: cport,
+      });
+      successLog(cport, `${node} successfully added`);
+    }
+
+    res.end();
+
+  }
+  else{
+    res.end();
+
+  }
+});
+
+
 // Home End-Point
 Router.app.get("/home", function (req, res) {
   debug("Home get function");
@@ -311,8 +366,9 @@ Router.app.get("/home", function (req, res) {
     startedOn: Blockchain.getTimeStamp(),
     connectedNodes: Blockchain.getNodeCount(),
     pendingTransactionsCount: Blockchain.getPendingTransactionLength(),
-    nonce:Blockchain.nonce,
-    difficulty:Blockchain.difficulty,
+    browser_url:process.env.BROWSER_REFRESH_URL,
+    nonce: Blockchain.nonce,
+    difficulty: Blockchain.difficulty,
     defaultHost: defaultHost,
     defaultPort: defaultPort,
     messagetype: messagetype,
@@ -324,6 +380,11 @@ Router.app.get("/home", function (req, res) {
   clearMessageVar();
 });
 
+Router.app.get("/addNewPeer", function (req, res) {
+
+
+})
+
 // Home End-Point
 Router.app.get("/", function (req, res) {
   res.render("index", {
@@ -333,6 +394,9 @@ Router.app.get("/", function (req, res) {
     startedOn: Blockchain.getTimeStamp(),
     connectedNodes: Blockchain.getNodeCount(),
     pendingTransactionsCount: Blockchain.getPendingTransactionLength(),
+    nonce: Blockchain.nonce,
+    difficulty: Blockchain.difficulty,
+    browser_url:process.env.BROWSER_REFRESH_URL,
     defaultHost: defaultHost,
     defaultPort: defaultPort,
     displayMessage: messageStatus,
@@ -541,10 +605,10 @@ Router.app.post("/transactionsend", urlencodedParser, function (req, res) {
           messageVar = `Receiver address "${receiver}" is invalid!!`;
           valid = false;
         } else {
-          if (amount == 0) {
+          if (amount <= 0 ) {
             // sendervalue = sender;
             // receivervalue = receiver;
-            messageVar = `Amount cannot be "0"!!`;
+            messageVar = `Amount cannot be "0" or lesser!!`;
             valid = false;
           } else {
             var balanceSender = Blockchain.getAddressBalance(sender);
@@ -564,38 +628,29 @@ Router.app.post("/transactionsend", urlencodedParser, function (req, res) {
     messageStatus3 = true;
     messagetype = false;
   } else {
-    //  Wallet.getSignTransation(
-    //       sender,
-    //       receiver,
-    //       amount,*78/
-
-    //       description
-    //     );
+    const transaction_id = Blockchain.generateRandomTransactionID();
 
     (async () => {
-      // let privateKey = "0x495d5c34c912291807c25d5e8300d20b749f6be44a178d5c50f167d495f3315a";
-      //let wallet = createWalletFromPrivateKey(Wallet.privateKey);
-      // let toAddress = "0x7725f560672A512e0d6aDFE7a761F0DbD8336aA7";
-      // let etherValue = "1";
 
       let signedTransaction = await signTransaction(
         sender,
         receiver,
-        amount,
-        description,
+        amount, // Amount
+        Blockchain.nonce,
+        Blockchain.chainId,
         Wallet.wallet
       );
       //console.log("Signed Transaction: \n" + signedTransaction);
       Blockchain.io.emit(
         socketActions.ADD_TRANSACTION,
-        Blockchain.generateRandomTransactionID(),
+        transaction_id,
         sender,
         receiver,
         amount,
         description,
         signedTransaction
       );
-
+      successLog(cport, "Transaction ID" + transaction_id + " and broadcasted")
     })();
 
     messageVar = `Transaction successfully sent`;
@@ -642,7 +697,10 @@ Router.app.post("/receiveform", urlencodedParser, function (req, res) {
     } Free Coins Sent Successfully to ${address}`;
     messagetype = true;
     messageStatus = true;
+    successLog(cport, "Free Coin sent to " + address);
+
   }
+
   res.redirect("/faucet");
 });
 
@@ -770,19 +828,15 @@ Router.app.get("/blocks", function (req, res) {
   } else {
     blockblank = false;
   }
-  if(blocknumber >= Blockchain.getLength() - 1)
-  {
+  if (blocknumber >= Blockchain.getLength() - 1) {
     blocklast = true;
-  }
-  else{
+  } else {
     blocklast = false;
   }
 
-  if(blocknumber == 0 || blocknumber == "0")
-  {
+  if (blocknumber == 0 || blocknumber == "0") {
     blockfirst = true;
-  }
-  else{
+  } else {
     blockfirst = false;
   }
   res.render("explorer", {
@@ -791,9 +845,9 @@ Router.app.get("/blocks", function (req, res) {
     transactionid: transactionid,
     blocknumber: blocknumber,
     blockcontent: block_data,
-    blockblank:blockblank,
-    blocklast:blocklast,
-    blockfirst:blockfirst,
+    blockblank: blockblank,
+    blocklast: blocklast,
+    blockfirst: blockfirst,
     timestamp: block_data.timestamp,
     displayMessage: messageStatus,
     messagetype: messagetype,
@@ -866,17 +920,7 @@ Router.app.get("/transaction/:id", function (req, res) {
   res.redirect("/blocks");
   //res.send('user' + req.params.id);
 });
-/*var Block2 = new BlockClass(0,Date.now(),"New Block 2","0");
-Blockchain.addBlock(Block);
-Blockchain.addBlock(Block2);*/
 
-//jkChainObjext.addBlock(new blockObject.block("12/16/2018",{amount:67}));
-
-// blockChain.addNode(socketListeners(client(`http://localhost:${PORT}`), blockChain));
-
-// httpServer.listen(PORT, () => console.info(`Express server running on ${PORT}...`));
-
-// Default Port 5550, application listening on 5550
 
 if (process.argv[2] == undefined) {
   port2 = cport;
@@ -887,17 +931,19 @@ if (process.argv[2] == undefined) {
 // Checks the status of a single port
 portscanner.checkPortStatus(port2, "localhost", function (error, status) {
   // Status is 'open' if currently in use or 'closed' if available
-  //console.log(port2 +" "+ status);
+
   port_status = status;
 
   if (port_status == "closed") {
-    console.log(port2 + " is available");
-
+    //console.log(port2 + " is available");
+    //successLog(cport, "Port is available");
     ListenPort(port2);
   } else if (port_status == "open") {
     console.log(
       port2 + " is already opened, Please use node main.js <differtport>"
     );
+    successLog(cport, port2 + " is already opened, Please use node main.js <differtport>");
+
   }
 });
 
@@ -914,8 +960,14 @@ function clearMessageVar() {
 }
 
 function ListenPort(PORT) {
+  Blockchain.port = PORT; // Assign port to Blockchain
   Router.http.listen(PORT, function () {
     console.log(`Living at URL http://localhost:${PORT}`);
+    //successlog.info(`Chain Living at URL http://localhost:${PORT}`);
+    successLog(cport, `Chain Living at URL http://localhost:${PORT}`);
+    if (process.send) {
+      process.send('online');
+    }
   });
 
   var valid = Blockchain.validateNode('localhost', PORT)
@@ -933,22 +985,37 @@ function ListenPort(PORT) {
   // Blockchain.address("test");
 }
 
+
 async function signTransaction(
   sender,
   receiver,
   amount,
-  description,
+  nonce,
+  chainid,
   walletfrom
 ) {
   let transaction = {
-    sender: sender,
-    receiver: receiver,
-    amount: amount,
-    description: description
+    to: receiver,
+    value: ethers.utils.parseEther(amount.toString() || "0"),
+    nonce: nonce,
+    chainId: chainid,
+    data: "0x"
   };
-  return true; //uawait walletfrom.signMessage(transaction);
+  let messageHash = ethers.utils.keccak256(ethers.utils.toUtf8Bytes(JSON.stringify(transaction)));
+  let sign = EthCrypto.sign(walletfrom.privateKey, messageHash);
+  return sign;
 }
+
+function successLog(port, message) {
+  successlog.info(` ${port}: ${message}`);
+}
+function errorLog(port, message) {
+  successlog.error(`${port}: ${message}`);
+}
+
 process.on("unhandledRejection", (reason, promise) => {
+  errorlog.error("Exception occured:", reason.stack || reason);
+
   //console.log("Unhandled Rejection at(main):", reason.stack || reason);
   // Recommended: send the information to sentry.io
   // or whatever crash reporting service you use

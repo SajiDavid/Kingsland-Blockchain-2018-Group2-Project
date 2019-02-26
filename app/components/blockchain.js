@@ -12,8 +12,9 @@ let Block = require("./block");
 let TransactionClass = require("./transaction");
 let socketListener = require("./socketlistener");
 const ethers = require("ethers");
-//let generateProof = require("./pow");
+const EthCrypto = require("eth-crypto");
 let socketActions = require("../util/constants");
+const successlog = require('../util/logger').successlog;
 var dateFormat = require("dateformat");
 const crypto = require("crypto");
 const initialHash = ethers.constants.AddressZero; // "00000000000000000000";
@@ -21,12 +22,15 @@ const {
   generateProof,
   isProofValid
 } = require("./pow");
+let axios = require("axios");
 
 class BlockChain {
   constructor(io, blocksize) {
     this.id = this.generateRandomChainID();
     this.nodeid = this.generateRandomChainID();
-    this.currentTransactions = [];
+    this.port = "";
+    this.currentTransactions = []
+    this.confirmedTransactions = 0;
     this.nodes = [];
     this.io = io;
     this.privatekey = "";
@@ -50,18 +54,18 @@ class BlockChain {
   getPendingTransactionLength() {
     return this.currentTransactions.length;
   }
-/*
-  generateRandomID() {
-    return crypto.randomBytes(16);//.toString("hex");
-  }
-*/
+  /*
+    generateRandomID() {
+      return crypto.randomBytes(16);//.toString("hex");
+    }
+  */
   incrementNonce() {
     this.nonce++;
   }
-  generateRandomChainID(){
+  generateRandomChainID() {
     return crypto.randomBytes(8).toString("hex");
   }
-  generateRandomTransactionID(){
+  generateRandomTransactionID() {
     return crypto.randomBytes(16).toString("hex");
   }
   // Creation of Genesis Block
@@ -78,29 +82,22 @@ class BlockChain {
   }
 
   giveAwayFaucetCoin(address, blockchain) {
-    /*const transaction = new TransactionClass(
-      this.addressWallet,
-      address,
-      1,
-      "Giving Away Coin"
-    );
-    this.newTransaction(transaction);*/
-    //const socketNode = socketListener(this.nodes[0], blockchain);
+
     (async () => {
-      // let privateKey = "0x495d5c34c912291807c25d5e8300d20b749f6be44a178d5c50f167d495f3315a";
-      //let wallet = createWalletFromPrivateKey(Wallet.privateKey);
-      // let toAddress = "0x7725f560672A512e0d6aDFE7a761F0DbD8336aA7";
-      // let etherValue = "1";
+
       var sender = this.addressWallet;
-      let signedTransaction = await signTransaction1(
+      let signedTransaction = await signTransaction(
         sender,
         address,
-        socketActions.FREE_COINS,
-        "Giving Away Coin",
+        socketActions.FREE_COINS, // Amount
+        this.nonce,
+        this.chainId,
         this.walletMain
       );
+      successLog(this.port, "Signed GiveAway Transaction Coins: "+socketActions.FREE_COINS);
 
       try {
+
         //console.log("Signed Transaction: \n" + signedTransaction);
         this.io.emit(
           socketActions.ADD_TRANSACTION,
@@ -189,10 +186,20 @@ class BlockChain {
     console.log("New address " + address);
     return address;
   }
+  addPeerNode(node) {
+    // const new_client = require('socket.io-client');
+    //  socketListener(new_client(node), this);
+    const hostname = node.split(":");
+    const own_hostname = `http://localhost:${this.port}`;
+    axios.post(`${own_hostname}/newpeer`, {
+      hostname: hostname[0],
+      port: hostname[1]
+    });
 
+  }
   // Adding Node to Chain
-  addNode(socketnode,host,port) {
-    const address=host+":"+port;
+  addNode(socketnode, host, port) {
+    const address = host + ":" + port;
     this.nodes.push(address); // Adding to list
     console.log(`${address} is added`);
     //this.io.emit("myaddress", node);
@@ -201,15 +208,15 @@ class BlockChain {
   }
 
   addNodeHost(hostname) {
-   // const address=host+":"+port;
+    // const address=host+":"+port;
     this.nodes.push(hostname); // Adding to list
     console.log(`${hostname} is added`);
     //this.io.emit("myaddress", node);
 
     //console.log("Nodes:" + this.nodes);
   }
-   // Adding Node to Chain
-   removeNode(hostname) {
+  // Adding Node to Chain
+  removeNode(hostname) {
     //const address=host+":"+port;
 
     var index = this.nodes.indexOf(hostname); // Adding to list
@@ -222,31 +229,31 @@ class BlockChain {
     //console.log("Nodes:" + this.nodes);
   }
   // Validating Node already added
-  validateNode(host,port){
+  validateNode(host, port) {
     var valid = true;
-    const address=host+":"+port;
+    const address = host + ":" + port;
 
-  valid = this.nodes.includes(address);
+    valid = this.nodes.includes(address);
 
-  if(valid)
-     valid = false;
-  else
-    valid = true;
-   
+    if (valid)
+      valid = false;
+    else
+      valid = true;
+
     return valid;
   }
 
-  validateNodeHost(hostname){
+  validateNodeHost(hostname) {
     var valid = true;
-    
-   
-  valid = this.nodes.includes(hostname);
 
-  if(valid)
-     valid = false;
-  else
-    valid = true;
-   
+
+    valid = this.nodes.includes(hostname);
+
+    if (valid)
+      valid = false;
+    else
+      valid = true;
+
     return valid;
   }
   address() {
@@ -269,15 +276,14 @@ class BlockChain {
 
   mineBlock(block, chain) {
     this.addBlock(block);
-    console.log("Mined Successfully");
-    this.incrementNonce();
-    const socket = this.nodes[0];
+    successLog(this.port,"Mined Successfully");
+    //const socket = this.nodes[0];
     // socketListener(chain.io,chain);
     (async () => {
       try {
         this.io.emit(socketActions.END_MINING, chain.chain);
       } catch (exp) {
-        console.log("Exception at Mining Emit " + exp);
+        errorLog(this.port,"Exception at Mining Emit " + exp);
       }
     })();
   }
@@ -287,7 +293,7 @@ class BlockChain {
     if (valid) {
       this.currentTransactions.push(transaction);
       if (this.currentTransactions.length >= this.blocksize) {
-        console.info("Starting mining block...");
+        successLog(this.port,"Starting mining block...");
         var previousBlock = this.lastBlock();
         process.env.BREAK = false;
         // index, previousBlockHash, data, proof, nonce)
@@ -314,6 +320,8 @@ class BlockChain {
             block.proof
           );
           block.setProof(proof, proofHex);
+          successLog(this.port, `Puzzle solved with Proof${proof} and ${proofHex}`);
+
           this.currentTransactions = [];
           if (dontMine !== "true") {
             this.mineBlock(block, chain);
@@ -325,11 +333,11 @@ class BlockChain {
         } else {
           block = new Block(
             previousBlock.index + 1,
-          previousBlock.datenow,
-          previousBlock.hashValue,
-          this.currentTransactions,
-          previousBlock.proof,
-          this.nonce
+            previousBlock.datenow,
+            previousBlock.hashValue,
+            this.currentTransactions,
+            previousBlock.proof,
+            this.nonce
           );
 
           const {
@@ -339,6 +347,7 @@ class BlockChain {
           } = await generateProof(
             previousBlock.proof
           );
+          successLog(this.port, `Puzzle solved with Proof${proof} and ${proofHex}`);
           block.setProof(proof, proofHex);
           this.currentTransactions = [];
           if (dontMine !== "true") {
@@ -420,22 +429,61 @@ class BlockChain {
 
     return transaction;
   }
+
+  async  verifyTransaction(
+    sender,
+    receiver,
+    amount,
+    nonce,
+    chainid,
+    signature
+  ) {
+  
+  
+    let transaction_verify = {
+      to: receiver,
+      value: ethers.utils.parseEther(amount.toString() || "0"),
+      nonce: nonce,
+      chainId: chainid,
+      data: "0x"
+    };
+  
+    let messageHash = ethers.utils.keccak256(ethers.utils.toUtf8Bytes(JSON.stringify(transaction_verify)));
+    let messageHashBytes = ethers.utils.arrayify(messageHash)
+    const signed_address = ethers.utils.recoverAddress(messageHashBytes, signature);
+    return signed_address;
+  }
+
 }
 
-async function signTransaction1(
+async function signTransaction(
   sender,
   receiver,
   amount,
-  description,
+  nonce,
+  chainid,
   walletfrom
 ) {
   let transaction = {
-    from: sender,
     to: receiver,
-    amount: amount,
-    description: description
+    value: ethers.utils.parseEther(amount.toString() || "0"),
+    nonce: nonce,
+    chainId: chainid,
+    data: "0x"
   };
-  return true; //walletfrom.sign(transaction);
+  let messageHash = ethers.utils.keccak256(ethers.utils.toUtf8Bytes(JSON.stringify(transaction)));
+  let sign = EthCrypto.sign(walletfrom.privateKey, messageHash);
+  return sign;
+}
+
+
+
+
+function successLog(port, message) {
+  successlog.info(` ${port}: ${message}`);
+}
+function errorLog(port, message) {
+  successlog.error(`${port}: ${message}`);
 }
 process.on("unhandledRejection", (reason, promise) => {
   //console.log("Unhandled Rejection at(blockchain):", reason.stack || reason);
