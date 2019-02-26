@@ -56,6 +56,25 @@ html
                           else 
                             small #{value3} : #{object3}
                             br
+            if(!blockblank)
+             tfoot
+              tr
+                td
+                 - var block_previous = blocknumber - 1;
+                 - link_prev = '/getblock/'+block_previous+"/"
+                 if(!blockfirst)
+                  form.formBox(action=link_prev, method='get')
+                    button#myButton.myBlueButton(style="float:left;") Previous
+                 else
+                   p #{empty}
+                 td
+                  if(!blocklast)
+                   - var block_next = blocknumber + 1;
+                   - link_next = '/getblock/'+block_next+"/"
+                   form.formBox(action=link_next, method='get')
+                    button#myButton.myBlueButton(style="float:right;") Next
+                  else
+                   p #{empty}
             if displayMessage
               if !messagetype
                 .messagebox(id='messagebox',style="display:-webkit-inline-box;background:#ffb9b9;color:black;")

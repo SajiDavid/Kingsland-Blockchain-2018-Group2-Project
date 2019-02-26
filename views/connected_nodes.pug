@@ -1,0 +1,34 @@
+html
+  head
+    link(rel='stylesheet', type='text/css', href='/stylesheet.css')
+  body.mainBody
+    .mainBody
+      .enjoy-css Block Explorer
+      link(async='', href='http://fonts.googleapis.com/css?family=Aldrich', data-generated='http://enjoycss.com', rel='stylesheet', type='text/css')
+      link(async='', href='http://fonts.googleapis.com/css?family=Arvo', data-generated='http://enjoycss.com', rel='stylesheet', type='text/css')
+      link(async='', href='http://fonts.googleapis.com/css?family=Oswald', data-generated='http://enjoycss.com', rel='stylesheet', type='text/css')
+      .menuTop
+        form.formBox(action='/home', method='get')
+          button#myButton.myYellowButton Home
+      .SendingBlock
+          h2.containerHeaderText Connected Nodes         
+          .contentTable
+           table.paleBlueRows(style="height=0px;")
+            tbody
+              tr
+                for object,value in blockcontent
+                  tr
+                    td.itemText2(style="word-wrap: break-word;max-width: 150px;") #{object}        
+          if displayMessage
+              if !messagetype
+                .messagebox(id='messagebox',style="display:-webkit-inline-box;background:#ffb9b9;color:black;")
+                    p.textMsg #{message} 
+                    button.closeButton(onClick="hideMessageBox()") X
+              else
+                .messagebox(id='messagebox',style="display:-webkit-inline-box;")
+                    p.textMsg #{message} 
+                    button.closeButton(onClick="hideMessageBox()") X
+    script(src='/jquery.js')
+    script(src='/jquery.min.js')
+    script(src='//cdn.jsdelivr.net/npm/alertifyjs@1.11.2/build/alertify.min.js')
+    script(src='/app.js')

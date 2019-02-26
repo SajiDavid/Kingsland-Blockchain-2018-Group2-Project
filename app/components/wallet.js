@@ -8,7 +8,9 @@ const crypto = require("crypto");
 const ethers = require("ethers");
 const fs = require("fs");
 const path = require("path");
-const { promisify } = require("util");
+const {
+  promisify
+} = require("util");
 var dateFormat = require('dateformat');
 
 class Wallet {
@@ -18,7 +20,7 @@ class Wallet {
     this.publicKey = "";
     this.address = "";
     this.seed = [];
-    this.timestamp = dateFormat(Date.now(), "dddd, mmmm dS, yyyy, h:MM:ss TT");  ;
+    this.timestamp = dateFormat(Date.now(), "dddd, mmmm dS, yyyy, h:MM:ss TT");;
     this.wallet = "";
   }
 
@@ -48,7 +50,9 @@ class Wallet {
 
   async createNewWallet() {
     const newWallet = createRandomWallet();
-    const { signingKey } = newWallet;
+    const {
+      signingKey
+    } = newWallet;
     this.seed = signingKey.mnemonic;
     this.privateKey = signingKey.privateKey;
     this.publicKey = signingKey.publicKey;
@@ -77,21 +81,21 @@ class Wallet {
     return path.join(__dirname, "../util/Wallet_keystore.txt");
   }
 
-   async getSignTransation(sender,receiver,amount,description){
+  async getSignTransation(sender, receiver, amount, description) {
 
-      const signed = await signTransaction(sender,receiver,amount,description,this.Wallet);
-    
+    const signed = await signTransaction(sender, receiver, amount, description, this.Wallet);
+
     //let signedTransaction =  signTransaction(sender,receiver,amount,description,this.Wallet);
 
-    return  signed;
+    return signed;
   }
 }
- async function signTransaction(sender,receiver,amount,description,walletfrom){
+async function signTransaction(sender, receiver, amount, description, walletfrom) {
   let transaction = {
-    sender:sender,
-    receiver:receiver,
-    amount:amount,
-    description:description
+    sender: sender,
+    receiver: receiver,
+    amount: amount,
+    description: description
   };
   return walletfrom.sign(transaction);
 
@@ -101,24 +105,25 @@ async function saveWalletToJSON(wallet, password) {
 
   return await wallet.encrypt(password).then(this.data);
 }
+
 function createRandomWallet() {
   return new ethers.Wallet.createRandom();
 }
 
-async function streamfile(filepath,data){
-    var stream = fs.createWriteStream(filepath);
-    stream.once('open', function () {
-        stream.write(data);
-        stream.end();
-    });
+async function streamfile(filepath, data) {
+  var stream = fs.createWriteStream(filepath);
+  stream.once('open', function () {
+    stream.write(data);
+    stream.end();
+  });
 }
 
 async function saveWallet(Wallet) {
   const filepath = path.join(__dirname, "../util/Wallet_keystore.txt");
   const data = await saveWalletToJSON(Wallet, "test");
 
-  await streamfile(filepath,data);
- 
+  await streamfile(filepath, data);
+
 
   /*await fs.write(filepath, data, function(err) {
     if (err) {
@@ -126,16 +131,16 @@ async function saveWallet(Wallet) {
     }
     console.log("The file was saved!");
   });*/
-  
-//  const writeFile = promisify(fs.writeFile);
-//  mainFile().catch(error => console.error(error));
 
-//  async function mainFile() {
-//     await writeFile(filepath,
-//        data);
+  //  const writeFile = promisify(fs.writeFile);
+  //  mainFile().catch(error => console.error(error));
 
-//     console.info("file created successfully with promisify and async/await!");
-// }
+  //  async function mainFile() {
+  //     await writeFile(filepath,
+  //        data);
+
+  //     console.info("file created successfully with promisify and async/await!");
+  // }
 
 }
 

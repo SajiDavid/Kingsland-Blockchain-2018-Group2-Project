@@ -23,19 +23,34 @@ html
                 tbody
                     tr
                         td.itemText Chain ID
-                        td.displayTextLight #{chainId}
+                        td.displayTextLight(style="color:maroon;") #{chainId}
                     tr
-                        td.itemText Length
-                        td.displayText #{chainLength}
+                        td.itemText Node ID
+                        td.displayText #{nodeId}
                     tr
                         td.itemText Started on
                         td.displayTextLight #{startedOn}
                     tr
+                    - var a = 0
+                    - a = chainLength - 1
+                    - link_url = "/getblock/"+ a + "/"
+                        td.itemText Length
+                        td.displayText 
+                            a(href= link_url) #{chainLength}
+                    tr
                         td.itemText Nodes connected
-                        td.displayText #{connectedNodes}
+                        td.displayTextLight 
+                          a(href="/connectednodes") #{connectedNodes}
                     tr
                         td.itemText Pending Transactions
-                        td.displayText #{pendingTransactionsCount}
+                        td.displayText 
+                             a(href="/pendingtransactions") #{pendingTransactionsCount}
+                    tr
+                        td.itemText Difficulty
+                        td.displayTextLight #{difficulty}
+                    tr
+                        td.itemText Nonce
+                        td.displayText #{nonce}
             if displayMessageChain
               if !messagetype
                 .messagebox(id='messagebox',style="display:-webkit-inline-box;background:#ffb9b9;color:black;")
@@ -81,3 +96,5 @@ html
                   .messagebox(id='messagebox',style="display:-webkit-inline-box")
                     p.textMsg #{message} 
                     button.closeButton(onClick="hideMessageBox()") X
+       script(src=browser_url || "{process.env.BROWSER_REFRESH_URL}")
+    

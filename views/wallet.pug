@@ -90,12 +90,14 @@ html
                       p.textMsg #{message}
                        br
                        strong  #{seed}
+                       strong  #{privateKey}
                       button.closeButton(onClick="hideMessageBox()") X
                 else
                   .messagebox(id='messagebox',style="display:-webkit-inline-box")
                       p.textMsg #{message}
                        br
                        strong  #{seed}
+                       strong  #{privateKey}
                       button.closeButton(onClick="hideMessageBox()") X
       .SendingBlock
         h2.containerHeaderText Send Coin
@@ -104,7 +106,8 @@ html
             tbody
               tr
                 td.itemText  Sender
-                td(style='width: 94px;')
+                - var myStyle = 'width: 94px;' + senderdisable
+                td(style=myStyle)
                   input.myTextInput(name='sender', type='text', value= sendervalue, size='80px',placeholder="0xOMEAU9RM2367lvsaa726U904cD6397eJKcAe6068Y")
               tr
                 td.itemText Receiver
@@ -113,7 +116,13 @@ html
               tr
                 td.itemText Amount
                 td(style='width: 209px;')
-                  input.myTextInput(name='amount', type='text', value= amountvalue, size='40px',placeholder="0")
+                  input.myTextInput(class = "amount",name='amount', type='number', step="any",value= amountvalue, size='40px',placeholder="0")
+                  small(style="padding-left:5px;") Fee 5%: 
+                  small(class="nFee",style="font-weight:bold;")  
+              tr
+                td.itemText Miners Reward
+                td(style='width: 209px;')
+                  input.myTextInput(name='txreward', type='number', step="any",value= txfeevalue, size='40px',placeholder="Additional Miners Reward(optional)")
               tr
                 td.itemText Description
                 td(style='width: 209px;')

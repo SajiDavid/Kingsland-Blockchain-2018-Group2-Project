@@ -6,15 +6,15 @@
 /* Description : Router class                       */
 /****************************************************/
 
-class RouterClass{
+class RouterClass {
 
-    constructor(){
+    constructor() {
         this.express = require("express");
-        this.app     = this.express();
-        this.http   = require('http').Server(this.app);
+        this.app = this.express();
+        this.http = require('http').Server(this.app);
         this.router = this.express.Router();
         this.io = require('socket.io').listen(this.http);
-        this.client = require('socket.io-client');          // Socket.io Client
+        this.client = require('socket.io-client'); // Socket.io Client
     }
 
 }

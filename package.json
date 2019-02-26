@@ -11,6 +11,7 @@
         "@babel/polyfill": "^7.0.0",
         "alertifyjs": "^1.11.2",
         "axios": "^0.18.0",
+        "browser-refresh": "^1.7.3",
         "crypto-js": "^3.1.9-1",
         "dateformat": "^3.0.3",
         "ethers": "^4.0.23",
@@ -28,7 +29,9 @@
         "socket.io": "^2.2.0",
         "underscore": "^1.9.1",
         "web3": "^1.0.0-beta.36",
-        "websocket": "^1.0.28"
+        "websocket": "^1.0.28",
+        "winston": "^3.2.1",
+        "winston-daily-rotate-file": "^3.8.0"
     },
     "devDependencies": {
         "@babel/cli": "^7.2.0",
