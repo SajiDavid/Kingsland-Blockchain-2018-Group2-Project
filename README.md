@@ -13,8 +13,8 @@ Router Class      ->  /routes/routes.js<br>
 - execute **node main.js --port=<0000> [--mining=yes]** to start the node
 ### For additional nodes with different port#
 - execute **node main.js --port=<0000>**  e.g node main.js --port=7550
-### For Enable Mining
-- execute **node main.js --port=<0000> --mining=yes
+### To Enable Mining
+- execute **node main.js --port=<0000> --mining=yes**
   
 ### End Points URL to access in browser
 - http://localhost:5550           ->    Home Page
