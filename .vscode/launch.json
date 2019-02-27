@@ -12,7 +12,7 @@
             "name": "Launch Program",
            // "program": "${workspaceFolder}/app/components/blockchain.js"
            "program": "${workspaceFolder}/main.js",
-           "args": ["--port=6550" ],
+           "args": ["--port=6550" ,"--mining=yes"],
         }
     ]
     

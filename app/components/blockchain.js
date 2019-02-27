@@ -29,8 +29,9 @@ class BlockChain {
     this.id = this.generateRandomChainID();
     this.nodeid = this.generateRandomChainID();
     this.port = "";
+    this.url = "";
     this.currentTransactions = []
-    this.confirmedTransactions = 0;
+    this.confirmedTransactions = [];
     this.nodes = [];
     this.io = io;
     this.privatekey = "";
@@ -51,6 +52,9 @@ class BlockChain {
     return this.timeStamp;
   }
 
+  getConfirmedTransactionLength() {
+    return this.confirmedTransactions.length;
+  }
   getPendingTransactionLength() {
     return this.currentTransactions.length;
   }
@@ -257,7 +261,9 @@ class BlockChain {
   }
 
   // Adding New Block to Chain
-  addBlock(newBlock) {
+  addBlock(inBlock) {
+    var newBlock = new Block(inBlock.index, inBlock.datenow, inBlock.previousBlockHash, inBlock.data, inBlock.proof, inBlock.nonce);
+    newBlock.setProof(inBlock.proof, inBlock.proofHex);
     newBlock.index = this.lastBlock().index + 1;
     newBlock.previousBlockHash = this.lastBlock().hash;
     newBlock.hash = newBlock.calculateHash();
@@ -266,12 +272,27 @@ class BlockChain {
   }
 
   mineBlock(block, chain) {
-    this.addBlock(block);
     successLog(this.port, "Mined Successfully");
+
+    // Update Confirmed Transactions
+    var tx_length = block.data.length;
+    for (var i = 0; i < tx_length; i++) {
+      this.confirmedTransactions.push(block.data[i].id);
+   
+      block.data[i].minedBlock = block.index;
+      var index = this.currentTransactions.indexOf(block.data[i].id);
+      if (index > -1) {
+        this.currentTransactions.splice(index, 1);
+      }
+
+    }
+
+    // Adding Block to chain
+    this.addBlock(block);
 
     (async () => {
       try {
-        this.io.emit(socketActions.END_MINING, chain.chain);
+        this.io.emit(socketActions.END_MINING, this.chain);
       } catch (exp) {
         errorLog(this.port, "Exception at Mining Emit " + exp);
       }
@@ -379,6 +400,26 @@ class BlockChain {
 
     return block;
   }
+
+  getBlockByTransaction(blocksearch) {
+    var block;
+    var transaction;
+    var blocknumber = "";
+    for (let i = 0; i < this.chain.length; i++) {
+      block = this.chain[i];
+      const length = block.data.length;
+      for (let j = 0; j < length; j++) {
+        transaction = block.data[j];
+        if (transaction.id == blocksearch) {
+          blocknumber = transaction.minedBlock;
+          break;
+        }
+      }
+    }
+
+    return blocknumber;
+  }
+
 
   getTransactionBlock(id) {
     var block;

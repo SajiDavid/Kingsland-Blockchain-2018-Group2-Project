@@ -11,6 +11,8 @@ let socketListener = require("./app/components/socketlistener");
 let BlockClass = require("./app/components/block");
 let BlockchainClass = require("./app/components/blockchain");
 let walletClass = require("./app/components/wallet");
+let MiningClass = require("./app/components/mining");
+
 var multer = require("multer");
 var debug = require("debug")("main");
 const web3 = require("web3");
@@ -23,7 +25,7 @@ const ethers = require("ethers");
 const cport = args['port'];
 const cnode_flag = args['node'];
 const chelp = args['help'];
-const cmining_flag = args['mining'];
+var cmining_flag = args['mining'];
 const cwallet_flag = args['wallet'];
 //console.log("test" + cport);
 if (cport == undefined || cport == "") {
@@ -33,7 +35,17 @@ if (cport == undefined || cport == "") {
   return;
 }
 
-
+// Activating mining if mining parameter is set to "yes"
+if(cmining_flag != undefined || cmining_flag == ""){
+  if(cmining_flag=="Y" || cmining_flag=="Yes" || cmining_flag == "yes" || cmining_flag == "YES" || cmining_flag=="y")
+    cmining_flag = true;
+  else
+    cmining_flag = false;
+    
+}
+else{
+  cmining_flag = false;
+}
 
 let RouterClass = require("./app/routes/routes");
 let socketActions = require("./app/util/constants");
@@ -57,10 +69,8 @@ let Router = new RouterClass();
 let Blockchain = new BlockchainClass(
   Router.io,
   socketActions.BLOCKSIZE_TRANSACTIONS
-); // This will create Genesis Block
-
-
-//let Block = new BlockClass(1, Date.now(), "New Block 1", "0000000000"); // adding new Block
+);
+var Mining = new MiningClass();
 var path = require("path");
 let Wallet = new walletClass();
 const filename = "Wallet_keystore_upload.txt";
@@ -81,7 +91,11 @@ var block_data = "";
 var blocklast = false;
 var blockfirst = false;
 var blockblank = false;
+var resultFlag = false;
+var nodehostvalue = "";
+var rewardaddressvalue = "";
 var previous_block_data = ""; // Store previous block data during transaction
+var miningCandidate = "";
 
 var messagetype = true;
 
@@ -200,7 +214,6 @@ Router.app.post("/nodes", urlencodedParser, function (req, res) {
           if (blocknew == null)
             break;
           let nodeblock = new BlockClass();
-          // index, timeStamp,datenow,previousBlockHash, data, proof,proofHex, nonce,confirmations)
           nodeblock.nodeSyncedBlock(blocknew.index,
             blocknew.timeStamp, blocknew.datenow,
             blocknew.previousBlockHash, blocknew.hash,
@@ -208,13 +221,9 @@ Router.app.post("/nodes", urlencodedParser, function (req, res) {
             blocknew.proof, blocknew.proofHex,
             blocknew.nonce, blocknew.confirmations);
           Blockchain.chain.push(nodeblock);
-          //Blockchain.addBlock(block,true);
         }
-        //Blockchain.chain = chain;
-        //Blockchain.addressWallet = walletAddress;
-        //console.log("Wallet address" + walletAddress);
+
         Blockchain.currentTransactions = currentTransactions;
-        //Blockchain.nodes = [];
         Blockchain.id = id;
         (async () => {
           Blockchain.addressWallet = await Blockchain.createWalletAddress(privatekey); //Wallet.createFromPrivateKey(privatekey);
@@ -266,6 +275,21 @@ Router.app.post("/nodes", urlencodedParser, function (req, res) {
 
 });
 
+Router.app.post("/deletepeer", urlencodedParser, function (req, res) {
+  const {
+    host
+  } = req.body;
+  const ownhost = "localhost:" + cport;
+  if (ownhost != host) {
+    const valid = Blockchain.validateNodeHost(host);
+    if (!valid) {
+      Blockchain.removeNode(host);
+    }
+
+  }
+  res.end();
+});
+
 Router.app.post("/newpeer", urlencodedParser, function (req, res) {
   const {
     hostname,
@@ -315,8 +339,10 @@ Router.app.get("/home", function (req, res) {
     chainLength: Blockchain.getLength(),
     startedOn: Blockchain.getTimeStamp(),
     connectedNodes: Blockchain.getNodeCount(),
+    confirmedTransactions: Blockchain.getConfirmedTransactionLength(),
     pendingTransactionsCount: Blockchain.getPendingTransactionLength(),
     browser_url: process.env.BROWSER_REFRESH_URL,
+    mining_flag:cmining_flag,
     nonce: Blockchain.nonce,
     difficulty: Blockchain.difficulty,
     defaultHost: defaultHost,
@@ -343,7 +369,9 @@ Router.app.get("/", function (req, res) {
     chainLength: Blockchain.getLength(),
     startedOn: Blockchain.getTimeStamp(),
     connectedNodes: Blockchain.getNodeCount(),
+    confirmedTransactions: Blockchain.getConfirmedTransactionLength(),
     pendingTransactionsCount: Blockchain.getPendingTransactionLength(),
+    mining_flag:cmining_flag,
     nonce: Blockchain.nonce,
     difficulty: Blockchain.difficulty,
     browser_url: process.env.BROWSER_REFRESH_URL,
@@ -428,6 +456,16 @@ Router.app.get("/connectednodes", function (req, res) {
 
 });
 
+Router.app.get("/confirmedtransactions", function (req, res) {
+
+  res.render("confirmed_transactions", {
+    confirmedTransactions: Blockchain.confirmedTransactions,
+    displayMessage: messageStatus,
+    message: messageVar
+  });
+
+});
+
 Router.app.get("/pendingtransactions", function (req, res) {
 
   res.render("pending_transactions", {
@@ -467,6 +505,77 @@ Router.app.get("/faucet", function (req, res) {
 });
 
 // Goes to Faucet to pour coin
+Router.app.get("/mining", function (req, res) {
+  res.render("mining", {
+    nodehostvalue: nodehostvalue,
+    rewardaddressvalue: rewardaddressvalue,
+    resultFlag:resultFlag,
+    miningCandidate:miningCandidate,
+    displayMessage: messageStatus,
+    messagetype: messagetype,
+    message: messageVar
+  });
+  clearMessageVar();
+});
+
+// Goes to Faucet to pour coin
+Router.app.get("/startmining", function (req, res) {
+ 
+  Mining.startmining(Blockchain.url,Mining.nonce,Mining.blockdatahash,Mining.difficulty);
+  res.end();
+
+});
+Router.app.post("/submit-mined-block",urlencodedParser, function (req, res) {
+ const {block,minedby} = req.body;
+ Blockchain.mineBlock(block,Blockchain.chain);
+ res.end();
+
+});
+
+// Goes to Faucet to pour coin
+Router.app.post("/miningrequest", urlencodedParser, function (req, res) {
+  const {nodehost,rewardaddress} = req.body;
+  nodehostvalue =  nodehost;
+  rewardaddressvalue = rewardaddress;
+  var valid = true;
+  if(nodehost == undefined || nodehost == "")
+  { messageVar = "Invalid Node hostname Please check"; 
+    valid = false;
+  }else if (!web3.utils.isAddress(rewardaddress)) {
+    messageVar = `Address "${rewardaddress}" is invalid!!`;
+    valid = false;
+  }
+  if(valid){ // If true
+    if(Blockchain.currentTransactions == undefined || Blockchain.currentTransactions ==0  )
+    {
+      messageVar = `Thank you for participating. Currently no Pending Transaction to mining !!`;
+      messageStatus = true;
+      messagetype = false;
+
+    }
+    else{
+    resultFlag =true; 
+     Mining = new MiningClass(Blockchain.getLength(),Blockchain.lastBlock(),Blockchain.currentTransactions,Blockchain.difficulty,
+                                rewardaddress,Blockchain.nonce);
+    miningCandidate = Mining.getCurrentMiningCandidate();
+
+    (async()=>{
+      Mining.startmining(Blockchain.url,Mining.nonce,Mining.blockdatahash,Mining.difficulty)
+     
+    })();
+    messageVar = `Mining Started.. !!`;
+    messageStatus = true;
+    messagetype = true;
+
+    }
+  }else{
+    messageStatus = true;
+    messagetype = false;
+  }
+    res.redirect("/mining");
+});
+
+// Goes to Faucet to pour coin
 Router.app.get("/wallet", function (req, res) {
   //res.send('This is Wallet Page..coming up')
   //res.sendFile(__dirname + "/wallet.html");
@@ -495,7 +604,7 @@ Router.app.get("/wallet", function (req, res) {
     addressFlag: addressFlag,
     balance: balance,
     sendervalue: sendervalue,
-    senderdisable:senderdisable,
+    senderdisable: senderdisable,
     receivervalue: receivervalue,
     amountvalue: amountvalue,
     descriptionvalue: descriptionvalue,
@@ -606,7 +715,7 @@ Router.app.post("/transactionsend", urlencodedParser, function (req, res) {
       successLog(cport, "Transaction ID" + transaction_id + " and broadcasted")
     })();
 
-    messageVar = `Transaction successfully sent`;
+    messageVar = `Transaction successfully sent ID: ${transaction_id}`;
     messageStatus3 = true;
     sendervalue = receivervalue = amountvalue = descriptionvalue = "";
     if (Wallet.address != "") addressFlag = true;
@@ -800,21 +909,29 @@ Router.app.get("/getblock/:number", function (req, res) {
 
 // Goes to Blockdata to display
 Router.app.post("/searchblock", urlencodedParser, function (req, res) {
-  blocknumber = req.body.searchblockvalue;
+  blocksearch = req.body.searchblockvalue;
 
   messageRedirect = true;
-  if (blocknumber == undefined || blocknumber == "") {
+  if (blocksearch == undefined || blocksearch == "") {
     transactionFlag = false;
     messageStatus = true;
     messagetype = false;
     messageVar = "Invalid Block Number";
   } else {
-    block_data = Blockchain.getBlockData(blocknumber);
+    block_data = Blockchain.getBlockData(blocksearch);
     if (block_data == undefined || block_data == "") {
-      transactionFlag = false;
-      messageStatus = true;
-      messagetype = false;
-      messageVar = "No valid Block found!!";
+      //block_data = Blockchain.getBlockByTransaction(blocksearch)
+      block_data = Blockchain.getTransactionBlock(transactionid);
+      if (block_data == undefined || block_data == "") {
+        transactionFlag = false;
+        messageStatus = true;
+        messagetype = false;
+        messageVar = "No valid Block found!!";
+      }
+      else{
+        transactionFlag = true;
+        blocknumber = block_data.minedBlock;
+      }
     }
   }
   messageRedirect = true;
@@ -876,6 +993,7 @@ function clearMessageVar() {
 }
 
 function ListenPort(PORT) {
+  Blockchain.url = `http://localhost:${PORT}`;
   Blockchain.port = PORT; // Assign port to Blockchain
   Router.http.listen(PORT, function () {
     console.log(`Living at URL http://localhost:${PORT}`);

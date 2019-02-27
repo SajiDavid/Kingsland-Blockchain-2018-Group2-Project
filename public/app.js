@@ -18,4 +18,13 @@ $( ".amount" ).change(function() {
   $("small").click(function(){
     $(".nFee").hide();
   });
+$(".deleteButton").click(function(){
+  var name =  $(this).attr('name');
+ $.post('/deletepeer',{host:name},function(){
+  window.location.reload() });
+ return false;
+
+});
+
+
 });
