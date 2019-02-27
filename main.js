@@ -548,7 +548,7 @@ Router.app.post("/miningrequest", urlencodedParser, function (req, res) {
   if(valid){ // If true
     if(Blockchain.currentTransactions == undefined || Blockchain.currentTransactions ==0  )
     {
-      messageVar = `Thank you for participating. Currently no Pending Transaction to mining !!`;
+      messageVar = `Thank you for participating. Currently no Pending Transaction for mining !!`;
       messageStatus = true;
       messagetype = false;
       resultFlag = false;
