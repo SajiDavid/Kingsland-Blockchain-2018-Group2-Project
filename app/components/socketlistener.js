@@ -14,7 +14,7 @@ const ethers = require("ethers");
 
 const socketListeners = (socket, ownchain) => {
   socket.on(socketActions.END_MINING, (newChain) => {
-    successLog(ownchain.port, `End mining encountered`);
+    //successLog(ownchain.port, `End mining encountered`);
     process.env.BREAK = true;
     let blockChain;
 
@@ -28,18 +28,34 @@ const socketListeners = (socket, ownchain) => {
     blockChain.chain = newChain;
     var newLength = blockChain.getLength();
     var ownLength = ownchain.getLength();
+    let block = blockChain.chain[newLength - 1];
     if (blockChain.checkValidity() && newLength >= ownLength) {
       ownchain.chain = blockChain.chain;
+     
+      var tx_length = block.data.length;
+      for (var i = 0; i < tx_length; i++) {
+        const tx_id = block.data[i].id;
+        ownchain.confirmedTransactions.push(tx_id);
+
+        //block.data[i].minedBlock = block.index;
+        // Removing Pending Transaction which is confirmed
+        ownchain.removePendingTransaction(ownchain.port, ownchain.currentTransactions, tx_id);
+        /*if (this.currentTransactions[i].id == block.data[i].id);
+        this.currentTransactions.splice(i, 1);
+        */
+      }
+
       ownchain.incrementNonce();
-      successLog(ownchain.port, `New Block added` + blockChain.chain[newLength - 1]);
+      successLog(ownchain.port, `New Block added ID: ` + block.index);
 
     } else {
       errorLog(ownchain.port, `Invalid Block` + blockChain.chain[newLength - 1]);
     }
+  
   });
 
-  socket.on(socketActions.ADD_TRANSACTION, (id, sender, receiver, amount, txreward,description, signature) => {
-    const transaction = new Transaction(id, sender, receiver, amount, txreward,description, signature);
+  socket.on(socketActions.ADD_TRANSACTION, (id, sender, receiver, amount, txreward, description, signature) => {
+    const transaction = new Transaction(id, sender, receiver, amount, txreward, description, signature);
     (async () => {
       const signed_address = await ownchain.verifyTransaction(sender, receiver, amount, ownchain.nonce, ownchain.chainid, signature)
       if (signed_address == sender) {

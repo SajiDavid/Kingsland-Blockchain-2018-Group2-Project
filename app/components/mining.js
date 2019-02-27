@@ -67,14 +67,20 @@ class Mining {
    }
     return rewardAmount;
   }
- 
-  async startmining(url,nonce,blockDataHash,difficulty){
+  
+  async startmining(port,url,nonce,blockDataHash,difficulty){
     const zeros = new Array(difficulty + 1).join("0");
+    process.env.BREAK = false;
 
     const { nonce_increment,
             created_date,
             proofHex,
             dontMine} = await generateProof(nonce,blockDataHash,difficulty,zeros);
+    if(dontMine)
+    {
+        successLog(port,"End Mining Endcounterred, Skipping mining");
+    }
+    else{
     console.log(""+ nonce_increment + " "+proofHex+" Date "+created_date);
     var block = new Block(
         this.previousblock.index + 1,
@@ -89,6 +95,7 @@ class Mining {
         block: block,
         minedby: this.address,
       });
+    }
   }
 }
 

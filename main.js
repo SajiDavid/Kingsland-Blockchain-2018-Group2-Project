@@ -31,7 +31,7 @@ const cwallet_flag = args['wallet'];
 if (cport == undefined || cport == "") {
 
   console.log("port is mandatory,Please provide");
-  console.log("Syntax: node main.js --port=3000");
+  console.log("Syntax: node main.js --port=3000 [--mining=yes|y");
   return;
 }
 
@@ -551,6 +551,7 @@ Router.app.post("/miningrequest", urlencodedParser, function (req, res) {
       messageVar = `Thank you for participating. Currently no Pending Transaction to mining !!`;
       messageStatus = true;
       messagetype = false;
+      resultFlag = false;
 
     }
     else{
@@ -560,7 +561,7 @@ Router.app.post("/miningrequest", urlencodedParser, function (req, res) {
     miningCandidate = Mining.getCurrentMiningCandidate();
 
     (async()=>{
-      Mining.startmining(Blockchain.url,Mining.nonce,Mining.blockdatahash,Mining.difficulty)
+      Mining.startmining(cport,Blockchain.url,Mining.nonce,Mining.blockdatahash,Mining.difficulty)
      
     })();
     messageVar = `Mining Started.. !!`;
