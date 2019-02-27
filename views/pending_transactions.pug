@@ -19,7 +19,17 @@ html
                 - var flag = false
                 for object,value in pendingTransactions
                  for object2,value2 in object
-                  tr
+                  if value2 == "id"
+                   tr(style="border: 3px solid #12191a;")
+                    - header = value2.charAt(0).toUpperCase() + value2.slice(1);
+                    - flag = true
+                    td.itemText(style="word-wrap: break-word;max-width: 150px;") #{header}
+                    if value2 == "id"
+                     td.itemText2(style="word-wrap: break-word;color:black; ") #{object2}        
+                    else
+                     td.itemText2(style="word-wrap: break-word; ") #{object2} 
+                  else
+                   tr
                     - header = value2.charAt(0).toUpperCase() + value2.slice(1);
                     - flag = true
                     td.itemText(style="word-wrap: break-word;max-width: 150px;") #{header}

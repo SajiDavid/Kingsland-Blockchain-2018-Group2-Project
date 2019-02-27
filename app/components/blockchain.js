@@ -274,41 +274,82 @@ class BlockChain {
   mineBlock(block, chain) {
     successLog(this.port, "Mined Successfully");
 
-    // Update Confirmed Transactions
-    var tx_length = block.data.length;
-    for (var i = 0; i < tx_length; i++) {
-      this.confirmedTransactions.push(block.data[i].id);
-   
-      block.data[i].minedBlock = block.index;
-      var index = this.currentTransactions.indexOf(block.data[i].id);
-      if (index > -1) {
-        this.currentTransactions.splice(index, 1);
-      }
+    // // Update Confirmed Transactions
+    // var tx_length = block.data.length;
+    // for (var i = 0; i < tx_length; i++) {
+    //   const tx_id = block.data[i].id;
+    //   this.confirmedTransactions.push(tx_id);
 
+    //   block.data[i].minedBlock = block.index;
+    //   // Removing Pending Transaction which is confirmed
+    //    this.removePendingTransaction(this.port,this.currentTransactions,tx_id);
+    //   /*if (this.currentTransactions[i].id == block.data[i].id);
+    //   this.currentTransactions.splice(i, 1);
+    //   */
+    // }
+
+  // Adding Block to chain
+  this.addBlock(block);
+
+  (async () => {
+    try {
+      this.io.emit(socketActions.END_MINING, this.chain);
+    } catch (exp) {
+      errorLog(this.port, "Exception at Mining Emit " + exp);
     }
+  })();
+}
+removePendingTransaction(port,currentTransactions,tx_id){
 
-    // Adding Block to chain
-    this.addBlock(block);
-
-    (async () => {
-      try {
-        this.io.emit(socketActions.END_MINING, this.chain);
-      } catch (exp) {
-        errorLog(this.port, "Exception at Mining Emit " + exp);
-      }
-    })();
+  try {
+    if (currentTransactions != undefined) {
+      var val = tx_id;
+      var index = currentTransactions.findIndex(function (item, i) {
+        return item.id === val
+      });
+      currentTransactions.splice(index, 1);
+    }
+  } catch (exp) {
+    errorLog(port, "Error deleting pending transaction count")
   }
-  async newTransaction(transaction, chain) {
-    var valid = true;
+}
+async newTransaction(transaction, chain) {
+  var valid = true;
 
-    if (valid) {
-      this.currentTransactions.push(transaction);
-      if (this.currentTransactions.length >= this.blocksize) {
-        successLog(this.port, "Starting mining block...");
-        var previousBlock = this.lastBlock();
-        process.env.BREAK = false;
-        // index, previousBlockHash, data, proof, nonce)
-        let block = new Block(
+  if (valid) {
+    this.currentTransactions.push(transaction);
+    if (this.currentTransactions.length >= this.blocksize) {
+      successLog(this.port, "Starting mining block...");
+      var previousBlock = this.lastBlock();
+      process.env.BREAK = false;
+      // index, previousBlockHash, data, proof, nonce)
+      let block = new Block(
+        previousBlock.index + 1,
+        previousBlock.datenow,
+        previousBlock.hashValue,
+        this.currentTransactions,
+        previousBlock.proof,
+        this.nonce
+      );
+      //var block;
+      if (previousBlock.index == 0) {
+        const {
+          proof,
+          proofHex,
+          dontMine
+        } = await generateProof(
+          block.proof
+        );
+        block.setProof(proof, proofHex);
+        successLog(this.port, `Puzzle solved with Proof${proof} and ${proofHex}`);
+
+        this.currentTransactions = [];
+        if (dontMine !== "true") {
+          this.mineBlock(block, chain);
+        }
+
+      } else {
+        block = new Block(
           previousBlock.index + 1,
           previousBlock.datenow,
           previousBlock.hashValue,
@@ -316,157 +357,131 @@ class BlockChain {
           previousBlock.proof,
           this.nonce
         );
-        //var block;
-        if (previousBlock.index == 0) {
-          const {
-            proof,
-            proofHex,
-            dontMine
-          } = await generateProof(
-            block.proof
-          );
-          block.setProof(proof, proofHex);
-          successLog(this.port, `Puzzle solved with Proof${proof} and ${proofHex}`);
 
-          this.currentTransactions = [];
-          if (dontMine !== "true") {
-            this.mineBlock(block, chain);
-          }
-
-        } else {
-          block = new Block(
-            previousBlock.index + 1,
-            previousBlock.datenow,
-            previousBlock.hashValue,
-            this.currentTransactions,
-            previousBlock.proof,
-            this.nonce
-          );
-
-          const {
-            proof,
-            proofHex,
-            dontMine
-          } = await generateProof(
-            previousBlock.proof
-          );
-          successLog(this.port, `Puzzle solved with Proof${proof} and ${proofHex}`);
-          block.setProof(proof, proofHex);
-          this.currentTransactions = [];
-          if (dontMine !== "true") {
-            this.mineBlock(block, chain);
-          }
+        const {
+          proof,
+          proofHex,
+          dontMine
+        } = await generateProof(
+          previousBlock.proof
+        );
+        successLog(this.port, `Puzzle solved with Proof${proof} and ${proofHex}`);
+        block.setProof(proof, proofHex);
+        this.currentTransactions = [];
+        if (dontMine !== "true") {
+          this.mineBlock(block, chain);
         }
       }
     }
   }
+}
 
-  getAddressBalance(address) {
-    var balance = 0;
-    if (address != "") {
-      for (let i = 0; i < this.chain.length; i++) {
-        const block = this.chain[i];
-        if (block == undefined) continue;
-        const length = block.data.length;
-        for (let j = 0; j < length; j++) {
-          var transaction = block.data[j];
-          if (block.data[j].sender.match(address))
-            balance = balance - block.data[j].amount;
-
-          if (block.data[j].receiver.match(address))
-            balance = balance + block.data[j].amount;
-        }
-      }
-    }
-    return balance;
-  }
-
-  getBlockData(number) {
-    var block;
-    var findFlag = false;
+getAddressBalance(address) {
+  var balance = 0;
+  if (address != "") {
     for (let i = 0; i < this.chain.length; i++) {
-      block = this.chain[i];
+      const block = this.chain[i];
+      if (block == undefined) continue;
       const length = block.data.length;
-      if (block.index == number) {
+      for (let j = 0; j < length; j++) {
+        var transaction = block.data[j];
+        if (block.data[j].sender.match(address))
+          balance = balance - block.data[j].amount;
+
+        if (block.data[j].receiver.match(address))
+          balance = balance + block.data[j].amount;
+      }
+    }
+  }
+  return balance;
+}
+
+getBlockData(number) {
+  var block;
+  var findFlag = false;
+  for (let i = 0; i < this.chain.length; i++) {
+    block = this.chain[i];
+    const length = block.data.length;
+    if (block.index == number) {
+      findFlag = true;
+      break;
+    }
+
+  }
+
+  if (!findFlag) {
+    block = "";
+  }
+
+  return block;
+}
+
+getBlockByTransaction(blocksearch) {
+  var block;
+  var transaction;
+  var blocknumber = "";
+  for (let i = 0; i < this.chain.length; i++) {
+    block = this.chain[i];
+    const length = block.data.length;
+    for (let j = 0; j < length; j++) {
+      transaction = block.data[j];
+      if (transaction.id == blocksearch) {
+        blocknumber = transaction.minedBlock;
+        break;
+      }
+    }
+  }
+
+  return blocknumber;
+}
+
+
+getTransactionBlock(id) {
+  var block;
+  var transaction;
+  var findFlag = false;
+  for (let i = 0; i < this.chain.length; i++) {
+    block = this.chain[i];
+    const length = block.data.length;
+    for (let j = 0; j < length; j++) {
+      transaction = block.data[j];
+      if (transaction.id == id) {
         findFlag = true;
         break;
       }
-
     }
-
-    if (!findFlag) {
-      block = "";
-    }
-
-    return block;
   }
 
-  getBlockByTransaction(blocksearch) {
-    var block;
-    var transaction;
-    var blocknumber = "";
-    for (let i = 0; i < this.chain.length; i++) {
-      block = this.chain[i];
-      const length = block.data.length;
-      for (let j = 0; j < length; j++) {
-        transaction = block.data[j];
-        if (transaction.id == blocksearch) {
-          blocknumber = transaction.minedBlock;
-          break;
-        }
-      }
-    }
-
-    return blocknumber;
+  if (!findFlag) {
+    transaction = "";
   }
 
+  return transaction;
+}
 
-  getTransactionBlock(id) {
-    var block;
-    var transaction;
-    var findFlag = false;
-    for (let i = 0; i < this.chain.length; i++) {
-      block = this.chain[i];
-      const length = block.data.length;
-      for (let j = 0; j < length; j++) {
-        transaction = block.data[j];
-        if (transaction.id == id) {
-          findFlag = true;
-          break;
-        }
-      }
-    }
-
-    if (!findFlag) {
-      transaction = "";
-    }
-
-    return transaction;
-  }
-
-  async verifyTransaction(
-    sender,
-    receiver,
-    amount,
-    nonce,
-    chainid,
-    signature
-  ) {
+async verifyTransaction(
+  sender,
+  receiver,
+  amount,
+  nonce,
+  chainid,
+  signature
+) {
 
 
-    let transaction_verify = {
-      to: receiver,
-      value: ethers.utils.parseEther(amount.toString() || "0"),
-      nonce: nonce,
-      chainId: chainid,
-      data: "0x"
-    };
+  let transaction_verify = {
+    to: receiver,
+    value: ethers.utils.parseEther(amount.toString() || "0"),
+    nonce: nonce,
+    chainId: chainid,
+    data: "0x"
+  };
 
-    let messageHash = ethers.utils.keccak256(ethers.utils.toUtf8Bytes(JSON.stringify(transaction_verify)));
-    let messageHashBytes = ethers.utils.arrayify(messageHash)
-    const signed_address = ethers.utils.recoverAddress(messageHashBytes, signature);
-    return signed_address;
-  }
+  let messageHash = ethers.utils.keccak256(ethers.utils.toUtf8Bytes(JSON.stringify(transaction_verify)));
+  let messageHashBytes = ethers.utils.arrayify(messageHash)
+  const signed_address = ethers.utils.recoverAddress(messageHashBytes, signature);
+  return signed_address;
+}
 
 }
 
