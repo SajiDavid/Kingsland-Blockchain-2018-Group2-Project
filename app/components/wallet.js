@@ -77,6 +77,19 @@ class Wallet {
     }
   }
 
+  async createFromJSON(JSON_input){
+    let newWallet;
+    try {
+      newWallet =  await new  ethers.Wallet.fromEncryptedJson(JSON_input,"test");
+      this.address = newWallet.address;
+      this.privateKey = newWallet.privateKey;
+      this.publicKey = newWallet.publicKey;
+      this.wallet = newWallet;
+    } catch (err) {
+      console.log("Error : " + err);
+    }
+  }
+
   getWalletFileName() {
     return path.join(__dirname, "../util/Wallet_keystore.txt");
   }
@@ -106,6 +119,7 @@ async function saveWalletToJSON(wallet, password) {
   return await wallet.encrypt(password).then(this.data);
 }
 
+
 function createRandomWallet() {
   return new ethers.Wallet.createRandom();
 }
@@ -123,24 +137,6 @@ async function saveWallet(Wallet) {
   const data = await saveWalletToJSON(Wallet, "test");
 
   await streamfile(filepath, data);
-
-
-  /*await fs.write(filepath, data, function(err) {
-    if (err) {
-      return console.log(err);
-    }
-    console.log("The file was saved!");
-  });*/
-
-  //  const writeFile = promisify(fs.writeFile);
-  //  mainFile().catch(error => console.error(error));
-
-  //  async function mainFile() {
-  //     await writeFile(filepath,
-  //        data);
-
-  //     console.info("file created successfully with promisify and async/await!");
-  // }
 
 }
 

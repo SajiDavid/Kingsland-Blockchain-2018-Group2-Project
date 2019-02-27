@@ -828,12 +828,21 @@ Router.app.get("/importjson", function (req, res) {
   messageRedirect = true;
 
   res.redirect("/wallet");
+
 });
 
 // Goes to Faucet to pour coin
 Router.app.post("/uploadkeyfile", upload.single("file"), (req, res) => {
   if (req.file) {
+  
     var filename = req.file.filename;
+    var obj;
+    fs.readFile(req.file.path, 'utf8', function (err, data) {
+      if (err) throw err;
+      obj = JSON.stringify( JSON.parse(data));
+      Wallet.createFromJSON(obj);
+    });
+    
     messageVar = `File has been uploaded successfully`;
   } else {
     //("No File Uploaded");
