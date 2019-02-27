@@ -10,9 +10,11 @@ Router Class      ->  /routes/routes.js<br>
 ### Steps to start nodes
 - Clone the Master Branch to your system
 - cd to Kingsland-Blockchain-2018-Group2-Project folder
-- execute **node main.js** to start the main node ( default port 5550 used to start )
+- execute **node main.js --port=<0000> [--mining=yes]** to start the node
 ### For additional nodes with different port#
-- execute **node main.js \<portnumber\>**  e.g node main.js 7550
+- execute **node main.js --port=<0000>**  e.g node main.js --port=7550
+### For Enable Mining
+- execute **node main.js --port=<0000> --mining=yes
   
 ### End Points URL to access in browser
 - http://localhost:5550           ->    Home Page
