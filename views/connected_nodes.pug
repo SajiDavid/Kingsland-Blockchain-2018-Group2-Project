@@ -15,10 +15,11 @@ html
           .contentTable
            table.paleBlueRows(style="height=0px;")
             tbody
-              tr
                 for object,value in blockcontent
                   tr
-                    td.itemText2(style="word-wrap: break-word;max-width: 150px;") #{object}        
+                    td.itemText2(style="word-wrap: break-word;max-width: 100px;") #{object} 
+                    td(style="width:10px;")
+                     button.deleteButton(name=object,style="float:right") X       
           if displayMessage
               if !messagetype
                 .messagebox(id='messagebox',style="display:-webkit-inline-box;background:#ffb9b9;color:black;")

@@ -1,0 +1,61 @@
+html
+  head
+    link(rel='stylesheet', type='text/css', href='/stylesheet.css')
+    link(rel='stylesheet', href='//cdn.jsdelivr.net/npm/alertifyjs@1.11.2/build/css/alertify.min.css')
+body.mainBody
+    .enjoy-css Mining
+    link(async='', href='http://fonts.googleapis.com/css?family=Aldrich', data-generated='http://enjoycss.com', rel='stylesheet', type='text/css')
+    link(async='', href='http://fonts.googleapis.com/css?family=Arvo', data-generated='http://enjoycss.com', rel='stylesheet', type='text/css')
+    link(async='', href='http://fonts.googleapis.com/css?family=Oswald', data-generated='http://enjoycss.com', rel='stylesheet', type='text/css')
+    form(action='/home', method='get')
+      button#myButton.myYellowButton Home
+    .SendingBlock
+      h2.containerHeaderText Request for Mining
+      form.receiveform(name="miningrequest" method='post' action='/miningrequest')
+        table.tableBox
+          tbody
+            tr
+              td.itemText  Node Hostname
+              td(style='width: 50px;')
+                input.myTextInput(id='nodehost',name='nodehost', type='text', value= nodehostvalue, size='20px',placeholder="localhost:0000")              
+            tr
+              td.itemText  Reward Address 
+              td(style='width: 94px;')
+                input.myTextInput(id='address',name='rewardaddress', type='text', value= rewardaddressvalue, size='60px',placeholder="0xDECAF9CD2367cdbb726E904cD6397eDFcAe6068D")              
+            tr
+              td(colspan='2')
+                 input.myBlueButton(type='submit', value='Request Job')
+      if displayMessage
+        if !messagetype
+          .messagebox(id='messagebox',style="display:-webkit-inline-box;background:#ffb9b9;color:black;")
+              p.textMsg #{message} 
+              button.closeButton(onClick="hideMessageBox()") X
+        else
+          .messagebox(id='messagebox',style="display:-webkit-inline-box;")
+              p.textMsg #{message} 
+              button.closeButton(onClick="hideMessageBox()") X
+    if resultFlag
+     .SendingBlock
+      h2.containerHeaderText Received Data
+        tbody
+        table.tableBox
+          tbody
+           - var index = 2
+           for object,value in miningCandidate
+            - header = value.charAt(0).toUpperCase() + value.slice(1);
+            - even = index % 2
+            - index = index + 1
+            tr
+             td.itemText #{header}
+             if even == 0
+              td.displayText #{object} 
+             else
+              td.displayTextLight #{object} 
+           tr
+             // td(colspan='2')
+                form.receiveform(name="startmining" method='get' action='/startmining')
+                 input.myButton(type='submit', value='Start Mining')
+    script(src='/jquery.js')
+    script(src='/jquery.min.js')
+    script(src='//cdn.jsdelivr.net/npm/alertifyjs@1.11.2/build/alertify.min.js')
+    script(src='/app.js')

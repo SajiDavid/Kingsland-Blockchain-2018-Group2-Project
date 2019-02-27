@@ -30,7 +30,7 @@ html
                                       id='searchblockvalue',
                                       type='text',
                                       size='40px',
-                                      placeholder="Enter Block# to search"
+                                      placeholder="Enter Block# or Transaction# to search"
                                       ) 
           input.myBlueButton(type='submit', value='Search')
         .contentTable
@@ -41,7 +41,13 @@ html
                 if header != "Data"
                   tr
                     td #{header} 
-                    td.itemText(style="word-wrap: break-word;max-width: 650px;") #{object} 
+                    td.itemText(style="word-wrap: break-word;max-width: 650px;") 
+                       if value == "minedBlock"
+                         - var link2 = "/getblock/"+ object
+                         a(href= link2) 
+                           small #{object} 
+                       else
+                        small #{object} 
                 else
                   tr
                     td #{header}

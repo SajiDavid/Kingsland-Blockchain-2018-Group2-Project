@@ -14,6 +14,9 @@ html
                 button.myButton(type='submit') Wallet
             form.formBox(method='GET' action='/blocks')
                 button.myButton(type='submit') Block Explorer
+            if mining_flag
+             form.formBox(method='GET' action='/mining')
+                button.myButton(type='submit') Mining Console
        div.SendingBlock
             div.blockHeader
               h2.containerHeaderText Blockchain Information
@@ -42,15 +45,19 @@ html
                         td.displayTextLight 
                           a(href="/connectednodes") #{connectedNodes}
                     tr
-                        td.itemText Pending Transactions
+                        td.itemText Confirmed Transactions
                         td.displayText 
+                             a(href="/confirmedtransactions") #{confirmedTransactions}
+                    tr
+                        td.itemText Pending Transactions
+                        td.displayTextLight 
                              a(href="/pendingtransactions") #{pendingTransactionsCount}
                     tr
                         td.itemText Difficulty
-                        td.displayTextLight #{difficulty}
+                        td.displayText #{difficulty}
                     tr
                         td.itemText Nonce
-                        td.displayText #{nonce}
+                        td.displayTextLight #{nonce}
             if displayMessageChain
               if !messagetype
                 .messagebox(id='messagebox',style="display:-webkit-inline-box;background:#ffb9b9;color:black;")
