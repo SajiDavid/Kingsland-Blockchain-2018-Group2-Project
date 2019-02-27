@@ -75,7 +75,7 @@ html
                    p #{empty}
                  td
                   if(!blocklast)
-                   - var block_next = blocknumber + 1;
+                   - var block_next = parseInt(blocknumber) + 1;
                    - link_next = '/getblock/'+block_next+"/"
                    form.formBox(action=link_next, method='get')
                     button#myButton.myBlueButton(style="float:right;") Next

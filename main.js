@@ -548,7 +548,7 @@ Router.app.post("/miningrequest", urlencodedParser, function (req, res) {
   if(valid){ // If true
     if(Blockchain.currentTransactions == undefined || Blockchain.currentTransactions ==0  )
     {
-      messageVar = `Thank you for participating. Currently no Pending Transaction to mining !!`;
+      messageVar = `Thank you for participating. Currently no Pending Transaction for mining !!`;
       messageStatus = true;
       messagetype = false;
       resultFlag = false;
@@ -828,12 +828,21 @@ Router.app.get("/importjson", function (req, res) {
   messageRedirect = true;
 
   res.redirect("/wallet");
+
 });
 
 // Goes to Faucet to pour coin
 Router.app.post("/uploadkeyfile", upload.single("file"), (req, res) => {
   if (req.file) {
+  
     var filename = req.file.filename;
+    var obj;
+    fs.readFile(req.file.path, 'utf8', function (err, data) {
+      if (err) throw err;
+      obj = JSON.stringify( JSON.parse(data));
+      Wallet.createFromJSON(obj);
+    });
+    
     messageVar = `File has been uploaded successfully`;
   } else {
     //("No File Uploaded");

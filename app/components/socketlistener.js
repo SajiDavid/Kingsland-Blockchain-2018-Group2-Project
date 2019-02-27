@@ -11,7 +11,7 @@ let RouterClass = require("../../app/routes/routes");
 let Router = new RouterClass();
 const successlog = require('../util/logger').successlog;
 const ethers = require("ethers");
-
+ 
 const socketListeners = (socket, ownchain) => {
   socket.on(socketActions.END_MINING, (newChain) => {
     //successLog(ownchain.port, `End mining encountered`);

@@ -76,9 +76,9 @@ class Mining {
             created_date,
             proofHex,
             dontMine} = await generateProof(nonce,blockDataHash,difficulty,zeros);
-    if(dontMine)
+    if(dontMine  === 'true')
     {
-        successLog(port,"End Mining Endcounterred, Skipping mining");
+        successLog(port,"End Mining Encounterred, Skipping mining");
     }
     else{
     console.log(""+ nonce_increment + " "+proofHex+" Date "+created_date);

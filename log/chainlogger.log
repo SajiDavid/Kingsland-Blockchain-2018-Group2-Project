@@ -2338,3 +2338,620 @@
 2019-02-27 20:10:21 info:  8550: Socket connected, ID qOguj_BHmR4bgVfKAAAB
 2019-02-27 20:10:23 info:  9550: Socket connected, ID p2gTY54_U6nksxZ0AAAB
 2019-02-27 20:10:24 info:  5550: Socket connected, ID r8ncjhMB0nh_sIB5AAAB
+2019-02-27 20:13:45 info:  8550: http://localhost:5550 successfully added
+2019-02-27 20:13:45 info:  5550: Socket connected, ID NrGyqESx_KPONRWpAAAC
+2019-02-27 20:13:46 info:  5550: http://localhost:8550 successfully added
+2019-02-27 20:13:46 info:  8550: Socket connected, ID imJxa1OHjlrQle__AAAC
+2019-02-27 20:13:57 info:  8550: http://localhost:9550 successfully added
+2019-02-27 20:13:57 info:  5550: Added new peer localhost:9550
+2019-02-27 20:13:57 info:  5550: http://localhost:9550 successfully added
+2019-02-27 20:13:57 info:  9550: Socket connected, ID uIVjMnCsPvRo33cuAAAC
+2019-02-27 20:13:57 info:  9550: http://localhost:5550 successfully added
+2019-02-27 20:13:57 info:  5550: Socket connected, ID J3JQaBkOiF-GHP6KAAAD
+2019-02-27 20:13:57 info:  9550: Socket connected, ID _OG6gdqhe43jjE6AAAAD
+2019-02-27 20:13:57 info:  9550: http://localhost:8550 successfully added
+2019-02-27 20:13:57 info:  8550: Socket connected, ID rroneg7Q3oMWQquyAAAD
+2019-02-27 20:14:06 info:  5550: Added new peer localhost:6550
+2019-02-27 20:14:06 info:  9550: http://localhost:6550 successfully added
+2019-02-27 20:14:06 info:  8550: Added new peer localhost:6550
+2019-02-27 20:14:06 info:  8550: http://localhost:6550 successfully added
+2019-02-27 20:14:06 info:  5550: http://localhost:6550 successfully added
+2019-02-27 20:14:06 info:  6550: Socket connected, ID D0-Qydl-RoKINtREAAAE
+2019-02-27 20:14:06 info:  6550: Socket connected, ID IQrakUHvpL4XRI2UAAAF
+2019-02-27 20:14:07 info:  6550: Socket connected, ID J7Q5VOGc4o7MVbNzAAAG
+2019-02-27 20:14:28 info:  5550: Free Coin sent to 0x957E0F8Cde6B8D85260e9a631Ca282951e2a7Ef2
+2019-02-27 20:14:28 info:  5550: Signed GiveAway Transaction Coins: 10
+2019-02-27 20:14:28 info:  9550: Transaction Id e91a2c31b60135f80bc52f40cb573db7 signature 0xc652ef9B25D7a8BB0B329211b956Ee9c80dC1cd1 validated
+2019-02-27 20:14:28 info:  6550: Transaction Id e91a2c31b60135f80bc52f40cb573db7 signature 0xc652ef9B25D7a8BB0B329211b956Ee9c80dC1cd1 validated
+2019-02-27 20:14:28 info:  5550: Transaction Id e91a2c31b60135f80bc52f40cb573db7 signature 0xc652ef9B25D7a8BB0B329211b956Ee9c80dC1cd1 validated
+2019-02-27 20:14:28 info:  8550: Transaction Id e91a2c31b60135f80bc52f40cb573db7 signature 0xc652ef9B25D7a8BB0B329211b956Ee9c80dC1cd1 validated
+2019-02-27 20:14:32 info:  5550: Free Coin sent to 0x59844fA58bbE4695d881ee834d403F4FF5278539
+2019-02-27 20:14:32 info:  5550: Signed GiveAway Transaction Coins: 10
+2019-02-27 20:14:32 info:  8550: Transaction Id dc35532894562750563c91e12ea1ffa7 signature 0xc652ef9B25D7a8BB0B329211b956Ee9c80dC1cd1 validated
+2019-02-27 20:14:32 info:  9550: Transaction Id dc35532894562750563c91e12ea1ffa7 signature 0xc652ef9B25D7a8BB0B329211b956Ee9c80dC1cd1 validated
+2019-02-27 20:14:32 info:  6550: Transaction Id dc35532894562750563c91e12ea1ffa7 signature 0xc652ef9B25D7a8BB0B329211b956Ee9c80dC1cd1 validated
+2019-02-27 20:14:32 info:  5550: Transaction Id dc35532894562750563c91e12ea1ffa7 signature 0xc652ef9B25D7a8BB0B329211b956Ee9c80dC1cd1 validated
+2019-02-27 20:15:08 info:  9550: user disconnected, ID p2gTY54_U6nksxZ0AAAB
+2019-02-27 20:15:08 info:  8550: user disconnected, ID qOguj_BHmR4bgVfKAAAB
+2019-02-27 20:15:08 info:  5550: user disconnected, ID r8ncjhMB0nh_sIB5AAAB
+2019-02-27 20:15:30 info:  6550: Chain Living at URL http://localhost:6550
+2019-02-27 20:15:30 info:  6550: Socket connected, ID _3WEuvbZFNOTLeqFAAAA
+2019-02-27 20:15:30 info:  6550: Socket connected, ID TwBRQDU6acMezVELAAAB
+2019-02-27 20:15:30 info:  6550: Socket connected, ID iXSAEuiMF9FpZ1dsAAAC
+2019-02-27 20:15:34 info:  6550: Socket connected, ID KFzvuAg1h28464osAAAD
+2019-02-27 20:16:29 info:  8550: http://localhost:6550 successfully added
+2019-02-27 20:16:29 info:  6550: Socket connected, ID hyYiwe7TD1EeS4OxAAAE
+2019-02-27 20:16:31 info:  6550: http://localhost:8550 successfully added
+2019-02-27 20:16:31 info:  8550: Socket connected, ID hAfcEbT3IlZQnIs3AAAE
+2019-02-27 20:31:37 info:  8550: user disconnected, ID hAfcEbT3IlZQnIs3AAAE
+2019-02-27 20:31:42 info:  6550: user disconnected, ID hyYiwe7TD1EeS4OxAAAE
+2019-02-27 20:31:43 info:  6550: Socket connected, ID KSClJ3FJ-yONLUMmAAAF
+2019-02-27 20:32:07 info:  6550: user disconnected, ID TwBRQDU6acMezVELAAAB
+2019-02-27 20:32:07 info:  6550: user disconnected, ID _3WEuvbZFNOTLeqFAAAA
+2019-02-27 20:32:07 info:  6550: user disconnected, ID iXSAEuiMF9FpZ1dsAAAC
+2019-02-27 20:32:07 info:  6550: user disconnected, ID KFzvuAg1h28464osAAAD
+2019-02-27 20:32:07 info:  6550: Socket connected, ID zHTSrkGSZYzOGkUaAAAG
+2019-02-27 20:32:07 info:  6550: Socket connected, ID lNt3ILJGfPzgPd-bAAAH
+2019-02-27 20:32:07 info:  6550: Socket connected, ID bWqaobSXaMs--0P8AAAI
+2019-02-27 20:32:15 info:  6550: user disconnected, ID KSClJ3FJ-yONLUMmAAAF
+2019-02-27 20:32:15 info:  6550: Socket connected, ID ffZLJC0K72n5FLJ-AAAJ
+2019-02-27 20:32:16 info:  9550: End Mining Endcounterred, Skipping mining
+2019-02-27 20:32:16 info:  8550: Socket connected, ID qq55TX3nZ2B3z0iEAAAF
+2019-02-27 20:32:35 info:  6550: Socket connected, ID GJ2mghR93rgJV79XAAAK
+2019-02-27 20:32:35 info:  6550: Socket connected, ID PnoDVVY8CEBvVVD5AAAL
+2019-02-27 20:32:38 info:  6550: user disconnected, ID zHTSrkGSZYzOGkUaAAAG
+2019-02-27 20:32:38 info:  6550: user disconnected, ID lNt3ILJGfPzgPd-bAAAH
+2019-02-27 20:32:38 info:  6550: user disconnected, ID bWqaobSXaMs--0P8AAAI
+2019-02-27 20:32:38 info:  6550: Socket connected, ID 7MS8wCFN4WiOgCo-AAAM
+2019-02-27 20:32:38 info:  6550: Socket connected, ID PJwOh-1gtM2_yHsvAAAN
+2019-02-27 20:33:08 info:  8550: user disconnected, ID qq55TX3nZ2B3z0iEAAAF
+2019-02-27 20:33:11 info:  5550: user disconnected, ID NrGyqESx_KPONRWpAAAC
+2019-02-27 20:33:24 info:  8550: Chain Living at URL http://localhost:8550
+2019-02-27 20:33:24 info:  8550: Socket connected, ID e1tAp_uCkNtfUod8AAAA
+2019-02-27 20:33:24 info:  7550: Chain Living at URL http://localhost:7550
+2019-02-27 20:33:25 info:  7550: Socket connected, ID ORImVpSqeziQoyjIAAAA
+2019-02-27 20:33:25 info:  5550: Chain Living at URL http://localhost:5550
+2019-02-27 20:33:25 info:  9550: Chain Living at URL http://localhost:9550
+2019-02-27 20:33:25 info:  5550: Socket connected, ID M9pikzcONZ6QS0maAAAA
+2019-02-27 20:33:25 info:  9550: Socket connected, ID PMgRI6TeH2GLKw0mAAAA
+2019-02-27 20:34:08 info:  9550: Chain Living at URL http://localhost:9550
+2019-02-27 20:34:09 info:  7550: Chain Living at URL http://localhost:7550
+2019-02-27 20:34:09 info:  9550: Socket connected, ID 0ShJ-Q5nM50-h43MAAAA
+2019-02-27 20:34:09 info:  7550: Socket connected, ID y-gDrtBxQT_SzFFpAAAA
+2019-02-27 20:34:09 info:  5550: Chain Living at URL http://localhost:5550
+2019-02-27 20:34:09 info:  5550: Socket connected, ID V5C6B9-CVZArKdPfAAAA
+2019-02-27 20:34:09 info:  8550: Chain Living at URL http://localhost:8550
+2019-02-27 20:34:09 info:  8550: Socket connected, ID lYeeSutz4Ape4-KoAAAA
+2019-02-27 20:38:39 info:  6550: Chain Living at URL http://localhost:6550
+2019-02-27 20:38:39 info:  6550: Socket connected, ID vbmFnnkhvaSdVhlDAAAA
+2019-02-27 20:38:40 info:  6550: Socket connected, ID QKqaw_GhTd8PONKQAAAB
+2019-02-27 20:39:09 info:  6550: user disconnected, ID vbmFnnkhvaSdVhlDAAAA
+2019-02-27 20:39:10 info:  8550: http://localhost:5550 successfully added
+2019-02-27 20:39:10 info:  5550: Socket connected, ID IOoz1YvPj_QsdyJ-AAAB
+2019-02-27 20:39:10 info:  5550: http://localhost:8550 successfully added
+2019-02-27 20:39:11 info:  8550: Socket connected, ID j-XYof9qq7-R6k6IAAAB
+2019-02-27 20:39:18 info:  8550: http://localhost:9550 successfully added
+2019-02-27 20:39:18 info:  5550: Added new peer localhost:9550
+2019-02-27 20:39:18 info:  5550: http://localhost:9550 successfully added
+2019-02-27 20:39:18 info:  9550: Socket connected, ID vyKVbhvDQyycoRviAAAB
+2019-02-27 20:39:18 info:  9550: http://localhost:5550 successfully added
+2019-02-27 20:39:18 info:  5550: Socket connected, ID -oVuUQdMeUiNdUcZAAAC
+2019-02-27 20:39:18 info:  9550: Socket connected, ID p8xomTSszJe_u1VPAAAC
+2019-02-27 20:39:18 info:  9550: http://localhost:8550 successfully added
+2019-02-27 20:39:19 info:  8550: Socket connected, ID iqDcHk5VBZyPsD-CAAAC
+2019-02-27 20:39:22 info:  8550: http://localhost:6550 successfully added
+2019-02-27 20:39:22 info:  5550: Added new peer localhost:6550
+2019-02-27 20:39:22 info:  9550: Added new peer localhost:6550
+2019-02-27 20:39:22 info:  5550: http://localhost:6550 successfully added
+2019-02-27 20:39:22 info:  9550: http://localhost:6550 successfully added
+2019-02-27 20:39:25 info:  6550: http://localhost:5550 successfully added
+2019-02-27 20:39:37 info:  8550: Free Coin sent to 0x957E0F8Cde6B8D85260e9a631Ca282951e2a7Ef2
+2019-02-27 20:39:37 info:  5550: Transaction Id a9ca4bc8e9fca84d4c1938af314254bd signature 0x1a5DFf90635D510172D54964986540de7a4A7c56 validated
+2019-02-27 20:39:37 info:  9550: Transaction Id a9ca4bc8e9fca84d4c1938af314254bd signature 0x1a5DFf90635D510172D54964986540de7a4A7c56 validated
+2019-02-27 20:39:37 info:  8550: Signed GiveAway Transaction Coins: 10
+2019-02-27 20:39:37 info:  8550: Transaction Id a9ca4bc8e9fca84d4c1938af314254bd signature 0x1a5DFf90635D510172D54964986540de7a4A7c56 validated
+2019-02-27 20:39:39 info:  8550: Free Coin sent to 0xF4AA21d14526297Af26B34785D3E1B46e7C0fed0
+2019-02-27 20:39:39 info:  8550: Signed GiveAway Transaction Coins: 10
+2019-02-27 20:39:39 info:  8550: Transaction Id f82bdde95dbd886ddabb5c33c4584db5 signature 0x1a5DFf90635D510172D54964986540de7a4A7c56 validated
+2019-02-27 20:39:39 info:  9550: Transaction Id f82bdde95dbd886ddabb5c33c4584db5 signature 0x1a5DFf90635D510172D54964986540de7a4A7c56 validated
+2019-02-27 20:39:39 info:  5550: Transaction Id f82bdde95dbd886ddabb5c33c4584db5 signature 0x1a5DFf90635D510172D54964986540de7a4A7c56 validated
+2019-02-27 20:39:43 info:  8550: Free Coin sent to 0x59844fA58bbE4695d881ee834d403F4FF5278539
+2019-02-27 20:39:43 info:  9550: Transaction Id e2f8a1069e80d7fdc6ddc9905d8c414a signature 0x1a5DFf90635D510172D54964986540de7a4A7c56 validated
+2019-02-27 20:39:43 info:  5550: Transaction Id e2f8a1069e80d7fdc6ddc9905d8c414a signature 0x1a5DFf90635D510172D54964986540de7a4A7c56 validated
+2019-02-27 20:39:43 info:  8550: Signed GiveAway Transaction Coins: 10
+2019-02-27 20:39:43 info:  8550: Transaction Id e2f8a1069e80d7fdc6ddc9905d8c414a signature 0x1a5DFf90635D510172D54964986540de7a4A7c56 validated
+2019-02-27 20:40:11 info:  6550: http://localhost:9550 successfully added
+2019-02-27 20:40:11 info:  5550: Socket connected, ID 84ICmJHDCQA-bUATAAAD
+2019-02-27 20:40:11 info:  6550: Socket connected, ID WbKB8S9KUDNv9xPnAAAC
+2019-02-27 20:40:11 info:  6550: http://localhost:8550 successfully added
+2019-02-27 20:40:11 info:  6550: user disconnected, ID QKqaw_GhTd8PONKQAAAB
+2019-02-27 20:40:11 info:  9550: Socket connected, ID p2qFI1mCdhMOWTVpAAAD
+2019-02-27 20:40:11 info:  8550: Socket connected, ID GXMVLPf2nlfn_sdPAAAD
+2019-02-27 20:40:11 info:  6550: Socket connected, ID wC_rmdLSUGDGXRQLAAAD
+2019-02-27 20:40:11 info:  6550: Socket connected, ID ckeQv15FBVL9q73jAAAE
+2019-02-27 20:40:11 info:  6550: Socket connected, ID CtMXoDuW044Tt0hsAAAF
+2019-02-27 20:40:11 info:  6550: Socket connected, ID a4wwoVfxvW8yxLTkAAAG
+2019-02-27 20:40:12 info:  6550: Socket connected, ID 4_qMaNnQwm-WNjj3AAAH
+2019-02-27 20:40:12 info:  6550: Socket connected, ID NSpHDwGIL5OZ6XUlAAAI
+2019-02-27 20:40:12 info:  6550: Socket connected, ID gzCUPQWrzyadF55nAAAJ
+2019-02-27 20:40:12 info:  6550: Socket connected, ID 1nAjK_YiIeppKBRBAAAK
+2019-02-27 20:40:13 info:  5550: Socket connected, ID yK96J_GDHUpYb5DGAAAE
+2019-02-27 20:40:13 info:  9550: Socket connected, ID C1gi07fzBfkTZC1mAAAE
+2019-02-27 20:40:14 info:  6550: Socket connected, ID cGaxzNpHc8hTLD2OAAAL
+2019-02-27 20:40:41 info:  6550: user disconnected, ID WbKB8S9KUDNv9xPnAAAC
+2019-02-27 20:40:41 info:  5550: user disconnected, ID 84ICmJHDCQA-bUATAAAD
+2019-02-27 20:40:41 info:  9550: user disconnected, ID p2qFI1mCdhMOWTVpAAAD
+2019-02-27 20:40:41 info:  6550: user disconnected, ID wC_rmdLSUGDGXRQLAAAD
+2019-02-27 20:40:41 info:  6550: user disconnected, ID ckeQv15FBVL9q73jAAAE
+2019-02-27 20:40:41 info:  6550: user disconnected, ID CtMXoDuW044Tt0hsAAAF
+2019-02-27 20:40:41 info:  6550: user disconnected, ID a4wwoVfxvW8yxLTkAAAG
+2019-02-27 20:40:42 info:  6550: user disconnected, ID 4_qMaNnQwm-WNjj3AAAH
+2019-02-27 20:40:51 info:  5550: http://localhost:6550 successfully added
+2019-02-27 20:40:51 info:  6550: Socket connected, ID WVwmVT6waDPUXhHIAAAM
+2019-02-27 20:41:42 info:  5550: user disconnected, ID yK96J_GDHUpYb5DGAAAE
+2019-02-27 20:41:42 info:  8550: user disconnected, ID GXMVLPf2nlfn_sdPAAAD
+2019-02-27 20:41:42 info:  9550: user disconnected, ID C1gi07fzBfkTZC1mAAAE
+2019-02-27 20:41:53 info:  6550: Chain Living at URL http://localhost:6550
+2019-02-27 20:41:53 info:  6550: Socket connected, ID Ysex6wZUHhdRLShWAAAA
+2019-02-27 20:41:55 info:  6550: Socket connected, ID rIyBdrK__gYc8Y0yAAAB
+2019-02-27 20:41:55 info:  6550: Socket connected, ID YpYvYfaFbOYJjh24AAAC
+2019-02-27 20:41:56 info:  6550: Socket connected, ID c0wB9wzeyHVH0JqTAAAD
+2019-02-27 20:41:58 info:  6550: Socket connected, ID M56ab1oxZAvLQSvjAAAE
+2019-02-27 20:42:16 info:  6550: user disconnected, ID rIyBdrK__gYc8Y0yAAAB
+2019-02-27 20:42:16 info:  9550: user disconnected, ID vyKVbhvDQyycoRviAAAB
+2019-02-27 20:42:16 info:  6550: user disconnected, ID M56ab1oxZAvLQSvjAAAE
+2019-02-27 20:42:16 info:  9550: user disconnected, ID p8xomTSszJe_u1VPAAAC
+2019-02-27 20:42:16 info:  6550: user disconnected, ID c0wB9wzeyHVH0JqTAAAD
+2019-02-27 20:42:16 info:  6550: user disconnected, ID YpYvYfaFbOYJjh24AAAC
+2019-02-27 20:42:25 info:  8550: Chain Living at URL http://localhost:8550
+2019-02-27 20:42:25 info:  8550: Socket connected, ID EVARWJAurBjuDxeVAAAA
+2019-02-27 20:42:26 info:  5550: Chain Living at URL http://localhost:5550
+2019-02-27 20:42:26 info:  7550: Chain Living at URL http://localhost:7550
+2019-02-27 20:42:26 info:  5550: Socket connected, ID hShhC7LaXUEsIV3oAAAA
+2019-02-27 20:42:26 info:  7550: Socket connected, ID I_njUGvi4U7qHKT_AAAA
+2019-02-27 20:42:26 info:  9550: Chain Living at URL http://localhost:9550
+2019-02-27 20:42:27 info:  9550: Socket connected, ID LHARTbJMEZ4TMgbRAAAA
+2019-02-27 20:43:08 info:  8550: http://localhost:5550 successfully added
+2019-02-27 20:43:09 info:  5550: Socket connected, ID Jc_BXWu12QpXJO7qAAAB
+2019-02-27 20:43:09 info:  5550: http://localhost:8550 successfully added
+2019-02-27 20:43:09 info:  8550: Socket connected, ID Fq1uaHs0JcIvKD9oAAAB
+2019-02-27 20:43:13 info:  8550: http://localhost:6550 successfully added
+2019-02-27 20:43:13 info:  5550: Added new peer localhost:6550
+2019-02-27 20:43:13 info:  5550: http://localhost:6550 successfully added
+2019-02-27 20:43:13 info:  6550: Socket connected, ID Hzt342maRMkZ3pZJAAAF
+2019-02-27 20:43:14 info:  6550: http://localhost:5550 successfully added
+2019-02-27 20:43:14 info:  5550: Socket connected, ID nZZwPvaBzBOTbSZzAAAC
+2019-02-27 20:43:14 info:  6550: Socket connected, ID 1s-5FCNzHjV-h92nAAAG
+2019-02-27 20:43:14 info:  6550: http://localhost:8550 successfully added
+2019-02-27 20:43:14 info:  8550: Socket connected, ID acfFwrNPYQeeHVJnAAAC
+2019-02-27 20:43:17 info:  8550: http://localhost:7550 successfully added
+2019-02-27 20:43:17 info:  5550: Added new peer localhost:7550
+2019-02-27 20:43:17 info:  6550: Added new peer localhost:7550
+2019-02-27 20:43:17 info:  5550: http://localhost:7550 successfully added
+2019-02-27 20:43:17 info:  6550: http://localhost:7550 successfully added
+2019-02-27 20:43:17 info:  7550: Socket connected, ID 7MwevQH8r8pDl_lNAAAB
+2019-02-27 20:43:17 info:  7550: Socket connected, ID prMGaqZIRBlIz9_oAAAC
+2019-02-27 20:43:17 info:  7550: http://localhost:5550 successfully added
+2019-02-27 20:43:17 info:  5550: Socket connected, ID INDIHSQI0w2qtTsaAAAD
+2019-02-27 20:43:17 info:  7550: http://localhost:6550 successfully added
+2019-02-27 20:43:17 info:  6550: Socket connected, ID dMwfmzB7wx2dmUc1AAAH
+2019-02-27 20:43:18 info:  7550: Socket connected, ID PYa_QfoYBuTJsZfQAAAD
+2019-02-27 20:43:18 info:  7550: http://localhost:8550 successfully added
+2019-02-27 20:43:18 info:  8550: Socket connected, ID G9MAkek4eqN9DguZAAAD
+2019-02-27 20:43:48 info:  5550: Added new peer localhost:9550
+2019-02-27 20:43:48 info:  6550: Added new peer localhost:9550
+2019-02-27 20:43:48 info:  8550: http://localhost:9550 successfully added
+2019-02-27 20:43:48 info:  7550: Added new peer localhost:9550
+2019-02-27 20:43:48 info:  5550: http://localhost:9550 successfully added
+2019-02-27 20:43:48 info:  6550: http://localhost:9550 successfully added
+2019-02-27 20:43:48 info:  9550: Socket connected, ID sUd970Atvp4j1tRNAAAB
+2019-02-27 20:43:48 info:  7550: http://localhost:9550 successfully added
+2019-02-27 20:43:48 info:  9550: http://localhost:6550 successfully added
+2019-02-27 20:43:48 info:  9550: http://localhost:5550 successfully added
+2019-02-27 20:43:48 info:  9550: http://localhost:7550 successfully added
+2019-02-27 20:43:48 info:  5550: Socket connected, ID teSudQRgPNLnaHmlAAAE
+2019-02-27 20:43:48 info:  7550: Socket connected, ID 0gbMUSKhEsOOHk9IAAAE
+2019-02-27 20:43:48 info:  6550: Socket connected, ID V93eaE6oG4WNcOUPAAAI
+2019-02-27 20:43:49 info:  9550: http://localhost:8550 successfully added
+2019-02-27 20:43:49 info:  8550: Socket connected, ID 8aX1CIvklh3r9S1mAAAE
+2019-02-27 20:43:50 info:  9550: Socket connected, ID fD8vSP3TkoMcbsmMAAAC
+2019-02-27 20:43:53 info:  9550: Socket connected, ID iezUXNjcnsyJttpGAAAD
+2019-02-27 20:43:53 info:  9550: Socket connected, ID rAo6p4k7j9ZObuLEAAAE
+2019-02-27 20:44:06 info:  9550: Free Coin sent to 0x957E0F8Cde6B8D85260e9a631Ca282951e2a7Ef2
+2019-02-27 20:44:06 info:  9550: Signed GiveAway Transaction Coins: 10
+2019-02-27 20:44:06 info:  5550: Transaction Id 8ca419a036cf448ec0efc3b75503b623 signature 0xfC2ba4f31FcF9407Ec0B5F029885fEEC69986Ae9 validated
+2019-02-27 20:44:06 info:  8550: Transaction Id 8ca419a036cf448ec0efc3b75503b623 signature 0xfC2ba4f31FcF9407Ec0B5F029885fEEC69986Ae9 validated
+2019-02-27 20:44:06 info:  7550: Transaction Id 8ca419a036cf448ec0efc3b75503b623 signature 0xfC2ba4f31FcF9407Ec0B5F029885fEEC69986Ae9 validated
+2019-02-27 20:44:06 info:  6550: Transaction Id 8ca419a036cf448ec0efc3b75503b623 signature 0xfC2ba4f31FcF9407Ec0B5F029885fEEC69986Ae9 validated
+2019-02-27 20:44:06 info:  9550: Transaction Id 8ca419a036cf448ec0efc3b75503b623 signature 0xfC2ba4f31FcF9407Ec0B5F029885fEEC69986Ae9 validated
+2019-02-27 20:44:10 info:  9550: Free Coin sent to 0xF4AA21d14526297Af26B34785D3E1B46e7C0fed0
+2019-02-27 20:44:10 info:  9550: Signed GiveAway Transaction Coins: 10
+2019-02-27 20:44:10 info:  5550: Transaction Id 07ce9b44df67f901f6c4d17195d3665d signature 0xfC2ba4f31FcF9407Ec0B5F029885fEEC69986Ae9 validated
+2019-02-27 20:44:10 info:  7550: Transaction Id 07ce9b44df67f901f6c4d17195d3665d signature 0xfC2ba4f31FcF9407Ec0B5F029885fEEC69986Ae9 validated
+2019-02-27 20:44:10 info:  8550: Transaction Id 07ce9b44df67f901f6c4d17195d3665d signature 0xfC2ba4f31FcF9407Ec0B5F029885fEEC69986Ae9 validated
+2019-02-27 20:44:10 info:  6550: Transaction Id 07ce9b44df67f901f6c4d17195d3665d signature 0xfC2ba4f31FcF9407Ec0B5F029885fEEC69986Ae9 validated
+2019-02-27 20:44:10 info:  9550: Transaction Id 07ce9b44df67f901f6c4d17195d3665d signature 0xfC2ba4f31FcF9407Ec0B5F029885fEEC69986Ae9 validated
+2019-02-27 20:45:06 info:  8550: Mined Successfully
+2019-02-27 20:45:06 info:  5550: New Block added ID: 1
+2019-02-27 20:45:06 info:  6550: New Block added ID: 1
+2019-02-27 20:45:06 info:  7550: New Block added ID: 1
+2019-02-27 20:45:06 info:  9550: New Block added ID: 1
+2019-02-27 20:45:06 info:  8550: New Block added ID: 1
+2019-02-27 20:46:07 info:  7550: user disconnected, ID 0gbMUSKhEsOOHk9IAAAE
+2019-02-27 20:46:07 info:  6550: user disconnected, ID V93eaE6oG4WNcOUPAAAI
+2019-02-27 20:46:07 info:  7550: user disconnected, ID PYa_QfoYBuTJsZfQAAAD
+2019-02-27 20:46:07 info:  6550: user disconnected, ID 1s-5FCNzHjV-h92nAAAG
+2019-02-27 20:46:07 info:  5550: user disconnected, ID Jc_BXWu12QpXJO7qAAAB
+2019-02-27 20:46:07 info:  5550: user disconnected, ID teSudQRgPNLnaHmlAAAE
+2019-02-27 20:46:07 info:  7550: user disconnected, ID 7MwevQH8r8pDl_lNAAAB
+2019-02-27 20:46:07 info:  6550: user disconnected, ID Hzt342maRMkZ3pZJAAAF
+2019-02-27 20:46:07 info:  6550: user disconnected, ID dMwfmzB7wx2dmUc1AAAH
+2019-02-27 20:46:31 info:  8550: Chain Living at URL http://localhost:8550
+2019-02-27 20:46:32 info:  8550: Socket connected, ID 4PYKjOfWl99zKNlQAAAA
+2019-02-27 20:46:32 info:  9550: Chain Living at URL http://localhost:9550
+2019-02-27 20:46:32 info:  5550: Chain Living at URL http://localhost:5550
+2019-02-27 20:46:32 info:  7550: Chain Living at URL http://localhost:7550
+2019-02-27 20:46:33 info:  9550: Socket connected, ID nhligve1cNpr6VRLAAAA
+2019-02-27 20:46:33 info:  5550: Socket connected, ID HiV9b-JnUPfpvJ7DAAAA
+2019-02-27 20:46:33 info:  7550: Socket connected, ID O4mtFM6gE9nfQ4D5AAAA
+2019-02-27 20:46:36 info:  6550: Chain Living at URL http://localhost:6550
+2019-02-27 20:46:36 info:  6550: Socket connected, ID narp_jAUSOX_omtrAAAA
+2019-02-27 20:49:25 info:  8550: http://localhost:5550 successfully added
+2019-02-27 20:49:26 info:  5550: Socket connected, ID fHE1XjlnIBThfKQeAAAB
+2019-02-27 20:49:26 info:  5550: http://localhost:8550 successfully added
+2019-02-27 20:49:26 info:  8550: Socket connected, ID zjCl8q_EXN8DxmMEAAAB
+2019-02-27 20:49:31 info:  8550: http://localhost:6550 successfully added
+2019-02-27 20:49:31 info:  5550: Added new peer localhost:6550
+2019-02-27 20:49:31 info:  5550: http://localhost:6550 successfully added
+2019-02-27 20:49:31 info:  6550: Socket connected, ID gNi_pEw_1ngWuk6-AAAB
+2019-02-27 20:49:31 info:  6550: http://localhost:5550 successfully added
+2019-02-27 20:49:31 info:  5550: Socket connected, ID sYH6DArISufF7Q7WAAAC
+2019-02-27 20:49:31 info:  6550: Socket connected, ID XrTFrAvO_mhseoxmAAAC
+2019-02-27 20:49:31 info:  6550: http://localhost:8550 successfully added
+2019-02-27 20:49:31 info:  8550: Socket connected, ID q5KgmSyyP76DkJScAAAC
+2019-02-27 20:49:34 info:  8550: http://localhost:7550 successfully added
+2019-02-27 20:49:34 info:  5550: Added new peer localhost:7550
+2019-02-27 20:49:34 info:  6550: Added new peer localhost:7550
+2019-02-27 20:49:34 info:  5550: http://localhost:7550 successfully added
+2019-02-27 20:49:34 info:  7550: Socket connected, ID 7Y2ZjuoYkIk0Gsk6AAAB
+2019-02-27 20:49:35 info:  6550: http://localhost:7550 successfully added
+2019-02-27 20:49:35 info:  7550: http://localhost:5550 successfully added
+2019-02-27 20:49:35 info:  7550: Socket connected, ID if9TBneXNTb6QNznAAAC
+2019-02-27 20:49:35 info:  7550: http://localhost:6550 successfully added
+2019-02-27 20:49:35 info:  5550: Socket connected, ID 4hkrWriLDMEXm7lbAAAD
+2019-02-27 20:49:35 info:  6550: Socket connected, ID Ack3E5BxgAWsMoDCAAAD
+2019-02-27 20:49:35 info:  7550: Socket connected, ID ZaikAXDRLs_N1K_IAAAD
+2019-02-27 20:49:35 info:  7550: http://localhost:8550 successfully added
+2019-02-27 20:49:35 info:  8550: Socket connected, ID kotsERO_tAn2_t5LAAAD
+2019-02-27 20:49:40 info:  8550: http://localhost:9550 successfully added
+2019-02-27 20:49:40 info:  5550: Added new peer localhost:9550
+2019-02-27 20:49:40 info:  6550: Added new peer localhost:9550
+2019-02-27 20:49:40 info:  7550: Added new peer localhost:9550
+2019-02-27 20:49:40 info:  5550: http://localhost:9550 successfully added
+2019-02-27 20:49:40 info:  6550: http://localhost:9550 successfully added
+2019-02-27 20:49:40 info:  9550: Socket connected, ID fvT0_BmKWkt4VPU8AAAB
+2019-02-27 20:49:40 info:  7550: http://localhost:9550 successfully added
+2019-02-27 20:49:40 info:  9550: http://localhost:5550 successfully added
+2019-02-27 20:49:40 info:  9550: Socket connected, ID YbGafd0npqznqdROAAAC
+2019-02-27 20:49:40 info:  9550: http://localhost:6550 successfully added
+2019-02-27 20:49:40 info:  9550: Socket connected, ID j4v_P1L6wwKvRQnnAAAD
+2019-02-27 20:49:40 info:  6550: Socket connected, ID KAeluxgwu73rdePGAAAE
+2019-02-27 20:49:40 info:  5550: Socket connected, ID ecF91cOVbcI04JR8AAAE
+2019-02-27 20:49:40 info:  9550: Socket connected, ID 709MpmEuaUVMrTYcAAAE
+2019-02-27 20:49:40 info:  9550: http://localhost:8550 successfully added
+2019-02-27 20:49:40 info:  8550: Socket connected, ID ZuhOpx-5AhE5QkM1AAAE
+2019-02-27 20:49:46 info:  9550: http://localhost:7550 successfully added
+2019-02-27 20:49:46 info:  7550: Socket connected, ID pWkyCEjmhKrE5jVJAAAE
+2019-02-27 22:22:09 info:  8550: Free Coin sent to 0xF4AA21d14526297Af26B34785D3E1B46e7C0fed0
+2019-02-27 22:22:09 info:  8550: Signed GiveAway Transaction Coins: 10
+2019-02-27 22:22:09 info:  5550: Transaction Id 4430c30fe243da0c65daa4bfdb36cd07 signature 0x4d24257Dd9c864DbBcf417A56165DeFB0e6CACE4 validated
+2019-02-27 22:22:09 info:  6550: Transaction Id 4430c30fe243da0c65daa4bfdb36cd07 signature 0x4d24257Dd9c864DbBcf417A56165DeFB0e6CACE4 validated
+2019-02-27 22:22:09 info:  9550: Transaction Id 4430c30fe243da0c65daa4bfdb36cd07 signature 0x4d24257Dd9c864DbBcf417A56165DeFB0e6CACE4 validated
+2019-02-27 22:22:09 info:  8550: Transaction Id 4430c30fe243da0c65daa4bfdb36cd07 signature 0x4d24257Dd9c864DbBcf417A56165DeFB0e6CACE4 validated
+2019-02-27 22:22:09 info:  7550: Transaction Id 4430c30fe243da0c65daa4bfdb36cd07 signature 0x4d24257Dd9c864DbBcf417A56165DeFB0e6CACE4 validated
+2019-02-27 22:22:12 info:  8550: Free Coin sent to 0x957E0F8Cde6B8D85260e9a631Ca282951e2a7Ef2
+2019-02-27 22:22:12 info:  8550: Signed GiveAway Transaction Coins: 10
+2019-02-27 22:22:12 info:  8550: Transaction Id 93311b7447eadad3fe6045c38e023757 signature 0x4d24257Dd9c864DbBcf417A56165DeFB0e6CACE4 validated
+2019-02-27 22:22:12 info:  6550: Transaction Id 93311b7447eadad3fe6045c38e023757 signature 0x4d24257Dd9c864DbBcf417A56165DeFB0e6CACE4 validated
+2019-02-27 22:22:12 info:  5550: Transaction Id 93311b7447eadad3fe6045c38e023757 signature 0x4d24257Dd9c864DbBcf417A56165DeFB0e6CACE4 validated
+2019-02-27 22:22:12 info:  7550: Transaction Id 93311b7447eadad3fe6045c38e023757 signature 0x4d24257Dd9c864DbBcf417A56165DeFB0e6CACE4 validated
+2019-02-27 22:22:12 info:  9550: Transaction Id 93311b7447eadad3fe6045c38e023757 signature 0x4d24257Dd9c864DbBcf417A56165DeFB0e6CACE4 validated
+2019-02-27 22:22:16 info:  8550: Free Coin sent to 0x59844fA58bbE4695d881ee834d403F4FF5278539
+2019-02-27 22:22:16 info:  5550: Transaction Id 9d6230eba950235f14fb2c89416d0fd0 signature 0x4d24257Dd9c864DbBcf417A56165DeFB0e6CACE4 validated
+2019-02-27 22:22:16 info:  9550: Transaction Id 9d6230eba950235f14fb2c89416d0fd0 signature 0x4d24257Dd9c864DbBcf417A56165DeFB0e6CACE4 validated
+2019-02-27 22:22:16 info:  8550: Signed GiveAway Transaction Coins: 10
+2019-02-27 22:22:16 info:  8550: Transaction Id 9d6230eba950235f14fb2c89416d0fd0 signature 0x4d24257Dd9c864DbBcf417A56165DeFB0e6CACE4 validated
+2019-02-27 22:22:16 info:  6550: Transaction Id 9d6230eba950235f14fb2c89416d0fd0 signature 0x4d24257Dd9c864DbBcf417A56165DeFB0e6CACE4 validated
+2019-02-27 22:22:16 info:  7550: Transaction Id 9d6230eba950235f14fb2c89416d0fd0 signature 0x4d24257Dd9c864DbBcf417A56165DeFB0e6CACE4 validated
+2019-02-27 22:22:52 info:  8550: Mined Successfully
+2019-02-27 22:22:52 info:  5550: New Block added ID: 1
+2019-02-27 22:22:53 info:  6550: New Block added ID: 1
+2019-02-27 22:22:53 info:  8550: New Block added ID: 1
+2019-02-27 22:22:53 info:  7550: New Block added ID: 1
+2019-02-27 22:22:53 info:  9550: New Block added ID: 1
+2019-02-27 22:24:17 info:  8550: Transaction ID8ad0513f88001217bd9bb3e79d3a60a1 and broadcasted
+2019-02-27 22:24:17 info:  6550: Transaction Id 8ad0513f88001217bd9bb3e79d3a60a1 signature 0xF4AA21d14526297Af26B34785D3E1B46e7C0fed0 validated
+2019-02-27 22:24:17 info:  8550: Transaction Id 8ad0513f88001217bd9bb3e79d3a60a1 signature 0xF4AA21d14526297Af26B34785D3E1B46e7C0fed0 validated
+2019-02-27 22:24:17 info:  5550: Transaction Id 8ad0513f88001217bd9bb3e79d3a60a1 signature 0xF4AA21d14526297Af26B34785D3E1B46e7C0fed0 validated
+2019-02-27 22:24:17 info:  7550: Transaction Id 8ad0513f88001217bd9bb3e79d3a60a1 signature 0xF4AA21d14526297Af26B34785D3E1B46e7C0fed0 validated
+2019-02-27 22:24:17 info:  9550: Transaction Id 8ad0513f88001217bd9bb3e79d3a60a1 signature 0xF4AA21d14526297Af26B34785D3E1B46e7C0fed0 validated
+2019-02-27 22:25:06 info:  9550: Mined Successfully
+2019-02-27 22:25:06 info:  6550: New Block added ID: 2
+2019-02-27 22:25:06 info:  5550: New Block added ID: 2
+2019-02-27 22:25:06 info:  7550: New Block added ID: 2
+2019-02-27 22:25:06 info:  8550: New Block added ID: 2
+2019-02-27 22:25:07 info:  9550: New Block added ID: 2
+2019-02-27 22:31:31 info:  8550: Free Coin sent to 0x53b8D8cF116fdf53114F1e316e3f7dd5f7EB9440
+2019-02-27 22:31:31 info:  8550: Signed GiveAway Transaction Coins: 10
+2019-02-27 22:31:31 info:  5550: Transaction Id e87a67ba5b27a36d17a6c66ff21c59be signature 0x4d24257Dd9c864DbBcf417A56165DeFB0e6CACE4 validated
+2019-02-27 22:31:31 info:  8550: Transaction Id e87a67ba5b27a36d17a6c66ff21c59be signature 0x4d24257Dd9c864DbBcf417A56165DeFB0e6CACE4 validated
+2019-02-27 22:31:31 info:  7550: Transaction Id e87a67ba5b27a36d17a6c66ff21c59be signature 0x4d24257Dd9c864DbBcf417A56165DeFB0e6CACE4 validated
+2019-02-27 22:31:31 info:  9550: Transaction Id e87a67ba5b27a36d17a6c66ff21c59be signature 0x4d24257Dd9c864DbBcf417A56165DeFB0e6CACE4 validated
+2019-02-27 22:31:31 info:  6550: Transaction Id e87a67ba5b27a36d17a6c66ff21c59be signature 0x4d24257Dd9c864DbBcf417A56165DeFB0e6CACE4 validated
+2019-02-27 22:32:44 info:  9550: Free Coin sent to 0xaa5FF1101a7034Bff5A1099200BF3cC92fDdcCa3
+2019-02-27 22:32:44 info:  9550: Signed GiveAway Transaction Coins: 10
+2019-02-27 22:32:44 info:  5550: Transaction Id 48a6cee3041d60d3578056770eee3f34 signature 0x4d24257Dd9c864DbBcf417A56165DeFB0e6CACE4 validated
+2019-02-27 22:32:44 info:  6550: Transaction Id 48a6cee3041d60d3578056770eee3f34 signature 0x4d24257Dd9c864DbBcf417A56165DeFB0e6CACE4 validated
+2019-02-27 22:32:44 info:  8550: Transaction Id 48a6cee3041d60d3578056770eee3f34 signature 0x4d24257Dd9c864DbBcf417A56165DeFB0e6CACE4 validated
+2019-02-27 22:32:44 info:  7550: Transaction Id 48a6cee3041d60d3578056770eee3f34 signature 0x4d24257Dd9c864DbBcf417A56165DeFB0e6CACE4 validated
+2019-02-27 22:32:44 info:  9550: Transaction Id 48a6cee3041d60d3578056770eee3f34 signature 0x4d24257Dd9c864DbBcf417A56165DeFB0e6CACE4 validated
+2019-02-27 22:32:59 info:  9550: Mined Successfully
+2019-02-27 22:32:59 info:  5550: New Block added ID: 3
+2019-02-27 22:32:59 info:  7550: New Block added ID: 3
+2019-02-27 22:32:59 info:  6550: New Block added ID: 3
+2019-02-27 22:32:59 info:  8550: New Block added ID: 3
+2019-02-27 22:32:59 info:  9550: New Block added ID: 3
+2019-02-27 22:34:27 info:  5550: Transaction ID112c8452e07a5ae8e53e4da4d7e375ba and broadcasted
+2019-02-27 22:34:27 info:  7550: Transaction Id 112c8452e07a5ae8e53e4da4d7e375ba signature 0xaa5FF1101a7034Bff5A1099200BF3cC92fDdcCa3 validated
+2019-02-27 22:34:27 info:  6550: Transaction Id 112c8452e07a5ae8e53e4da4d7e375ba signature 0xaa5FF1101a7034Bff5A1099200BF3cC92fDdcCa3 validated
+2019-02-27 22:34:27 info:  8550: Transaction Id 112c8452e07a5ae8e53e4da4d7e375ba signature 0xaa5FF1101a7034Bff5A1099200BF3cC92fDdcCa3 validated
+2019-02-27 22:34:27 info:  9550: Transaction Id 112c8452e07a5ae8e53e4da4d7e375ba signature 0xaa5FF1101a7034Bff5A1099200BF3cC92fDdcCa3 validated
+2019-02-27 22:34:27 info:  5550: Transaction Id 112c8452e07a5ae8e53e4da4d7e375ba signature 0xaa5FF1101a7034Bff5A1099200BF3cC92fDdcCa3 validated
+2019-02-27 23:02:19 info:  5550: user disconnected, ID 4hkrWriLDMEXm7lbAAAD
+2019-02-27 23:02:19 info:  8550: user disconnected, ID kotsERO_tAn2_t5LAAAD
+2019-02-27 23:02:19 info:  6550: user disconnected, ID Ack3E5BxgAWsMoDCAAAD
+2019-02-27 23:02:19 info:  9550: user disconnected, ID j4v_P1L6wwKvRQnnAAAD
+2019-02-27 23:02:19 info:  5550: user disconnected, ID fHE1XjlnIBThfKQeAAAB
+2019-02-27 23:02:19 info:  5550: user disconnected, ID ecF91cOVbcI04JR8AAAE
+2019-02-27 23:02:19 info:  6550: user disconnected, ID XrTFrAvO_mhseoxmAAAC
+2019-02-27 23:02:19 info:  6550: user disconnected, ID KAeluxgwu73rdePGAAAE
+2019-02-27 23:02:19 info:  6550: user disconnected, ID gNi_pEw_1ngWuk6-AAAB
+2019-02-27 23:02:27 info:  7550: Chain Living at URL http://localhost:7550
+2019-02-27 23:02:27 info:  7550: Socket connected, ID SvN8nIwZvQ-uJW4FAAAA
+2019-02-27 23:02:27 info:  7550: Socket connected, ID cTBja9iBbOv0a-z4AAAB
+2019-02-27 23:02:28 info:  5550: Chain Living at URL http://localhost:5550
+2019-02-27 23:02:28 info:  5550: Socket connected, ID 8VovJANKY3iwwdqvAAAA
+2019-02-27 23:02:28 info:  9550: Chain Living at URL http://localhost:9550
+2019-02-27 23:02:28 info:  8550: Chain Living at URL http://localhost:8550
+2019-02-27 23:02:28 info:  9550: Socket connected, ID qt64CWoQjeaHlVK6AAAA
+2019-02-27 23:02:28 info:  8550: Socket connected, ID asytZpesV1HW3KCsAAAA
+2019-02-27 23:02:28 info:  9550: Socket connected, ID cQC6EfZXnoWZYkSrAAAB
+2019-02-27 23:02:30 info:  5550: Socket connected, ID DWS4k4-Pom8B1tUDAAAB
+2019-02-27 23:02:30 info:  8550: Socket connected, ID CVAHYbSKvBlCdJBxAAAB
+2019-02-27 23:06:57 info:  7550: Chain Living at URL http://localhost:7550
+2019-02-27 23:06:57 info:  7550: Socket connected, ID WHqN2kfl89WVZ8GRAAAA
+2019-02-27 23:06:58 info:  9550: Chain Living at URL http://localhost:9550
+2019-02-27 23:06:58 info:  9550: Socket connected, ID 9D_ZbzxKOrY8tKOWAAAA
+2019-02-27 23:06:58 info:  5550: Chain Living at URL http://localhost:5550
+2019-02-27 23:06:58 info:  8550: Chain Living at URL http://localhost:8550
+2019-02-27 23:06:58 info:  5550: Socket connected, ID hAU77sl9vEwU6SOkAAAA
+2019-02-27 23:06:58 info:  8550: Socket connected, ID n-Mvyz9vTfgYppu3AAAA
+2019-02-27 23:06:59 info:  9550: Socket connected, ID fo3DY2-FQe9trYfvAAAB
+2019-02-27 23:06:59 info:  5550: Socket connected, ID Xye3gDBB9FTk37ZuAAAB
+2019-02-27 23:07:00 info:  7550: Socket connected, ID jAM3nAiRkZIN2BePAAAB
+2019-02-27 23:07:02 info:  8550: Socket connected, ID PjoQBXcM88CyOV2tAAAB
+2019-02-27 23:07:29 info:  9550: user disconnected, ID fo3DY2-FQe9trYfvAAAB
+2019-02-27 23:07:29 info:  5550: user disconnected, ID Xye3gDBB9FTk37ZuAAAB
+2019-02-27 23:07:31 info:  7550: user disconnected, ID jAM3nAiRkZIN2BePAAAB
+2019-02-27 23:07:33 info:  8550: user disconnected, ID PjoQBXcM88CyOV2tAAAB
+2019-02-27 23:16:04 info:  6550: user disconnected, ID narp_jAUSOX_omtrAAAA
+2019-02-27 23:16:06 info:  9550: Socket connected, ID Ryd9C5rMbdVr2_VLAAAC
+2019-02-27 23:16:06 info:  8550: Socket connected, ID 7ZEd9wGKdt1H2veTAAAC
+2019-02-27 23:16:06 info:  7550: Socket connected, ID 1g8RoJ3lBplrKjvuAAAC
+2019-02-27 23:16:06 info:  5550: Socket connected, ID XZF3Z1jmu6fbq5FrAAAC
+2019-02-27 23:16:07 info:  6550: Socket connected, ID K_xkQKd5gNnlmx2QAAAF
+2019-02-27 23:21:17 info:  9550: Chain Living at URL http://localhost:9550
+2019-02-27 23:21:17 info:  9550: Socket connected, ID qeqT8MVvYA3ILF0QAAAA
+2019-02-27 23:21:17 info:  9550: Socket connected, ID qqrbURT0KA5JoIEsAAAB
+2019-02-27 23:21:17 info:  7550: Chain Living at URL http://localhost:7550
+2019-02-27 23:21:18 info:  7550: Socket connected, ID Z56CisPNoPcZy4dxAAAA
+2019-02-27 23:21:18 info:  5550: Chain Living at URL http://localhost:5550
+2019-02-27 23:21:18 info:  7550: Socket connected, ID eLTl31MX6OotpOMlAAAB
+2019-02-27 23:21:18 info:  8550: Chain Living at URL http://localhost:8550
+2019-02-27 23:21:18 info:  5550: Socket connected, ID Nb6HYOOjrg9R2C2pAAAA
+2019-02-27 23:21:18 info:  8550: Socket connected, ID 4mWuXg4T9Lu3S0UmAAAA
+2019-02-27 23:21:21 info:  5550: Socket connected, ID mK-rdzpLxNVckh5tAAAB
+2019-02-27 23:21:21 info:  8550: Socket connected, ID mmxIqILL5QgbhhNGAAAB
+2019-02-27 23:21:51 info:  5550: Chain Living at URL http://localhost:5550
+2019-02-27 23:21:51 info:  5550: Socket connected, ID dzsbIpS5cgXLUznTAAAA
+2019-02-27 23:21:51 info:  8550: Chain Living at URL http://localhost:8550
+2019-02-27 23:21:52 info:  8550: Socket connected, ID tCL9uFhVUFtajJ89AAAA
+2019-02-27 23:21:52 info:  7550: Chain Living at URL http://localhost:7550
+2019-02-27 23:21:52 info:  7550: Socket connected, ID rJKcMlV9vBQoM45zAAAA
+2019-02-27 23:21:52 info:  9550: Chain Living at URL http://localhost:9550
+2019-02-27 23:21:52 info:  9550: Socket connected, ID hUvQOuQJPAZ1ZBBMAAAA
+2019-02-27 23:21:55 info:  8550: Socket connected, ID T8u5-0d_DP2Nfq7TAAAB
+2019-02-27 23:21:55 info:  5550: Socket connected, ID CHlvR8ljZV41wb7lAAAB
+2019-02-27 23:21:55 info:  7550: Socket connected, ID GBwSy1opnWmPVsI5AAAB
+2019-02-27 23:21:56 info:  9550: Socket connected, ID G5QPpyKiK9mvPkFpAAAB
+2019-02-27 23:22:31 info:  7550: Chain Living at URL http://localhost:7550
+2019-02-27 23:22:31 info:  9550: Chain Living at URL http://localhost:9550
+2019-02-27 23:22:31 info:  9550: Socket connected, ID 31iliy7oz1ywg01PAAAA
+2019-02-27 23:22:31 info:  7550: Socket connected, ID DNnW7LqVVpy8U_vPAAAA
+2019-02-27 23:22:31 info:  5550: Chain Living at URL http://localhost:5550
+2019-02-27 23:22:31 info:  8550: Chain Living at URL http://localhost:8550
+2019-02-27 23:22:31 info:  5550: Socket connected, ID 1jKnQ9SXeFHlzqzAAAAA
+2019-02-27 23:22:31 info:  8550: Socket connected, ID 0COMvhYGpGzk05rmAAAA
+2019-02-27 23:22:32 info:  8550: Socket connected, ID 074WKYEHZmISKgR0AAAB
+2019-02-27 23:22:33 info:  7550: Socket connected, ID Jy6MK9fj-R_P8OFFAAAB
+2019-02-27 23:22:33 info:  5550: Socket connected, ID _8Y2qoKdT-hu2eNJAAAB
+2019-02-27 23:22:33 info:  9550: Socket connected, ID NsdRxCCg4W4aNPYPAAAB
+2019-02-27 23:30:25 info:  7550: Chain Living at URL http://localhost:7550
+2019-02-27 23:30:25 info:  7550: Socket connected, ID i7GSXFttJj8ZBoVhAAAA
+2019-02-27 23:30:26 info:  8550: Chain Living at URL http://localhost:8550
+2019-02-27 23:30:26 info:  9550: Chain Living at URL http://localhost:9550
+2019-02-27 23:30:26 info:  9550: Socket connected, ID OoB1ttsT8BamdtP1AAAA
+2019-02-27 23:30:26 info:  8550: Socket connected, ID lNJTc6nF4nYTGaz6AAAA
+2019-02-27 23:30:26 info:  5550: Chain Living at URL http://localhost:5550
+2019-02-27 23:30:26 info:  5550: Socket connected, ID 2ragiFX1roXQT8fnAAAA
+2019-02-27 23:30:48 info:  6550: Chain Living at URL http://localhost:6550
+2019-02-27 23:30:55 info:  6550: Socket connected, ID xAJQatpgsOGQhUsLAAAA
+2019-02-27 23:31:31 info:  5550: Chain Living at URL http://localhost:5550
+2019-02-27 23:31:31 info:  5550: Socket connected, ID i4qwx6l92GuyT6VYAAAA
+2019-02-27 23:31:32 info:  7550: Chain Living at URL http://localhost:7550
+2019-02-27 23:31:32 info:  7550: Socket connected, ID sEGUtPbLKQJkTXdNAAAA
+2019-02-27 23:31:32 info:  8550: Chain Living at URL http://localhost:8550
+2019-02-27 23:31:33 info:  9550: Chain Living at URL http://localhost:9550
+2019-02-27 23:31:33 info:  8550: Socket connected, ID hTSp6h880IZ6W8GIAAAA
+2019-02-27 23:31:33 info:  9550: Socket connected, ID IrQPWXeSTj8aIZHmAAAA
+2019-02-27 23:31:52 info:  6550: Chain Living at URL http://localhost:6550
+2019-02-27 23:31:52 info:  6550: Socket connected, ID yXciFz6mUYUCMc0rAAAA
+2019-02-27 23:32:48 info:  6550: user disconnected, ID yXciFz6mUYUCMc0rAAAA
+2019-02-27 23:33:49 info:  7550: Chain Living at URL http://localhost:7550
+2019-02-27 23:33:50 info:  7550: Socket connected, ID NJUr509HeF-VI-eNAAAA
+2019-02-27 23:33:50 info:  8550: Chain Living at URL http://localhost:8550
+2019-02-27 23:33:50 info:  8550: Socket connected, ID pYtrMQ1dMxX3TsbYAAAA
+2019-02-27 23:33:50 info:  9550: Chain Living at URL http://localhost:9550
+2019-02-27 23:33:50 info:  9550: Socket connected, ID oZEXvZeLFlhwn1LpAAAA
+2019-02-27 23:33:51 info:  5550: Chain Living at URL http://localhost:5550
+2019-02-27 23:33:51 info:  5550: Socket connected, ID 6pZ30_Bq4mPmhAOoAAAA
+2019-02-27 23:34:38 info:  5550: Chain Living at URL http://localhost:5550
+2019-02-27 23:34:38 info:  8550: Chain Living at URL http://localhost:8550
+2019-02-27 23:34:38 info:  5550: Socket connected, ID uz8ZOFDvm11nQb9AAAAA
+2019-02-27 23:34:38 info:  8550: Socket connected, ID QxZhr0T4bcngDA7MAAAA
+2019-02-27 23:34:39 info:  7550: Chain Living at URL http://localhost:7550
+2019-02-27 23:34:39 info:  9550: Chain Living at URL http://localhost:9550
+2019-02-27 23:34:39 info:  9550: Socket connected, ID EelMO67feXrurjiVAAAA
+2019-02-27 23:34:39 info:  7550: Socket connected, ID BljfZ5JopGd2oT-2AAAA
+2019-02-27 23:34:44 info:  6550: Chain Living at URL http://localhost:6550
+2019-02-27 23:34:44 info:  6550: Socket connected, ID h4Qvq5iAjfXVcUssAAAA
+2019-02-27 23:35:48 info:  9550: Chain Living at URL http://localhost:9550
+2019-02-27 23:35:48 info:  9550: Socket connected, ID __QI1WyDwk-iM1fLAAAA
+2019-02-27 23:35:48 info:  8550: Chain Living at URL http://localhost:8550
+2019-02-27 23:35:49 info:  8550: Socket connected, ID zRsQMNP9NoZL0SvfAAAA
+2019-02-27 23:35:49 info:  5550: Chain Living at URL http://localhost:5550
+2019-02-27 23:35:49 info:  5550: Socket connected, ID HQeHqJLHGbb-MbINAAAA
+2019-02-27 23:35:49 info:  7550: Chain Living at URL http://localhost:7550
+2019-02-27 23:35:49 info:  7550: Socket connected, ID dqU9a2VoHSJX8mpEAAAA
+2019-02-27 23:36:03 info:  6550: Chain Living at URL http://localhost:6550
+2019-02-27 23:36:03 info:  6550: Socket connected, ID Ej-NO-RKBI4rh-_VAAAA
+2019-02-27 23:37:16 info:  5550: Chain Living at URL http://localhost:5550
+2019-02-27 23:37:16 info:  5550: Socket connected, ID eRqGv4nkJp0Pn1XtAAAA
+2019-02-27 23:37:18 info:  9550: Chain Living at URL http://localhost:9550
+2019-02-27 23:37:18 info:  9550: Socket connected, ID JgeC_HXNRmsWdwGWAAAA
+2019-02-27 23:37:18 info:  8550: Chain Living at URL http://localhost:8550
+2019-02-27 23:37:19 info:  8550: Socket connected, ID 9_5OFRkHADICLLG1AAAA
+2019-02-27 23:37:19 info:  7550: Chain Living at URL http://localhost:7550
+2019-02-27 23:37:19 info:  7550: Socket connected, ID Ohpda7-hSKxLcsg7AAAA
+2019-02-27 23:37:23 info:  6550: Chain Living at URL http://localhost:6550
+2019-02-27 23:37:23 info:  6550: Socket connected, ID WNKL2s3HVJJgVElRAAAA
+2019-02-27 23:38:58 info:  7550: Chain Living at URL http://localhost:7550
+2019-02-27 23:38:58 info:  7550: Socket connected, ID KlHySz2_9my3os-VAAAA
+2019-02-27 23:39:00 info:  8550: Chain Living at URL http://localhost:8550
+2019-02-27 23:39:00 info:  5550: Chain Living at URL http://localhost:5550
+2019-02-27 23:39:00 info:  8550: Socket connected, ID yeGiO9OA5jcCbALbAAAA
+2019-02-27 23:39:00 info:  5550: Socket connected, ID a3mtksftXh40hmBPAAAA
+2019-02-27 23:39:00 info:  9550: Chain Living at URL http://localhost:9550
+2019-02-27 23:39:00 info:  9550: Socket connected, ID Cpp4cYKUHNK-AlhpAAAA
+2019-02-27 23:39:06 info:  6550: Chain Living at URL http://localhost:6550
+2019-02-27 23:39:07 info:  6550: Socket connected, ID 4HcoClcqiOpnDXWHAAAA
+2019-02-27 23:39:43 info:  6550: user disconnected, ID 4HcoClcqiOpnDXWHAAAA
+2019-02-27 23:39:45 info:  6550: Socket connected, ID 5ghjw15iuV1qCVa8AAAB
+2019-02-27 23:40:13 info:  9550: Chain Living at URL http://localhost:9550
+2019-02-27 23:40:13 info:  9550: Socket connected, ID H7OJIKi4kcJML-PnAAAA
+2019-02-27 23:40:15 info:  7550: Chain Living at URL http://localhost:7550
+2019-02-27 23:40:15 info:  5550: Chain Living at URL http://localhost:5550
+2019-02-27 23:40:15 info:  8550: Chain Living at URL http://localhost:8550
+2019-02-27 23:40:15 info:  5550: Socket connected, ID 2_GtyIrHIKmPreHUAAAA
+2019-02-27 23:40:15 info:  8550: Socket connected, ID belu0-Z2--B7NN6JAAAA
+2019-02-27 23:40:15 info:  7550: Socket connected, ID 0CYsazA9cyf2e-7aAAAA
+2019-02-27 23:40:45 info:  6550: Chain Living at URL http://localhost:6550
+2019-02-27 23:40:45 info:  6550: Socket connected, ID W1ZYtv0Q0PEhE5J8AAAA
+2019-02-27 23:41:11 info:  9550: Chain Living at URL http://localhost:9550
+2019-02-27 23:41:12 info:  9550: Socket connected, ID dBNzwX-WvbSLmj1AAAAA
+2019-02-27 23:41:12 info:  7550: Chain Living at URL http://localhost:7550
+2019-02-27 23:41:13 info:  7550: Socket connected, ID NLIuaudRFmKHzmcyAAAA
+2019-02-27 23:41:13 info:  5550: Chain Living at URL http://localhost:5550
+2019-02-27 23:41:13 info:  8550: Chain Living at URL http://localhost:8550
+2019-02-27 23:41:13 info:  5550: Socket connected, ID aMoB6OPxNotceP_IAAAA
+2019-02-27 23:41:13 info:  8550: Socket connected, ID 2YiAVbVhhPUhM-P3AAAA
+2019-02-27 23:41:27 info:  7550: Chain Living at URL http://localhost:7550
+2019-02-27 23:41:27 info:  8550: Chain Living at URL http://localhost:8550
+2019-02-27 23:41:27 info:  9550: Chain Living at URL http://localhost:9550
+2019-02-27 23:41:27 info:  7550: Socket connected, ID 5UmWnZzGHbeqA16KAAAA
+2019-02-27 23:41:27 info:  9550: Socket connected, ID Od3xdvlm2l9ieeDGAAAA
+2019-02-27 23:41:28 info:  5550: Chain Living at URL http://localhost:5550
+2019-02-27 23:41:28 info:  8550: Socket connected, ID flEW7YrFHt2RKq_nAAAA
+2019-02-27 23:41:28 info:  5550: Socket connected, ID 7UP3D8tn9Cf6VwLdAAAA
+2019-02-27 23:41:32 info:  6550: Chain Living at URL http://localhost:6550
+2019-02-27 23:41:33 info:  6550: Socket connected, ID 7xs7X2UHWq5V1kMlAAAA
+2019-02-27 23:43:07 error: Exception occured:
+2019-02-27 23:43:07 error: Exception occured:
+2019-02-27 23:43:07 info:  6550: user disconnected, ID 7xs7X2UHWq5V1kMlAAAA
+2019-02-27 23:43:09 info:  6550: Socket connected, ID xJxDvlnMsqOjDwcjAAAB
+2019-02-27 23:44:52 info:  9550: Chain Living at URL http://localhost:9550
+2019-02-27 23:44:52 info:  9550: Socket connected, ID 24ZjuflOBb4N9TigAAAA
+2019-02-27 23:44:53 info:  5550: Chain Living at URL http://localhost:5550
+2019-02-27 23:44:53 info:  8550: Chain Living at URL http://localhost:8550
+2019-02-27 23:44:53 info:  5550: Socket connected, ID sdnCKWVq6z92TP9CAAAA
+2019-02-27 23:44:53 info:  8550: Socket connected, ID xbj-D3bbK6Uf2NxGAAAA
+2019-02-27 23:44:53 info:  7550: Chain Living at URL http://localhost:7550
+2019-02-27 23:44:54 info:  7550: Socket connected, ID Cud8MTXSeVvlZXW_AAAA
+2019-02-27 23:44:58 info:  6550: Chain Living at URL http://localhost:6550
+2019-02-27 23:44:58 info:  6550: Socket connected, ID A6YDVOc6-SLdrjCJAAAA
+2019-02-27 23:46:50 info:  7550: Chain Living at URL http://localhost:7550
+2019-02-27 23:46:50 info:  7550: Socket connected, ID j8nf15zBVjzhKM9zAAAA
+2019-02-27 23:46:51 info:  8550: Chain Living at URL http://localhost:8550
+2019-02-27 23:46:51 info:  9550: Chain Living at URL http://localhost:9550
+2019-02-27 23:46:51 info:  9550: Socket connected, ID WTX31I2QyjXXYXunAAAA
+2019-02-27 23:46:51 info:  8550: Socket connected, ID sQsCHM4w38gaGhMuAAAA
+2019-02-27 23:46:51 info:  5550: Chain Living at URL http://localhost:5550
+2019-02-27 23:46:52 info:  5550: Socket connected, ID aG3VRuqYVnQ3zKvMAAAA
+2019-02-27 23:46:55 info:  6550: Chain Living at URL http://localhost:6550
+2019-02-27 23:46:55 info:  6550: Socket connected, ID nrnbGD_lMUJWMGuKAAAA
+2019-02-27 23:47:43 info:  7550: Chain Living at URL http://localhost:7550
+2019-02-27 23:47:43 info:  7550: Socket connected, ID mZhTeqY3dLxWQDWDAAAA
+2019-02-27 23:47:44 info:  8550: Chain Living at URL http://localhost:8550
+2019-02-27 23:47:44 info:  8550: Socket connected, ID zR8xvgBZGQeqol96AAAA
+2019-02-27 23:47:44 info:  5550: Chain Living at URL http://localhost:5550
+2019-02-27 23:47:44 info:  9550: Chain Living at URL http://localhost:9550
+2019-02-27 23:47:44 info:  5550: Socket connected, ID CQHo8XlERJTzG_1AAAAA
+2019-02-27 23:47:44 info:  9550: Socket connected, ID RMdeyyKXqgQIuZ4cAAAA
+2019-02-27 23:47:47 info:  6550: Chain Living at URL http://localhost:6550
+2019-02-27 23:47:47 info:  6550: Socket connected, ID k_j2skEcOwXe3oeUAAAA
+2019-02-27 23:48:48 info:  6550: user disconnected, ID k_j2skEcOwXe3oeUAAAA
+2019-02-27 23:48:48 info:  6550: Socket connected, ID Uw28ElVmLnq-he8dAAAB
+2019-02-27 23:50:22 info:  7550: Chain Living at URL http://localhost:7550
+2019-02-27 23:50:23 info:  7550: Socket connected, ID xPZTqR4L0h1L198_AAAA
+2019-02-27 23:50:25 info:  8550: Chain Living at URL http://localhost:8550
+2019-02-27 23:50:25 info:  8550: Socket connected, ID FPOLLuBt-7g8fmntAAAA
+2019-02-27 23:50:25 info:  9550: Chain Living at URL http://localhost:9550
+2019-02-27 23:50:25 info:  9550: Socket connected, ID vwuBxO5Jl75vO2ECAAAA
+2019-02-27 23:50:25 info:  5550: Chain Living at URL http://localhost:5550
+2019-02-27 23:50:25 info:  5550: Socket connected, ID seWjQwTvJ4Z2AcVzAAAA
+2019-02-27 23:50:30 info:  6550: Chain Living at URL http://localhost:6550
+2019-02-27 23:50:30 info:  6550: Socket connected, ID GUvrXT6YZ30wztEdAAAA
+2019-02-27 23:51:05 info:  6550: user disconnected, ID GUvrXT6YZ30wztEdAAAA
+2019-02-27 23:51:06 info:  6550: Socket connected, ID -_FUCnLfub5MVDpjAAAB
+2019-02-27 23:51:46 info:  9550: Chain Living at URL http://localhost:9550
+2019-02-27 23:51:46 info:  9550: Socket connected, ID 8QvHRB420mFIvNHVAAAA
+2019-02-27 23:51:47 info:  8550: Chain Living at URL http://localhost:8550
+2019-02-27 23:51:47 info:  8550: Socket connected, ID kpg8UTzPzQgbudR_AAAA
+2019-02-27 23:51:47 info:  5550: Chain Living at URL http://localhost:5550
+2019-02-27 23:51:47 info:  7550: Chain Living at URL http://localhost:7550
+2019-02-27 23:51:47 info:  5550: Socket connected, ID 7fNSAXU5yw0T9kTmAAAA
+2019-02-27 23:51:47 info:  7550: Socket connected, ID pNCbRQ7c7lcC18IgAAAA
+2019-02-27 23:51:53 info:  6550: Chain Living at URL http://localhost:6550
+2019-02-27 23:51:53 info:  6550: Socket connected, ID i-AJdt-EBeX_3BSIAAAA
+2019-02-27 23:55:16 info:  9550: Chain Living at URL http://localhost:9550
+2019-02-27 23:55:16 info:  9550: Socket connected, ID xVEYIZ7jJJMA3LNiAAAA
+2019-02-27 23:55:16 info:  5550: Chain Living at URL http://localhost:5550
+2019-02-27 23:55:16 info:  8550: Chain Living at URL http://localhost:8550
+2019-02-27 23:55:16 info:  7550: Chain Living at URL http://localhost:7550
+2019-02-27 23:55:17 info:  5550: Socket connected, ID _KFM02WbJKBmgmuLAAAA
+2019-02-27 23:55:17 info:  8550: Socket connected, ID HcNKxKEjr0NKSiqAAAAA
+2019-02-27 23:55:17 info:  7550: Socket connected, ID PG08qy6aA9CBE9aXAAAA
+2019-02-27 23:55:21 info:  6550: Chain Living at URL http://localhost:6550
+2019-02-27 23:55:21 info:  6550: Socket connected, ID bPZFE12OrkMHnc2HAAAA
+2019-02-27 23:55:53 info:  6550: user disconnected, ID bPZFE12OrkMHnc2HAAAA
+2019-02-27 23:55:55 info:  6550: Socket connected, ID sL63MPDh1eRxRVlzAAAB
