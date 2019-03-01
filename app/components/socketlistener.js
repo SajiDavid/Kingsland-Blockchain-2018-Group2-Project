@@ -43,6 +43,7 @@ const socketListeners = (socket, ownchain) => {
         /*if (this.currentTransactions[i].id == block.data[i].id);
         this.currentTransactions.splice(i, 1);
         */
+       ownchain.calculateAllAccountBalance();
       }
 
       ownchain.incrementNonce();

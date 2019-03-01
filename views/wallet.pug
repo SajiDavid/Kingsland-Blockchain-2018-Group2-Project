@@ -81,9 +81,17 @@ html
                       td.displayTextLight #{address}
                       td(style="padding-left:150px;")
                         input.myBlueButton(type='submit', value='Download Key file')
-                  tr
-                      td.itemText Balance
-                      td.displayText #{balance}
+                  - var index = 2
+                  for object,value in balance
+                   - header = value.charAt(0).toUpperCase() + value.slice(1);
+                   - even = index % 2
+                   - index = index + 1
+                   tr
+                      td.itemText #{header}
+                      if even == 0
+                       td.displayText #{object} 
+                      else
+                       td.displayTextLight #{object} 
             if displayMessageAddress
                 if !messagetype
                   .messagebox(id='messagebox',style="display:-webkit-inline-box;background:#ffb9b9;color:black;")

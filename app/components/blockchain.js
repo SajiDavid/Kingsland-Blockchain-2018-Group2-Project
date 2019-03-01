@@ -23,6 +23,7 @@ const {
   isProofValid
 } = require("./pow");
 let axios = require("axios");
+const JsonFind = require('json-find');
 
 class BlockChain {
   constructor(io, blocksize) {
@@ -43,7 +44,7 @@ class BlockChain {
     this.blocksize = blocksize;
     this.difficulty = socketActions.CURRENT_DIFFICULTY;
     // Create Genesis Block
-
+    this.allAccountBalance = [];
     this.chain = [this.createGenesisBlock()];
     this.incrementNonce();
   }
@@ -80,7 +81,8 @@ class BlockChain {
       this.addressWallet,
       40000000,
       "0",
-      "Kings Genesis Block"
+      "Kings Genesis Block",
+      "No-Sign"
     );
     const currentTransactions = [transaction];
     return new Block(0, Date.now(), initialHash, currentTransactions, "0", this.nonce);
@@ -166,6 +168,21 @@ class BlockChain {
         if (currentBlock.previousBlockHash !== previousBlock.hash) {
           return false;
         }
+      }
+    }
+    return true;
+  }
+
+  checkBlockValidity(block) {
+
+      let currentBlock = new Block();
+      const j = this.chain.length - 1;
+      if(j>0){
+      currentBlock.nodeSyncedBlock(block.index, block.timeStamp, block.datenow, block.previousBlockHash, block.hash, block.data, block.proof, block.proofHex, block.nonce, block.confirmations);
+      let previousBlock = new Block();
+      previousBlock.nodeSyncedBlock(this.chain[j].index, this.chain[j].timeStamp, this.chain[j].datenow, this.chain[j].previousBlockHash, this.chain[j].hash, this.chain[j].data, this.chain[j].proof, this.chain[j].proofHex, this.chain[j].nonce, this.chain[j].confirmations);
+      if (currentBlock.hash !== currentBlock.calculateHash()) {
+        return false;
       }
     }
     return true;
@@ -267,89 +284,70 @@ class BlockChain {
     newBlock.index = this.lastBlock().index + 1;
     newBlock.previousBlockHash = this.lastBlock().hash;
     newBlock.hash = newBlock.calculateHash();
+    const valid = this.checkBlockValidity(inBlock);
+    if(valid== true){
+      this.chain.push(newBlock);
+    successLog(this.port, "Block validated and added to chain");
+    }
+    else{
+      errorLog(this.port, "Block invalidate and omitted from adding to chain");
 
-    this.chain.push(newBlock);
+    }
+
   }
 
   mineBlock(block, chain) {
     successLog(this.port, "Mined Successfully");
 
-    // // Update Confirmed Transactions
-    // var tx_length = block.data.length;
-    // for (var i = 0; i < tx_length; i++) {
-    //   const tx_id = block.data[i].id;
-    //   this.confirmedTransactions.push(tx_id);
+  
 
-    //   block.data[i].minedBlock = block.index;
-    //   // Removing Pending Transaction which is confirmed
-    //    this.removePendingTransaction(this.port,this.currentTransactions,tx_id);
-    //   /*if (this.currentTransactions[i].id == block.data[i].id);
-    //   this.currentTransactions.splice(i, 1);
-    //   */
-    // }
+    // Update Confirmed Transactions
+    var tx_length = block.data.length;
+    for (var i = 0; i < tx_length; i++) {
+      const tx_id = block.data[i].id;
 
-  // Adding Block to chain
-  this.addBlock(block);
-
-  (async () => {
-    try {
-      this.io.emit(socketActions.END_MINING, this.chain);
-    } catch (exp) {
-      errorLog(this.port, "Exception at Mining Emit " + exp);
+      block.data[i].minedBlock = block.index;
+     
     }
-  })();
-}
-removePendingTransaction(port,currentTransactions,tx_id){
+    this.addBlock(block);
 
-  try {
-    if (currentTransactions != undefined) {
-      var val = tx_id;
-      var index = currentTransactions.findIndex(function (item, i) {
-        return item.id === val
-      });
-      currentTransactions.splice(index, 1);
-    }
-  } catch (exp) {
-    errorLog(port, "Error deleting pending transaction count")
+    // Adding Block to chain
+
+    (async () => {
+      try {
+        this.io.emit(socketActions.END_MINING, this.chain);
+      } catch (exp) {
+        errorLog(this.port, "Exception at Mining Emit " + exp);
+      }
+    })();
   }
-}
-async newTransaction(transaction, chain) {
-  var valid = true;
+  removePendingTransaction(port, currentTransactions, tx_id) {
 
-  if (valid) {
-    this.currentTransactions.push(transaction);
-    if (this.currentTransactions.length >= this.blocksize) {
-      successLog(this.port, "Starting mining block...");
-      var previousBlock = this.lastBlock();
-      process.env.BREAK = false;
-      // index, previousBlockHash, data, proof, nonce)
-      let block = new Block(
-        previousBlock.index + 1,
-        previousBlock.datenow,
-        previousBlock.hashValue,
-        this.currentTransactions,
-        previousBlock.proof,
-        this.nonce
-      );
-      //var block;
-      if (previousBlock.index == 0) {
-        const {
-          proof,
-          proofHex,
-          dontMine
-        } = await generateProof(
-          block.proof
-        );
-        block.setProof(proof, proofHex);
-        successLog(this.port, `Puzzle solved with Proof${proof} and ${proofHex}`);
+    try {
+      if (currentTransactions != undefined) {
+        var val = tx_id;
+        var index = currentTransactions.findIndex(function (item, i) {
+          return item.id === val
+        });
+        currentTransactions.splice(index, 1);
+      }
+    } catch (exp) {
+      errorLog(port, "Error deleting pending transaction count")
+    }
+  }
+  async newTransaction(transaction, chain) {
+    var valid = true;
 
-        this.currentTransactions = [];
-        if (dontMine !== "true") {
-          this.mineBlock(block, chain);
-        }
+    if (valid) {
+      this.currentTransactions.push(transaction);
+      this.calculateAllAccountBalance();
 
-      } else {
-        block = new Block(
+      if (this.currentTransactions.length >= this.blocksize) {
+        successLog(this.port, "Starting mining block...");
+        var previousBlock = this.lastBlock();
+        process.env.BREAK = false;
+        // index, previousBlockHash, data, proof, nonce)
+        let block = new Block(
           previousBlock.index + 1,
           previousBlock.datenow,
           previousBlock.hashValue,
@@ -357,131 +355,317 @@ async newTransaction(transaction, chain) {
           previousBlock.proof,
           this.nonce
         );
+        //var block;
+        if (previousBlock.index == 0) {
+          const {
+            proof,
+            proofHex,
+            dontMine
+          } = await generateProof(
+            block.proof
+          );
+          block.setProof(proof, proofHex);
+          successLog(this.port, `Puzzle solved with Proof${proof} and ${proofHex}`);
 
-        const {
-          proof,
-          proofHex,
-          dontMine
-        } = await generateProof(
-          previousBlock.proof
-        );
-        successLog(this.port, `Puzzle solved with Proof${proof} and ${proofHex}`);
-        block.setProof(proof, proofHex);
-        this.currentTransactions = [];
-        if (dontMine !== "true") {
-          this.mineBlock(block, chain);
+          this.currentTransactions = [];
+          if (dontMine !== "true") {
+            this.mineBlock(block, chain);
+          }
+
+        } else {
+          block = new Block(
+            previousBlock.index + 1,
+            previousBlock.datenow,
+            previousBlock.hashValue,
+            this.currentTransactions,
+            previousBlock.proof,
+            this.nonce
+          );
+
+          const {
+            proof,
+            proofHex,
+            dontMine
+          } = await generateProof(
+            previousBlock.proof
+          );
+          successLog(this.port, `Puzzle solved with Proof${proof} and ${proofHex}`);
+          block.setProof(proof, proofHex);
+          this.currentTransactions = [];
+          if (dontMine !== "true") {
+            this.mineBlock(block, chain);
+          }
         }
       }
     }
   }
-}
 
-getAddressBalance(address) {
-  var balance = 0;
-  if (address != "") {
-    for (let i = 0; i < this.chain.length; i++) {
-      const block = this.chain[i];
-      if (block == undefined) continue;
-      const length = block.data.length;
+  // Getting Individual account Balance
+  getAddressBalance(address) {
+    var balance = 0;
+    if (address != "") {
+      for (let i = 0; i < this.chain.length; i++) {
+        const block = this.chain[i];
+        if (block == undefined) continue;
+        const length = block.data.length;
+        for (let j = 0; j < length; j++) {
+          var transaction = block.data[j];
+          if (block.data[j].sender.match(address))
+            balance = parseFloat(balance)  - parseFloat(block.data[j].amount);
+
+          if (block.data[j].receiver.match(address))
+            balance = parseFloat(balance)  + parseFloat(block.data[j].amount);
+        }
+      }
+    }
+    return balance;
+  }
+
+    // Getting Individual account Balance
+    getAccountBalance(address) {
+      var balance = 0;
+      let valid = this.allAccountBalance.find(el => el.address === address);
+      if(valid == undefined){
+        balance = {safeBalance: 0,
+          confirmedBalance: 0,
+          pendingBalance: 0}
+      }
+      else{
+        balance = valid.balance;
+      }
+      return balance;
+    }
+
+  // get Pending Balance
+  getPendingBalalance(address) {
+    var balance = 0;
+    var length = this.currentTransactions.length || 0;
+    if (address != "") {
       for (let j = 0; j < length; j++) {
-        var transaction = block.data[j];
-        if (block.data[j].sender.match(address))
-          balance = balance - block.data[j].amount;
+        var transaction = this.currentTransactions[j];
+        if (transaction.sender.match(address))
+          balance = parseFloat(balance)  - parseFloat(transaction.amount);
 
-        if (block.data[j].receiver.match(address))
-          balance = balance + block.data[j].amount;
+        if (transaction.receiver.match(address))
+          balance = parseFloat(balance) + parseFloat(transaction.amount);
       }
     }
-  }
-  return balance;
-}
-
-getBlockData(number) {
-  var block;
-  var findFlag = false;
-  for (let i = 0; i < this.chain.length; i++) {
-    block = this.chain[i];
-    const length = block.data.length;
-    if (block.index == number) {
-      findFlag = true;
-      break;
-    }
-
+    return balance;
   }
 
-  if (!findFlag) {
-    block = "";
-  }
-
-  return block;
-}
-
-getBlockByTransaction(blocksearch) {
-  var block;
-  var transaction;
-  var blocknumber = "";
-  for (let i = 0; i < this.chain.length; i++) {
-    block = this.chain[i];
-    const length = block.data.length;
-    for (let j = 0; j < length; j++) {
-      transaction = block.data[j];
-      if (transaction.id == blocksearch) {
-        blocknumber = transaction.minedBlock;
-        break;
+  getSafeBalance(address) {
+    var balance = 0;
+    var length = this.chain.length - 5; // Balaces before 5 block  
+    if (length > 0) {
+      if (address != "") {
+        for (let i = 0; i < length; i++) {
+          const block = this.chain[i];
+          if (block == undefined) continue;
+          const length2 = block.data.length;
+          for (let j = 0; j < length2; j++) {
+            var transaction = block.data[j];
+            if (transaction.sender.match(address))
+              balance = parseFloat(balance) - parseFloat(transaction.amount);
+ 
+            if (transaction.receiver.match(address))
+              balance = parseFloat(balance) + parseFloat(transaction.amount);
+          }
+        }
       }
     }
+    return balance;
   }
 
-  return blocknumber;
-}
 
+  calculateAllAccountBalance() {
+    // Safe Balance Chain Current length - 5
+    // Confirmed Balance from all confirmed transactions
+    // Pending Balance from pending transactions
+    var newAccountBalance=[];
+    for (var i = 0; i < this.chain.length; i++) {
+      const Block = this.chain[i];
+      const transactions = Block.data;
+      if (Block.data != undefined || Block.data.length > 0) {
+        var tx_length = Block.data.length;
+        for (var j = 0; j < tx_length; j++) {
+          const tx_unit = transactions[j];
+          const address1 = tx_unit.sender;
+          const address2 = tx_unit.receiver;
+          let valid1 = newAccountBalance.find(el => el.address === address1);
+          let valid2 = newAccountBalance.find(el => el.address === address2);
+          if (valid1 == undefined) {
+            if (address1 != initialHash) {
+              const confirmedBalance = this.getAddressBalance(address1);
+              const pendingBalance = this.getPendingBalalance(address1);
+              const safeBalance = this.getSafeBalance(address1)
 
-getTransactionBlock(id) {
-  var block;
-  var transaction;
-  var findFlag = false;
-  for (let i = 0; i < this.chain.length; i++) {
-    block = this.chain[i];
-    const length = block.data.length;
-    for (let j = 0; j < length; j++) {
-      transaction = block.data[j];
-      if (transaction.id == id) {
+              const balance = {
+                address: address1,
+                balance: {
+                  safeBalance: safeBalance,
+                  confirmedBalance: confirmedBalance,
+                  pendingBalance: pendingBalance
+                }
+              }
+              newAccountBalance.push(balance);
+            }
+          }
+          if (valid2 == undefined) {
+            if (address2 != initialHash) {
+              const confirmedBalance = this.getAddressBalance(address2);
+              const pendingBalance = this.getPendingBalalance(address2);
+              const safeBalance = this.getSafeBalance(address2)
+
+              const balance2 = {
+                address: address2,
+                balance: {
+                  safeBalance: safeBalance,
+                  confirmedBalance: confirmedBalance,
+                  pendingBalance: pendingBalance
+                }
+              }
+              newAccountBalance.push(balance2);
+            }
+          }
+
+        }
+
+      }
+    }
+
+    var lengthPending = this.currentTransactions.length || 0;
+    for (var i = 0; i < lengthPending; i++) {
+      const tx_unit = this.currentTransactions[i];
+      const address1 = tx_unit.sender;
+      const address2 = tx_unit.receiver;
+      let valid1 = newAccountBalance.find(el => el.address === address1);
+      let valid2 = newAccountBalance.find(el => el.address === address2);
+      if (valid1 == undefined) {
+
+        if (address1 != initialHash) {
+          const confirmedBalance = this.getAddressBalance(address1);
+          const pendingBalance = this.getPendingBalalance(address1);
+          const safeBalance = this.getSafeBalance(address1)
+
+          const balance = {
+            address: address1,
+            balance: {
+              safeBalance: safeBalance,
+              confirmedBalance: confirmedBalance,
+              pendingBalance: pendingBalance
+            }
+          }
+          newAccountBalance.push(balance);
+        }
+      }
+      if (valid2 == undefined) {
+        if (address2 != initialHash) {
+          const confirmedBalance = this.getAddressBalance(address2);
+          const pendingBalance = this.getPendingBalalance(address2);
+          const safeBalance = this.getSafeBalance(address2)
+
+          const balance2 = {
+            address: address2,
+            balance: {
+              safeBalance: safeBalance,
+              confirmedBalance: confirmedBalance,
+              pendingBalance: pendingBalance
+            }
+          }
+          newAccountBalance.push(balance2);
+        }
+      }
+    }
+
+   this.allAccountBalance = newAccountBalance;
+
+  }
+  getBlockData(number) {
+    var block;
+    var findFlag = false;
+    for (let i = 0; i < this.chain.length; i++) {
+      block = this.chain[i];
+      const length = block.data.length;
+      if (block.index == number) {
         findFlag = true;
         break;
       }
+
     }
+
+    if (!findFlag) {
+      block = "";
+    }
+
+    return block;
   }
 
-  if (!findFlag) {
-    transaction = "";
+  getBlockByTransaction(blocksearch) {
+    var block;
+    var transaction;
+    var blocknumber = "";
+    for (let i = 0; i < this.chain.length; i++) {
+      block = this.chain[i];
+      const length = block.data.length;
+      for (let j = 0; j < length; j++) {
+        transaction = block.data[j];
+        if (transaction.id == blocksearch) {
+          blocknumber = transaction.minedBlock;
+          break;
+        }
+      }
+    }
+
+    return blocknumber;
   }
 
-  return transaction;
-}
 
-async verifyTransaction(
-  sender,
-  receiver,
-  amount,
-  nonce,
-  chainid,
-  signature
-) {
+  getTransactionBlock(id) {
+    var block;
+    var transaction;
+    var findFlag = false;
+    for (let i = 0; i < this.chain.length; i++) {
+      block = this.chain[i];
+      const length = block.data.length;
+      for (let j = 0; j < length; j++) {
+        transaction = block.data[j];
+        if (transaction.id == id) {
+          findFlag = true;
+          break;
+        }
+      }
+    }
+
+    if (!findFlag) {
+      transaction = "";
+    }
+
+    return transaction;
+  }
+
+  async verifyTransaction(
+    sender,
+    receiver,
+    amount,
+    nonce,
+    chainid,
+    signature
+  ) {
 
 
-  let transaction_verify = {
-    to: receiver,
-    value: ethers.utils.parseEther(amount.toString() || "0"),
-    nonce: nonce,
-    chainId: chainid,
-    data: "0x"
-  };
+    let transaction_verify = {
+      to: receiver,
+      value: ethers.utils.parseEther(amount.toString() || "0"),
+      nonce: nonce,
+      chainId: chainid,
+      data: "0x"
+    };
 
-  let messageHash = ethers.utils.keccak256(ethers.utils.toUtf8Bytes(JSON.stringify(transaction_verify)));
-  let messageHashBytes = ethers.utils.arrayify(messageHash)
-  const signed_address = ethers.utils.recoverAddress(messageHashBytes, signature);
-  return signed_address;
-}
+    let messageHash = ethers.utils.keccak256(ethers.utils.toUtf8Bytes(JSON.stringify(transaction_verify)));
+    let messageHashBytes = ethers.utils.arrayify(messageHash)
+    const signed_address = ethers.utils.recoverAddress(messageHashBytes, signature);
+    return signed_address;
+  }
 
 }
 
