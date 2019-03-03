@@ -107,6 +107,7 @@ var descriptionvalue = "";
 var blocknumber = "";
 var transactionFlag = false;
 var transactionid = "";
+var txrewardvalue = "";
 
 Blockchain.io.on("connection", function (socket) {
   var hostname = socket.handshake.headers.host;
@@ -619,6 +620,7 @@ Router.app.get("/wallet", function (req, res) {
     sendervalue: sendervalue,
     senderdisable: senderdisable,
     receivervalue: receivervalue,
+    txrewardvalue:txrewardvalue,
     amountvalue: amountvalue,
     descriptionvalue: descriptionvalue,
     displayMessageUploadKey: messageStatus0,
@@ -653,6 +655,7 @@ Router.app.post("/transactionsend", urlencodedParser, function (req, res) {
   receivervalue = receiver;
   sendervalue = sender;
   amountvalue = amount;
+  txrewardvalue = txreward;
   descriptionvalue = description;
   if (Wallet.address == undefined || Wallet.address == "") {
     messageVar = `No Wallet found, Please upload or Create one.`;
@@ -685,10 +688,10 @@ Router.app.post("/transactionsend", urlencodedParser, function (req, res) {
             messageVar = `Amount cannot be "0" or lesser!!`;
             valid = false;
           } 
-          else if (txreward <= 0) {
+          else if (txreward < 0) {
               // sendervalue = sender;
               // receivervalue = receiver;
-              messageVar = `Reward cannot be "0" or lesser :( `;
+              messageVar = `Reward cannot be lesser than 0 :( `;
               valid = false;
             } 
           else {
@@ -737,7 +740,7 @@ Router.app.post("/transactionsend", urlencodedParser, function (req, res) {
 
     messageVar = `Transaction successfully sent ID: ${transaction_id}`;
     messageStatus3 = true;
-    sendervalue = receivervalue = amountvalue = descriptionvalue = "";
+    txrewardvalue = sendervalue = receivervalue = amountvalue = descriptionvalue = "";
     if (Wallet.address != "") addressFlag = true;
 
     privateKeyFlag = false;
@@ -1029,7 +1032,7 @@ function clearMessageVar() {
   messageStatus = false;
   messageVar = "";
   messageStatus0 = messageStatus1 = messageStatus2 = messageStatus3 = false;
-  sendervalue = receivervalue = amountvalue = descriptionvalue = "";
+  txrewardvalue = sendervalue = receivervalue = amountvalue = descriptionvalue = "";
   messagetype = true;
   blocknumber = "";
 }

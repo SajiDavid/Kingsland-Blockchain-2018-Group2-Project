@@ -635,3 +635,5 @@
 2019-03-03 15:23:08 info:  1550: Signed GiveAway Transaction Coins: 10
 2019-03-03 15:23:08 error: 1550: Transaction Id 38996c7c7fae7e883e64c3c1b56b19ca invalid due to amount in negative amount 10 Reward Amount 0
 2019-03-03 15:23:08 error: 6550: Transaction Id 38996c7c7fae7e883e64c3c1b56b19ca invalid due to amount in negative amount 10 Reward Amount 0
+2019-03-03 20:10:43 info:  6550: Chain Living at URL http://localhost:6550
+2019-03-03 20:10:43 info:  6550: Socket connected, ID kdWyJzFNwglIyKEqAAAA
