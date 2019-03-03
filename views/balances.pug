@@ -1,0 +1,49 @@
+html
+  head
+    link(rel='stylesheet', type='text/css', href='/stylesheet.css')
+    link(rel='stylesheet', href='//cdn.jsdelivr.net/npm/alertifyjs@1.11.2/build/css/alertify.min.css')
+body.mainBody
+    .enjoy-css Kings Explorer
+    link(async='', href='http://fonts.googleapis.com/css?family=Aldrich', data-generated='http://enjoycss.com', rel='stylesheet', type='text/css')
+    link(async='', href='http://fonts.googleapis.com/css?family=Arvo', data-generated='http://enjoycss.com', rel='stylesheet', type='text/css')
+    link(async='', href='http://fonts.googleapis.com/css?family=Oswald', data-generated='http://enjoycss.com', rel='stylesheet', type='text/css')
+    form(action='/home', method='get')
+      button#myButton.myYellowButton Home
+    .SendingBlock
+        h2.containerHeaderText All Account Balance
+        table.paleBlueRows(style="height:0px;padding-top:40px;")
+           tbody(style="padding-bottom:50px;")   
+            if balance_empty == 0
+             tr(style="background-color:darkgrey;color:black;")
+              th #{empty}
+              th #{empty}
+              th #{empty}
+              th Safe Balance
+              th Confirmed Balance
+              th Pending Balance
+             for object,value in accountBalances
+              tr
+               for object2,value2 in object
+                 td.itemText #{value2} 
+                 if value2 ===  'address'
+                  td.displayTextLight #{object2} 
+                 else
+                    for object3,value3 in object2
+                     td.displayTextLight #{object3}  
+            else
+             tr
+                td.itemText No Data to Display
+             
+        if displayMessage
+          if !messagetype
+           .messagebox(id='messagebox',style="display:-webkit-inline-box;background:#ffb9b9;color:black;")
+              p.textMsg #{message} 
+              button.closeButton(onClick="hideMessageBox()") X
+          else
+           .messagebox(id='messagebox',style="display:-webkit-inline-box;")
+              p.textMsg #{message} 
+              button.closeButton(onClick="hideMessageBox()") X
+    script(src='/jquery.js')
+    script(src='/jquery.min.js')
+    script(src='//cdn.jsdelivr.net/npm/alertifyjs@1.11.2/build/alertify.min.js')
+    script(src='/app.js')

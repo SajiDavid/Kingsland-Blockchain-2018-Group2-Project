@@ -20,8 +20,6 @@ html
        div.SendingBlock
             div.blockHeader
               h2.containerHeaderText Blockchain Information
-              form.formBoxResetChain( name='formBoxResetChain' method='get' action='/reset-chain')
-                           input.myBlueButton(type='submit', value='Reset Chain')
             table.tablebox
                 tbody
                     tr
@@ -103,5 +101,15 @@ html
                   .messagebox(id='messagebox',style="display:-webkit-inline-box")
                     p.textMsg #{message} 
                     button.closeButton(onClick="hideMessageBox()") X
+       div.SendingBlockGrey
+        table.tablebox(style="padding-top:30px;")
+         tbody
+          tr
+            td
+              form.formBoxDebug(name='formBoxDebug' method='get' action='/debug')
+                           input.myButtonDebug(type='submit', value='Debug')
+            td
+              form.formBoxResetChain(name='formBoxResetChain' method='get' action='/reset-chain')
+                           input.myButtonDebug(type='submit', value='Reset Chain')
        script(src=browser_url || "{process.env.BROWSER_REFRESH_URL}")
     

@@ -107,6 +107,7 @@ var descriptionvalue = "";
 var blocknumber = "";
 var transactionFlag = false;
 var transactionid = "";
+var txrewardvalue = "";
 
 Blockchain.io.on("connection", function (socket) {
   var hostname = socket.handshake.headers.host;
@@ -163,6 +164,7 @@ Router.app.post("/nodes", urlencodedParser, function (req, res) {
     port,
     chain,
     walletAddress,
+    confirmedTransactions,
     currentTransactions,
     id,
     walletMain,
@@ -224,6 +226,7 @@ Router.app.post("/nodes", urlencodedParser, function (req, res) {
         }
 
         Blockchain.currentTransactions = currentTransactions;
+        Blockchain.confirmedTransactions = confirmedTransactions;
         Blockchain.id = id;
         (async () => {
           Blockchain.addressWallet = await Blockchain.createWalletAddress(privatekey); //Wallet.createFromPrivateKey(privatekey);
@@ -247,6 +250,7 @@ Router.app.post("/nodes", urlencodedParser, function (req, res) {
           chain: Blockchain.chain,
           id: Blockchain.id,
           walletAddress: Blockchain.addressWallet,
+          confirmedTransactions:Blockchain.confirmedTransactions,
           currentTransactions: Blockchain.currentTransactions,
           //Blockchain.nodes = [];
           walletMain: Blockchain.walletMain,
@@ -426,7 +430,7 @@ Router.app.get("/info", function (req, res) {
 
 // To Debug Blockchain
 Router.app.get("/debug", function (req, res) {
-  res.send("This is Test Debug api");
+  res.send(Blockchain.chain);
 
   /*************************************************
  * Output Needed
@@ -525,6 +529,15 @@ Router.app.get("/startmining", function (req, res) {
   res.end();
 
 });
+
+Router.app.post("/get-mining-candidate",urlencodedParser, function(req,res){
+  const { rewardaddress } = req.body;
+  Mining = new MiningClass(Blockchain.getLength(),Blockchain.lastBlock(),Blockchain.currentTransactions,Blockchain.difficulty,
+  rewardaddress,Blockchain.nonce);
+  miningCandidate = Mining.getCurrentMiningCandidate();
+  res.send(miningCandidate);
+
+});
 Router.app.post("/submit-mined-block",urlencodedParser, function (req, res) {
  const {block,minedby} = req.body;
  Blockchain.mineBlock(block,Blockchain.chain);
@@ -564,7 +577,7 @@ Router.app.post("/miningrequest", urlencodedParser, function (req, res) {
       Mining.startmining(cport,Blockchain.url,Mining.nonce,Mining.blockdatahash,Mining.difficulty)
      
     })();
-    messageVar = `Mining Started.. !!`;
+    messageVar = `Mining Started, Block will be added once completed.. !!`;
     messageStatus = true;
     messagetype = true;
 
@@ -603,10 +616,11 @@ Router.app.get("/wallet", function (req, res) {
     uploadKeyFlag: uploadKeyFlag,
     privateKeyFlag: privateKeyFlag,
     addressFlag: addressFlag,
-    balance: balance,
+    balance: Blockchain.getAccountBalance(Wallet.address),
     sendervalue: sendervalue,
     senderdisable: senderdisable,
     receivervalue: receivervalue,
+    txrewardvalue:txrewardvalue,
     amountvalue: amountvalue,
     descriptionvalue: descriptionvalue,
     displayMessageUploadKey: messageStatus0,
@@ -641,6 +655,7 @@ Router.app.post("/transactionsend", urlencodedParser, function (req, res) {
   receivervalue = receiver;
   sendervalue = sender;
   amountvalue = amount;
+  txrewardvalue = txreward;
   descriptionvalue = description;
   if (Wallet.address == undefined || Wallet.address == "") {
     messageVar = `No Wallet found, Please upload or Create one.`;
@@ -672,12 +687,19 @@ Router.app.post("/transactionsend", urlencodedParser, function (req, res) {
             // receivervalue = receiver;
             messageVar = `Amount cannot be "0" or lesser!!`;
             valid = false;
-          } else {
+          } 
+          else if (txreward < 0) {
+              // sendervalue = sender;
+              // receivervalue = receiver;
+              messageVar = `Reward cannot be lesser than 0 :( `;
+              valid = false;
+            } 
+          else {
             var balanceSender = Blockchain.getAddressBalance(sender);
             if (balanceSender < amount) {
               // sendervalue = sender;
               // receivervalue = receiver;
-              messageVar = `Insufficent balance, you have only "${balanceSender}" Coins !!`;
+              messageVar = `Insufficent Safe balance, you have only "${balanceSender}" Coins !!`;
               valid = false;
             }
           }
@@ -718,7 +740,7 @@ Router.app.post("/transactionsend", urlencodedParser, function (req, res) {
 
     messageVar = `Transaction successfully sent ID: ${transaction_id}`;
     messageStatus3 = true;
-    sendervalue = receivervalue = amountvalue = descriptionvalue = "";
+    txrewardvalue = sendervalue = receivervalue = amountvalue = descriptionvalue = "";
     if (Wallet.address != "") addressFlag = true;
 
     privateKeyFlag = false;
@@ -842,7 +864,7 @@ Router.app.post("/uploadkeyfile", upload.single("file"), (req, res) => {
       obj = JSON.stringify( JSON.parse(data));
       Wallet.createFromJSON(obj);
     });
-    
+
     messageVar = `File has been uploaded successfully`;
   } else {
     //("No File Uploaded");
@@ -856,6 +878,19 @@ Router.app.post("/uploadkeyfile", upload.single("file"), (req, res) => {
 
   res.redirect("/wallet");
   //res.send("This is test Page..coming up");
+});
+
+Router.app.get("/allbalances",function(req,res){
+
+  const balance_empty = 0;
+
+   if (Blockchain.allAccountBalance == undefined || Blockchain.allAccountBalance == {} || Blockchain.allAccountBalance == [])
+   {
+     balance_empty = 10;
+   }
+   res.render("balances",{accountBalances:Blockchain.allAccountBalance,
+  balance_empty:balance_empty});
+
 });
 
 // Returns All Blocks  Information
@@ -997,7 +1032,7 @@ function clearMessageVar() {
   messageStatus = false;
   messageVar = "";
   messageStatus0 = messageStatus1 = messageStatus2 = messageStatus3 = false;
-  sendervalue = receivervalue = amountvalue = descriptionvalue = "";
+  txrewardvalue = sendervalue = receivervalue = amountvalue = descriptionvalue = "";
   messagetype = true;
   blocknumber = "";
 }
