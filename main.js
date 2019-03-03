@@ -877,6 +877,19 @@ Router.app.post("/uploadkeyfile", upload.single("file"), (req, res) => {
   //res.send("This is test Page..coming up");
 });
 
+Router.app.get("/allbalances",function(req,res){
+
+  const balance_empty = 0;
+
+   if (Blockchain.allAccountBalance == undefined || Blockchain.allAccountBalance == {} || Blockchain.allAccountBalance == [])
+   {
+     balance_empty = 10;
+   }
+   res.render("balances",{accountBalances:Blockchain.allAccountBalance,
+  balance_empty:balance_empty});
+
+});
+
 // Returns All Blocks  Information
 Router.app.get("/blocks", function (req, res) {
   //res.send(JSON.stringify(Blockchain.chain, null, 4));

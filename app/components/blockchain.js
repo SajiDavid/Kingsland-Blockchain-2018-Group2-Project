@@ -47,6 +47,7 @@ class BlockChain {
     this.allAccountBalance = [];
     this.chain = [this.createGenesisBlock()];
     this.incrementNonce();
+    this.calculateAllAccountBalance();
   }
 
   getTimeStamp() {

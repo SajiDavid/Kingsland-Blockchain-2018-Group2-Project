@@ -61,7 +61,13 @@ const socketListeners = (socket, ownchain) => {
       const signed_address = await ownchain.verifyTransaction(sender, receiver, amount, ownchain.nonce, ownchain.chainid, signature)
       if (signed_address == sender) {
         ownchain.newTransaction(transaction, ownchain);
+        if(transaction.amount > 0 && transaction.txreward > 0 ){ // Validation to check amount in negative in broadcasted nodes
         successLog(ownchain.port, `Transaction Id ${id} signature ${signed_address} validated`);
+        }
+        else{
+          errorLog(ownchain.port, `Transaction Id ${id} invalid due to amount in negative amount ${transaction.amount} Reward Amount ${transaction.txreward}`);
+
+        }
       } else {
         errorLog(ownchain.port, `Transaction ${id} signature not matched`);
         errorLog(ownchain.port, "" + transaction.toString());

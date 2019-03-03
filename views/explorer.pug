@@ -10,6 +10,8 @@ html
       .menuTop
         form.formBox(action='/home', method='get')
           button#myButton.myYellowButton Home
+        form.formBox(action='/allbalances', method='get')
+          button#myButton.myYellowButton All Account Balances
       if searchBoxFlag
        .SendingBlockAuto
         if blocknumber == ""

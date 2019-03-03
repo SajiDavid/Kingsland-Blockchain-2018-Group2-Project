@@ -462,3 +462,176 @@
 2019-02-28 20:28:53 info:  1550: New Block added ID: 4
 2019-02-28 20:28:53 info:  3550: New Block added ID: 4
 2019-02-28 20:28:53 info:  4550: New Block added ID: 4
+2019-03-01 14:35:31 info:  4550: user disconnected, ID 7N-VXQC0B9WmHD23AAAB
+2019-03-01 14:35:31 info:  4550: user disconnected, ID GcMKZ1BVWD9jydfKAAAC
+2019-03-01 14:36:53 info:  4550: Chain Living at URL http://localhost:4550
+2019-03-01 14:36:53 info:  4550: Socket connected, ID JireeaexAH6RGfaQAAAA
+2019-03-01 14:36:53 info:  1550: Chain Living at URL http://localhost:1550
+2019-03-01 14:36:53 info:  1550: Socket connected, ID zrdiF7FLPhge4JjnAAAA
+2019-03-01 14:36:54 info:  3550: Chain Living at URL http://localhost:3550
+2019-03-01 14:36:54 info:  3550: Socket connected, ID JD005tN2FA2g5zyJAAAA
+2019-03-01 14:37:09 info:  1550: Chain Living at URL http://localhost:1550
+2019-03-01 14:37:09 info:  4550: Chain Living at URL http://localhost:4550
+2019-03-01 14:37:10 info:  1550: Socket connected, ID LblNzbJdAhDg4nojAAAA
+2019-03-01 14:37:10 info:  4550: Socket connected, ID XNX-Dt_dBPa3fEqHAAAA
+2019-03-01 14:37:10 info:  3550: Chain Living at URL http://localhost:3550
+2019-03-01 14:37:51 info:  1550: Chain Living at URL http://localhost:1550
+2019-03-01 14:37:51 info:  1550: Socket connected, ID nAKZzqJX7YP3XPs8AAAA
+2019-03-01 14:37:51 info:  4550: Chain Living at URL http://localhost:4550
+2019-03-01 14:37:51 info:  4550: Socket connected, ID 8P5Wf7r1sfpAWDLjAAAA
+2019-03-01 14:37:51 info:  3550: Chain Living at URL http://localhost:3550
+2019-03-01 14:37:51 info:  3550: Socket connected, ID ihA-pLOEqBrqltWvAAAA
+2019-03-01 14:38:25 info:  1550: Chain Living at URL http://localhost:1550
+2019-03-01 14:38:25 info:  3550: Chain Living at URL http://localhost:3550
+2019-03-01 14:38:25 info:  1550: Socket connected, ID E8zt72DDNZyFtbxIAAAA
+2019-03-01 14:38:25 info:  4550: Chain Living at URL http://localhost:4550
+2019-03-01 14:38:25 info:  3550: Socket connected, ID fXyHoF7jGVq6yjG4AAAA
+2019-03-01 14:38:25 info:  4550: Socket connected, ID QXcqtv7g5bMoLhkdAAAA
+2019-03-02 12:58:10 info:  1550: Chain Living at URL http://localhost:1550
+2019-03-02 12:58:10 info:  1550: Socket connected, ID PAapkWyHWE8rk8-UAAAA
+2019-03-02 13:02:54 info:  1550: Free Coin sent to 0xaa5FF1101a7034Bff5A1099200BF3cC92fDdcCa3
+2019-03-02 13:02:54 info:  1550: Signed GiveAway Transaction Coins: 10
+2019-03-02 13:02:54 error: 1550: Transaction Id 3db3db3e6786ef3b4008189eeb110307 invalid due to amount in negative amount 10 Reward Amount 0
+2019-03-02 13:08:50 info:  1550: Free Coin sent to 0xF4AA21d14526297Af26B34785D3E1B46e7C0fed0
+2019-03-02 13:08:50 info:  1550: Signed GiveAway Transaction Coins: 10
+2019-03-02 13:08:50 error: 1550: Transaction Id 6bcb53365ee0ed75295538d45ed76c53 invalid due to amount in negative amount 10 Reward Amount 0
+2019-03-02 13:13:50 info:  3550: Chain Living at URL http://localhost:3550
+2019-03-02 13:13:50 info:  3550: Socket connected, ID n45h6Oip87R5NIhXAAAA
+2019-03-02 13:17:03 info:  1550: http://localhost:3550 successfully added
+2019-03-02 13:17:04 info:  3550: Socket connected, ID UEXZZV9fSqVqbnRdAAAB
+2019-03-02 13:17:04 info:  3550: http://localhost:1550 successfully added
+2019-03-02 13:17:04 info:  1550: Socket connected, ID Y1Yh6zPYxIuiqj1OAAAB
+2019-03-02 13:23:29 info:  3550: Mined Successfully
+2019-03-02 13:23:29 info:  3550: Block validated and added to chain
+2019-03-02 13:23:29 info:  1550: New Block added ID: 1
+2019-03-02 13:23:29 info:  3550: New Block added ID: 1
+2019-03-02 13:40:58 info:  1550: Transaction IDd0e9c79724f344bdbdb49d2b7322b8a1 and broadcasted
+2019-03-02 13:40:58 info:  1550: Transaction Id d0e9c79724f344bdbdb49d2b7322b8a1 signature 0xd65445daD9DAc4344345Ad9Db1959A919c4Aa496 validated
+2019-03-02 13:40:58 info:  3550: Transaction Id d0e9c79724f344bdbdb49d2b7322b8a1 signature 0xd65445daD9DAc4344345Ad9Db1959A919c4Aa496 validated
+2019-03-02 13:44:40 info:  4550: Chain Living at URL http://localhost:4550
+2019-03-02 13:44:40 info:  4550: Socket connected, ID q_bvRz-gZWm4FGk4AAAA
+2019-03-02 13:46:38 info:  3550: http://localhost:4550 successfully added
+2019-03-02 13:46:38 info:  1550: Added new peer localhost:4550
+2019-03-02 13:46:38 info:  1550: http://localhost:4550 successfully added
+2019-03-02 13:46:38 info:  4550: Socket connected, ID H_YO1tyRW_WrHpa4AAAB
+2019-03-02 13:46:38 info:  4550: http://localhost:1550 successfully added
+2019-03-02 13:46:38 info:  1550: Socket connected, ID LZ77wslZYWg9OdX7AAAC
+2019-03-02 13:46:39 info:  4550: Socket connected, ID BY7YA0-tp2LWob9vAAAC
+2019-03-02 13:46:39 info:  4550: http://localhost:3550 successfully added
+2019-03-02 13:46:39 info:  3550: Socket connected, ID C1-FqWrpdCC9xHLsAAAC
+2019-03-02 13:50:21 info:  4550: Mined Successfully
+2019-03-02 13:50:21 error: 4550: Block invalidate and omitted from adding to chain
+2019-03-02 13:50:21 info:  3550: New Block added ID: 1
+2019-03-02 13:50:21 info:  1550: New Block added ID: 1
+2019-03-02 13:50:21 info:  4550: New Block added ID: 1
+2019-03-02 14:01:10 info:  4550: Transaction ID0024e15bb15ad05dc0939817b33dff43 and broadcasted
+2019-03-02 14:01:10 info:  1550: Transaction Id 0024e15bb15ad05dc0939817b33dff43 signature 0xd65445daD9DAc4344345Ad9Db1959A919c4Aa496 validated
+2019-03-02 14:01:10 info:  3550: Transaction Id 0024e15bb15ad05dc0939817b33dff43 signature 0xd65445daD9DAc4344345Ad9Db1959A919c4Aa496 validated
+2019-03-02 14:01:10 info:  4550: Transaction Id 0024e15bb15ad05dc0939817b33dff43 signature 0xd65445daD9DAc4344345Ad9Db1959A919c4Aa496 validated
+2019-03-02 14:02:30 info:  4550: Mined Successfully
+2019-03-02 14:02:30 info:  4550: Block validated and added to chain
+2019-03-02 14:02:30 info:  1550: New Block added ID: 2
+2019-03-02 14:02:30 info:  3550: New Block added ID: 2
+2019-03-02 14:02:30 info:  4550: New Block added ID: 2
+2019-03-02 14:35:24 info:  1550: Free Coin sent to 0x35c737abaA242e94795F1354FCA1EFA0D266F238
+2019-03-02 14:35:25 info:  1550: Signed GiveAway Transaction Coins: 10
+2019-03-02 14:35:25 error: 1550: Transaction Id d76578a4356665f39c4ddffc33a92042 invalid due to amount in negative amount 10 Reward Amount 0
+2019-03-02 14:35:25 error: 3550: Transaction Id d76578a4356665f39c4ddffc33a92042 invalid due to amount in negative amount 10 Reward Amount 0
+2019-03-02 14:35:25 error: 4550: Transaction Id d76578a4356665f39c4ddffc33a92042 invalid due to amount in negative amount 10 Reward Amount 0
+2019-03-02 14:37:39 info:  1550: Transaction ID92edc726f5956989441b88637711ad71 and broadcasted
+2019-03-02 14:37:39 info:  4550: Transaction Id 92edc726f5956989441b88637711ad71 signature 0xaa5FF1101a7034Bff5A1099200BF3cC92fDdcCa3 validated
+2019-03-02 14:37:39 info:  3550: Transaction Id 92edc726f5956989441b88637711ad71 signature 0xaa5FF1101a7034Bff5A1099200BF3cC92fDdcCa3 validated
+2019-03-02 14:37:39 info:  1550: Transaction Id 92edc726f5956989441b88637711ad71 signature 0xaa5FF1101a7034Bff5A1099200BF3cC92fDdcCa3 validated
+2019-03-02 14:39:31 info:  4550: Mined Successfully
+2019-03-02 14:39:31 info:  4550: Block validated and added to chain
+2019-03-02 14:39:31 info:  3550: New Block added ID: 3
+2019-03-02 14:39:31 info:  1550: New Block added ID: 3
+2019-03-02 14:39:31 info:  4550: New Block added ID: 3
+2019-03-02 14:46:52 info:  1550: Free Coin sent to 0xaa5FF1101a7034Bff5A1099200BF3cC92fDdcCa3
+2019-03-02 14:46:52 info:  1550: Signed GiveAway Transaction Coins: 10
+2019-03-02 14:46:52 error: 1550: Transaction Id 5e65233fae7694096103800a7027aa86 invalid due to amount in negative amount 10 Reward Amount 0
+2019-03-02 14:46:52 error: 4550: Transaction Id 5e65233fae7694096103800a7027aa86 invalid due to amount in negative amount 10 Reward Amount 0
+2019-03-02 14:46:52 error: 3550: Transaction Id 5e65233fae7694096103800a7027aa86 invalid due to amount in negative amount 10 Reward Amount 0
+2019-03-02 20:03:59 info:  3550: user disconnected, ID C1-FqWrpdCC9xHLsAAAC
+2019-03-02 20:03:59 info:  1550: user disconnected, ID LZ77wslZYWg9OdX7AAAC
+2019-03-02 20:04:13 info:  1550: user disconnected, ID Y1Yh6zPYxIuiqj1OAAAB
+2019-03-02 20:06:42 info:  1550: Chain Living at URL http://localhost:1550
+2019-03-02 20:06:42 info:  1550: Socket connected, ID G9GCm41NVfAKssa4AAAA
+2019-03-02 20:07:43 info:  1550: Free Coin sent to 0xF4AA21d14526297Af26B34785D3E1B46e7C0fed0
+2019-03-02 20:07:43 info:  1550: Signed GiveAway Transaction Coins: 10
+2019-03-02 20:07:43 error: 1550: Transaction Id d3dfdf18a5a8f21b64117964b0096587 invalid due to amount in negative amount 10 Reward Amount 0
+2019-03-02 20:10:41 info:  3550: Chain Living at URL http://localhost:3550
+2019-03-02 20:10:41 info:  3550: Socket connected, ID GlaBTJLAhr6xMG4VAAAA
+2019-03-02 20:11:51 info:  1550: http://localhost:3550 successfully added
+2019-03-02 20:11:52 info:  3550: Socket connected, ID wN_WFrd14Y5P-Bq4AAAB
+2019-03-02 20:11:52 info:  3550: http://localhost:1550 successfully added
+2019-03-02 20:11:52 info:  1550: Socket connected, ID f81o8HEkc7UFzCaXAAAB
+2019-03-02 20:13:03 info:  3550: Free Coin sent to 0xaa5FF1101a7034Bff5A1099200BF3cC92fDdcCa3
+2019-03-02 20:13:03 info:  3550: Signed GiveAway Transaction Coins: 10
+2019-03-02 20:13:03 error: 1550: Transaction Id 5635d5901376eec0df2c00b431d710cc invalid due to amount in negative amount 10 Reward Amount 0
+2019-03-02 20:13:03 error: 3550: Transaction Id 5635d5901376eec0df2c00b431d710cc invalid due to amount in negative amount 10 Reward Amount 0
+2019-03-02 20:13:57 info:  3550: Mined Successfully
+2019-03-02 20:13:57 info:  3550: Block validated and added to chain
+2019-03-02 20:13:57 info:  1550: New Block added ID: 1
+2019-03-02 20:13:57 info:  3550: New Block added ID: 1
+2019-03-02 20:15:20 info:  1550: Transaction ID8ddc40f16d39a143fa706559a3e51060 and broadcasted
+2019-03-02 20:15:20 info:  3550: Transaction Id 8ddc40f16d39a143fa706559a3e51060 signature 0xF4AA21d14526297Af26B34785D3E1B46e7C0fed0 validated
+2019-03-02 20:15:20 info:  1550: Transaction Id 8ddc40f16d39a143fa706559a3e51060 signature 0xF4AA21d14526297Af26B34785D3E1B46e7C0fed0 validated
+2019-03-02 20:16:04 info:  3550: Mined Successfully
+2019-03-02 20:16:04 info:  3550: Block validated and added to chain
+2019-03-02 20:16:04 info:  1550: New Block added ID: 2
+2019-03-02 20:16:05 info:  3550: New Block added ID: 2
+2019-03-02 20:21:03 info:  3550: Chain Living at URL http://localhost:3550
+2019-03-02 20:21:03 info:  1550: Chain Living at URL http://localhost:1550
+2019-03-02 20:21:03 info:  3550: Socket connected, ID cvX7Y1mYjfEJykihAAAA
+2019-03-02 20:21:03 info:  1550: Socket connected, ID I1FdqYVru5tGMnc9AAAA
+2019-03-02 20:21:43 info:  1550: Chain Living at URL http://localhost:1550
+2019-03-02 20:21:43 info:  3550: Chain Living at URL http://localhost:3550
+2019-03-02 20:21:43 info:  1550: Socket connected, ID OLLz7Ctkt8PBYbV6AAAA
+2019-03-02 20:21:43 info:  3550: Socket connected, ID vII7w5q3En-494kDAAAA
+2019-03-02 20:26:15 info:  3550: Chain Living at URL http://localhost:3550
+2019-03-02 20:26:15 info:  3550: Socket connected, ID ASSsSaEOR9Mgy-UmAAAA
+2019-03-02 20:26:15 info:  1550: Chain Living at URL http://localhost:1550
+2019-03-02 20:26:16 info:  1550: Socket connected, ID CjwGqVlmvfqiLUxBAAAA
+2019-03-02 20:27:28 info:  1550: Chain Living at URL http://localhost:1550
+2019-03-02 20:27:29 info:  1550: Socket connected, ID swjcdsSeiwgLGuvsAAAA
+2019-03-02 20:27:29 info:  3550: Chain Living at URL http://localhost:3550
+2019-03-02 20:27:29 info:  3550: Socket connected, ID 1pug0P-p29AeZuKNAAAA
+2019-03-02 20:28:51 info:  1550: Chain Living at URL http://localhost:1550
+2019-03-02 20:28:51 info:  1550: Socket connected, ID SBsWp6KazQP0sc5wAAAA
+2019-03-02 20:28:51 info:  3550: Chain Living at URL http://localhost:3550
+2019-03-02 20:28:51 info:  3550: Socket connected, ID BFLn7zNHzp9Dz_QGAAAA
+2019-03-02 20:33:11 info:  1550: Chain Living at URL http://localhost:1550
+2019-03-02 20:33:11 info:  1550: Socket connected, ID htZkg_fyXTb2AauaAAAA
+2019-03-02 20:33:11 info:  3550: Chain Living at URL http://localhost:3550
+2019-03-02 20:33:12 info:  3550: Socket connected, ID zqSequq5HfKl9O1SAAAA
+2019-03-02 20:34:14 info:  3550: Chain Living at URL http://localhost:3550
+2019-03-02 20:34:14 info:  3550: Socket connected, ID AOKy-pD4dbk2-ZYXAAAA
+2019-03-02 20:34:14 info:  1550: Chain Living at URL http://localhost:1550
+2019-03-02 20:34:14 info:  1550: Socket connected, ID GsnadqR9ZiL4D1kOAAAA
+2019-03-02 20:34:57 info:  6550: Chain Living at URL http://localhost:6550
+2019-03-02 20:34:57 info:  6550: Socket connected, ID PB1uwtFOchjbGApXAAAA
+2019-03-02 20:35:28 info:  6550: user disconnected, ID PB1uwtFOchjbGApXAAAA
+2019-03-02 20:35:29 info:  6550: Socket connected, ID rAQTkQaL4tPm0usVAAAB
+2019-03-02 20:38:28 info:  1550: Chain Living at URL http://localhost:1550
+2019-03-02 20:38:28 info:  3550: Chain Living at URL http://localhost:3550
+2019-03-02 20:38:28 info:  1550: Socket connected, ID nkeH70WWD7AJeLigAAAA
+2019-03-02 20:38:28 info:  3550: Socket connected, ID hgI3WcWjMomnFxcPAAAA
+2019-03-02 20:40:13 info:  6550: user disconnected, ID rAQTkQaL4tPm0usVAAAB
+2019-03-02 20:40:17 info:  6550: Socket connected, ID 563aPB_ApV4257lnAAAC
+2019-03-02 20:43:57 info:  1550: Chain Living at URL http://localhost:1550
+2019-03-02 20:43:57 info:  3550: Chain Living at URL http://localhost:3550
+2019-03-02 20:43:57 info:  1550: Socket connected, ID yFFHGYVbnwW1HQQhAAAA
+2019-03-02 20:43:57 info:  3550: Socket connected, ID H8KZ-DrNJC31cxnYAAAA
+2019-03-02 20:45:01 info:  6550: Chain Living at URL http://localhost:6550
+2019-03-02 20:45:01 info:  6550: Socket connected, ID sk2jSh1Xk3R9wWK1AAAA
+2019-03-02 20:46:45 info:  6550: user disconnected, ID sk2jSh1Xk3R9wWK1AAAA
+2019-03-02 20:46:46 info:  6550: Socket connected, ID rAu5ZpvJ99tVZahnAAAB
+2019-03-03 15:22:58 info:  1550: http://localhost:6550 successfully added
+2019-03-03 15:22:59 info:  6550: Socket connected, ID ZPOURkaV72V8RxxzAAAC
+2019-03-03 15:22:59 info:  6550: http://localhost:1550 successfully added
+2019-03-03 15:22:59 info:  1550: Socket connected, ID QSSaQxBqI46fYAnxAAAB
+2019-03-03 15:23:08 info:  1550: Free Coin sent to 0xF4AA21d14526297Af26B34785D3E1B46e7C0fed0
+2019-03-03 15:23:08 info:  1550: Signed GiveAway Transaction Coins: 10
+2019-03-03 15:23:08 error: 1550: Transaction Id 38996c7c7fae7e883e64c3c1b56b19ca invalid due to amount in negative amount 10 Reward Amount 0
+2019-03-03 15:23:08 error: 6550: Transaction Id 38996c7c7fae7e883e64c3c1b56b19ca invalid due to amount in negative amount 10 Reward Amount 0
